@@ -75,7 +75,14 @@ services:
       KSQL_KSQL_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
       KSQL_PRODUCER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor"
       KSQL_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
-
+ 
+  Kafkacat:
+    image: confluentinc/cp-kafkacat \
+    hostname: kafkacat
+    container_name: kafkacat
+    depends_on:
+      - kafka
+    
   ksql-cli:
     image: confluentinc/cp-ksql-cli:5.1.0
     container_name: ksql-cli
@@ -110,6 +117,5 @@ services:
       PORT: 9021
 
       ---------------------------------
-  Kafkacat:
-    image: confluentinc/cp-kafkacat \
+  
 
