@@ -39,7 +39,16 @@ services:
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
     extra_hosts:
       - "moby:127.0.0.1"
-
+      
+      
+   kafkacat:
+    image: confluentinc/cp-kafkacat 
+    hostname: kafkacat
+    container_name: kafkacat
+    depends_on:
+      - kafka
+      
+      
   schema-registry:
     image: confluentinc/cp-schema-registry:5.1.0
     hostname: schema-registry
@@ -54,8 +63,9 @@ services:
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper:32181
     extra_hosts:
       - "moby:127.0.0.1"
- 
-    ksql-server:
+
+
+  ksql-server:
     image: confluentinc/cp-ksql-server:5.1.0
     hostname: ksql-server
     container_name: ksql-server
@@ -75,14 +85,7 @@ services:
       KSQL_KSQL_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
       KSQL_PRODUCER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor"
       KSQL_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
- 
-  Kafkacat:
-    image: confluentinc/cp-kafkacat \
-    hostname: kafkacat
-    container_name: kafkacat
-    depends_on:
-      - kafka
-    
+
   ksql-cli:
     image: confluentinc/cp-ksql-cli:5.1.0
     container_name: ksql-cli
@@ -115,7 +118,3 @@ services:
       CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
       CONFLUENT_METRICS_TOPIC_REPLICATION: 1
       PORT: 9021
-
-      ---------------------------------
-  
-
