@@ -42,12 +42,11 @@ services:
    kafkacat:
     image: confluentinc/cp-kafkacat 
     hostname: kafkacat
-    container_name: kafkacat
-    ports:
-      - '9092:9092'
-      - '29092:29092'
+    container_name: kafkacat'
     depends_on:
       - kafka
+      
+      
   schema-registry:
     image: confluentinc/cp-schema-registry:5.1.0
     hostname: schema-registry
