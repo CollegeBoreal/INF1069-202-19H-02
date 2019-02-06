@@ -39,10 +39,12 @@ services:
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
     extra_hosts:
       - "moby:127.0.0.1"
+      
+      
    kafkacat:
     image: confluentinc/cp-kafkacat 
     hostname: kafkacat
-    container_name: kafkacat'
+    container_name: kafkacat
     depends_on:
       - kafka
       
