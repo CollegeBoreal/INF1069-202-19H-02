@@ -39,7 +39,15 @@ services:
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
     extra_hosts:
       - "moby:127.0.0.1"
-
+   kafkacat:
+    image: confluentinc/cp-kafkacat 
+    hostname: kafkacat
+    container_name: kafkacat
+    ports:
+      - '9092:9092'
+      - '29092:29092'
+    depends_on:
+      - kafka
   schema-registry:
     image: confluentinc/cp-schema-registry:5.1.0
     hostname: schema-registry
