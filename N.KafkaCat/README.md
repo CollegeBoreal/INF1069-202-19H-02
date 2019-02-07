@@ -22,6 +22,12 @@ https://github.com/edenhill/kafkacat
 
 # Load files
 
+Essayer:
+
 ```
 $ docker-compose exec kafka kafka-console-producer  --broker-list kafka:9092  --topic my_topic  --new-producer < my_file.txt
+```
+
+```
+$ cat file.txt | docker-compose exec kafka kafka-console-producer --broker-list kafka:9092 --topic my_topic
 ```
