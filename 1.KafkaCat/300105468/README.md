@@ -2,10 +2,10 @@
 # 🔎KAFKACAT 
 
 ```
-$ cd ../../1.KafkaCat/ 3000105468 
+$ cd ../../1.KafkaCat/ 300105468 
 $ docker-compose up -d 
 $ docker network ls
-$ docker run --tty --network 300089781_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -L
+$ docker run --tty --network 300105468_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -L
 ```
 ### Accèder à Kafka bash
 
