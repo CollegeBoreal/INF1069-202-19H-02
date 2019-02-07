@@ -41,13 +41,6 @@ services:
       - "moby:127.0.0.1"
       
       
-   kafkacat:
-    image: confluentinc/cp-kafkacat 
-    hostname: kafkacat
-    container_name: kafkacat
-    depends_on:
-      - kafka
-      
       
   schema-registry:
     image: confluentinc/cp-schema-registry:5.1.0
