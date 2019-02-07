@@ -12,5 +12,11 @@
    * rajouter kafkacat
    
 4) executer
+
+5) Creer un fichier README.md
+  
+   * Decrire votre environnement
+   
+   * creer les topics et des messages
    
    
