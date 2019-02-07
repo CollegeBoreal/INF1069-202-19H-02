@@ -1,13 +1,21 @@
 
 # KafkaCat 
 
-### :one: Créer son environnement dans son repertoire 
-Copier le fichier de docker-compose.yml d'apres le repertoire D.Demo et supprimez le ... du music et ajouter kafkacat
+### :one: Créer son environnement dans son repertoire :
+
+Copier le fichier de docker-compose.yml d'apres le repertoire D.Demo.
 
 ```
 $ cp ../../D.Demo/docker-compose.yml  . 
 ```
 
+Enlever les applications de musique
+
+```
+$ nano docker-compose.yml
+```
+
+Rajouter kafkacat.
 ```
 kafkacat:
 ```
