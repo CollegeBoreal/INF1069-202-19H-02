@@ -15,16 +15,6 @@ $ cp ../../D.Demo/docker-compose.yml  .
 $ nano docker-compose.yml
 ```
 
-=> Rajouter kafkacat.
-```
-kafkacat:
-    image: confluentinc/cp-kafkacat 
-    hostname: kafkacat
-    container_name: kafkacat
-    depends_on:
-      - kafka
-      
-```
 => Avant de l'executer dans 1.Kafkacat/ID vous devez supprimer votre environnemnet  dans D.Demo
 
 ```
@@ -37,4 +27,12 @@ $ docker-compose rm
 ```
 $ cd ../../1.KafkaCat/ ID   
 $ docker-compose up -d 
+$ docker network ls
+$ docker run --tty --network 300108495_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -L
 ```
+=> Accedez a votre bash de Kafaka
+
+```
+$ docker-compose exec kafka bash 
+```
+
