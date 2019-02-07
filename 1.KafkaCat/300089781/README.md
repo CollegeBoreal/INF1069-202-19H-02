@@ -6,7 +6,7 @@ $ docker-compose up -d
 $ docker network ls
 $ docker run --tty --network 300089781_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -L
 ```
-### Accedez à Kafka bash
+### Accèder à Kafka bash
 
 ```
 $ docker-compose exec kafka bash 
