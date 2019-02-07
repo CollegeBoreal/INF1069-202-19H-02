@@ -35,4 +35,14 @@ $ docker run --tty --network 300108495_default confluentinc/cp-kafkacat kafkacat
 ```
 $ docker-compose exec kafka bash 
 ```
+=> Creation de Topics
+
+```
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic songs --create --
+partitions 3  --replication-factor 1
+
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic artists --create --
+partitions 3  --replication-factor 1
+```
+
 
