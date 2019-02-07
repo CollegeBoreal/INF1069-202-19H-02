@@ -18,4 +18,10 @@ $ nano docker-compose.yml
 Rajouter kafkacat.
 ```
 kafkacat:
+    image: confluentinc/cp-kafkacat 
+    hostname: kafkacat
+    container_name: kafkacat
+    depends_on:
+      - kafka
+      
 ```
