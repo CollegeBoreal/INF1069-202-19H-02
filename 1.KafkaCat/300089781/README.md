@@ -1,5 +1,17 @@
-$ docker-compose up -d
-$ docker-compose ps
-$ docker-compose exec kafka bash
-root.../# kafka-topics --zookeeper --zookeeper:32181 --topic repas --create --partitions 3 --replication-factor 1
+# KAFKACAT 
 
+```
+$ cd ../../1.KafkaCat/ 300089781  
+$ docker-compose up -d 
+$ docker network ls
+$ docker run --tty --network 300089781_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -L
+```
+### Accedez à Kafka bash
+
+```
+$ docker-compose exec kafka bash 
+```
+### Faire la création des topics
+```
+root.../# kafka-topics --zookeeper --zookeeper:32181 --topic repas --create --partitions 3 --replication-factor 1
+```
