@@ -40,12 +40,8 @@ https://github.com/edenhill/kafkacat
 
 # Load files
 
-Essayer:
+Essayer avec la commande `kafka-console-producer` et `cat:
 
 ```
-$ docker exec --interactive kafka kafka-console-producer  --broker-list kafka:9092  --topic my_topic   < ~/my_file.txt
-```
-
-```
-$ cat ~/my_file.txt | docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic my_topic
+$ $ cat ~/my_file.json | docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic my_topic
 ```
