@@ -1,5 +1,6 @@
 
 KAFKACAT
+
 Mon environnement 
 1.	Creation de mon repertoire
 ````
@@ -32,6 +33,7 @@ o  Decrire mon environnement
 Il s,agit des cours de change de la banque du canada et sera composé de deux topics 
 -	Devise
 -	Taux de change
+
 o  Création des topics
 ````
 $ winpty docker-compose exec kafka bash
