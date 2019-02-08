@@ -43,9 +43,9 @@ https://github.com/edenhill/kafkacat
 Essayer:
 
 ```
-$ docker-compose exec kafka kafka-console-producer  --broker-list kafka:9092  --topic my_topic  --new-producer < my_file.txt
+$ docker exec --interactive kafka kafka-console-producer  --broker-list kafka:9092  --topic my_topic   < ~/my_file.txt
 ```
 
 ```
-$ cat file.txt | docker-compose exec kafka kafka-console-producer --broker-list kafka:9092 --topic my_topic
+$ cat ~/my_file.txt | docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic my_topic
 ```
