@@ -30,7 +30,7 @@ $ docker run --tty --network 300107710_default confluentinc/cp-kafkacat kafkacat
 ````
 5.	
 o  Decrire mon environnement
-Il s,agit des cours de change de la banque du canada et sera composé de deux topics 
+Il s'agit des cours de change de la banque du canada et sera composé de deux topics 
 -	Devise
 -	Taux de change
 
@@ -39,13 +39,12 @@ o  Création des topics
 $ winpty docker-compose exec kafka bash
 root@kafka:/#
 
-    # kafka-topics --zookeeper zookeeper:32181 --topic taux_de_change --create \
-    --partitions 3 --replication-factor 1
+    # kafka-topics --zookeeper zookeeper:32181 --topic taux_de_change --create --partitions 3 --replication-factor 1
 
 Created topic "taux_de_change".
 
-root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic devise --create \               
-              --partitions 3 --replication-factor 1
+
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic devise --create --partitions 3 --replication-factor 1
 
 Created topic "devise".
 ````
