@@ -1,12 +1,21 @@
 # KafkaCat
 
+* Connaitre le nom de sa switch Docker
 
 ```
 $ docker network ls
 ```
 
+* Faire la liste de tout l'environnment
+
 ```
 $ docker run --tty --network 300098957_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -L
+```
+
+* ecrire sur un topic `-t` topic `-P` Publisher
+
+```
+$  docker run --tty --network 300098957_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -t new_topic -P
 ```
 
 
