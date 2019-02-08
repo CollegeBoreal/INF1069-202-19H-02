@@ -1,11 +1,15 @@
-# Kafka Admin
+# Kafka Log Files Admin
 
+
+* Log File Location
 
 ```
 # cat /etc/kafka/kafka.properties  | grep data
 ```
 
   log.dirs=/var/lib/kafka/data
+
+* Listing first_topic files
 
 ```
 # ls -l /var/lib/kafka/data/first_topic-0/
