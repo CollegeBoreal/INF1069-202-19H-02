@@ -4,15 +4,24 @@
 ## Log File Location
 
 ```
-# cat /etc/kafka/kafka.properties  | grep data
+root@kafka:/# cat /etc/kafka/kafka.properties  | grep data
 ```
 
   log.dirs=/var/lib/kafka/data
+  
+  
+## Create a test topic `first_topic``
+
+```
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic first_topic --create --partitions 3 --replication-factor 1
+```
+
+  Created topic "first_topic"
 
 ## Listing first_topic files
 
 ```
-# ls -l /var/lib/kafka/data/first_topic-0/
+root@kafka:/# ls -l /var/lib/kafka/data/first_topic-0/
 ```
 
 ```
