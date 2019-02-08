@@ -3,7 +3,7 @@
 
 https://www.csvjson.com/csv2json
 
-![alt tag](./minify.png)
+![alt tag](./Minify.png)
 
 ```
 {"Date":"2019-01-08","Open":7.53,"High":7.6,"Low":7.35,"Close":7.41,"Adj Close":7.41,"Volume":3960900}
