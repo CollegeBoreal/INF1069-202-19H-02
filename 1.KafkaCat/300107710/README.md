@@ -30,7 +30,7 @@ $ docker run --tty --network 300107710_default confluentinc/cp-kafkacat kafkacat
 ````
 5.	
 o  Decrire mon environnement
-Il s'agit des cours de change de la banque du canada et sera composé de deux topics 
+Il s'agit des cours de change de la banque du canada et sera composé de deux topics:
 -	Devise
 -	Taux de change
 
