@@ -6,7 +6,7 @@ https://www.csvjson.com/csv2json
 ![alt tag](./Minify.png)
 
 ```
-docker run --interactive \
+$ docker run --interactive \
            --network 300098957_default \
            confluentinc/cp-kafkacat \
             kafkacat -b kafka:29092 \
