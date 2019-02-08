@@ -15,7 +15,16 @@ $ docker run --tty --network 300098957_default confluentinc/cp-kafkacat kafkacat
 * ecrire sur un topic `-t` topic `-P` Publisher: CTRL-C pour arreter
 
 ```
-$  docker run --tty --network 300098957_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -t new_topic -P
+$  docker run --tty --network 300098957_default confluentinc/cp-kafkacat kafkacat \
+          -b kafka:29092 -t new_topic -P
+```
+
+* lire le topic `-t` topic `-C` Consummer: CTRL-C pour arreter
+
+
+```
+$  docker run --tty --network 300098957_default confluentinc/cp-kafkacat kafkacat \
+          -b kafka:29092 -t new_topic -C
 ```
 
 
