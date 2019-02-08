@@ -6,6 +6,13 @@ https://www.csvjson.com/csv2json
 ![alt tag](./Minify.png)
 
 ```
+docker run --interactive \
+           --network 300098957_default \
+           confluentinc/cp-kafkacat \
+            kafkacat -b kafka:29092 \
+                    -t my_topic \
+                    -K: \
+                    -P <<EOF
 {"Date":"2019-01-08","Open":7.53,"High":7.6,"Low":7.35,"Close":7.41,"Adj Close":7.41,"Volume":3960900}
 {"Date":"2019-01-09","Open":7.44,"High":7.51,"Low":7.38,"Close":7.47,"Adj Close":7.47,"Volume":3316800}
 {"Date":"2019-01-10","Open":7.4,"High":7.54,"Low":7.33,"Close":7.52,"Adj Close":7.52,"Volume":2404600}
@@ -29,4 +36,6 @@ https://www.csvjson.com/csv2json
 {"Date":"2019-02-06","Open":8.31,"High":8.37,"Low":8.26,"Close":8.31,"Adj Close":8.31,"Volume":2436100}
 {"Date":"2019-02-07","Open":8.23,"High":8.25,"Low":8.07,"Close":8.1,"Adj Close":8.1,"Volume":2714400}
 {"Date":"2019-02-08","Open":8.05,"High":8.19,"Low":8.03,"Close":8.185,"Adj Close":8.185,"Volume":1044851}
+EOF
+
 ```
