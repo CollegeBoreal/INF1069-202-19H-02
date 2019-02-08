@@ -1,6 +1,6 @@
 # Plan de cours
 
-Veuillez trouver ci-joint le plan et déroulement de cours en remplacement de courant déjà appris au semestre d'automne
+Veuillez trouver ci-joint le plan et déroulement de cours en remplacement du courant déjà appris au semestre d'automne
 
 [INF1069-202-19H-2-33473.PDF](./INF1069-202-19H-2-33473.PDF)
 
