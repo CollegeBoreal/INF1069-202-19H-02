@@ -4,7 +4,8 @@ ENVIRONEMENT
 
 1-Cree le repertoire
 
-```  MINGW64 ~/Developer/INF1069-202-19H-02/1.KafkaCat
+```  
+MINGW64 ~/Developer/INF1069-202-19H-02/1.KafkaCat
 $ mkdir 300089059
 $ cd 300107710
  ```
@@ -19,7 +20,8 @@ $ cd 300107710
  
  4-Executer
  
- ``` $ docker-compose up -d 
+ ``` 
+$ docker-compose up -d 
 $ docker network ls
 $ docker run --tty --network 300089059_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -L
 ```
