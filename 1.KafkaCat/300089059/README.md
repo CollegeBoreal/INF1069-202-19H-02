@@ -29,3 +29,5 @@ $ docker run --tty --network 300089059_default confluentinc/cp-kafkacat kafkacat
 ``` 
 $ docker-compose exec kafka bash 
 ```
+
+6-Creer les topics
