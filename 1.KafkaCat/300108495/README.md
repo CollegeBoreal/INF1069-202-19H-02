@@ -44,5 +44,37 @@ partitions 3  --replication-factor 1
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic artists --create --
 partitions 3  --replication-factor 1
 ```
+==> Creation de fichier JSON :
+
+Vous devez revenir a votre path Develper/INF1069../1.KafkaCat/ID
+et vous creez un fichier de json 
+
+```
+$ nano client_json 
+```
+et ajoutez ce code
+
+```
+
+{ "name"   : "John Smith", "sku"    : "20223", "shipTo" : { "name" : "Jane Smith", "address" : "123 Maple Street" }
+{ "name"   : "Frank lil", "sku"    : "20224", "shipTo" : { "name" : "Jessi", "address" : "154 Webster" }
+{ "name"   : "Lele Pos", "sku"    : "20225", "shipTo" : { "name" : "Amelie", "address" : "18 jane" }
+{ "name"   : "John Smith", "sku"    : "20226", "shipTo" : { "name" : "Jane Smith", "address" : "123 Maple Street" }
+{ "name"   : "Frank lil", "sku"    : "20227", "shipTo" : { "name" : "Jessi", "address" : "154 Webster" }
+{ "name"   : "Lele Pos", "sku"    : "20228", "shipTo" : { "name" : "Amelie", "address" : "18 jane" }
+{ "name"   : "John Smith", "sku"    : "20223", "shipTo" : { "name" : "Jane Smith", "address" : "123 Maple Street" }
+{ "name"   : "Frank lil", "sku"    : "20224", "shipTo" : { "name" : "Jessi", "address" : "154 Webster" }
+{ "name"   : "Lele Pos", "sku"    : "20225", "shipTo" : { "name" : "Amelie", "address" : "18 jane" }
+{ "name"   : "Lele Pos", "sku"    : "20228", "shipTo" : { "name" : "Amelie", "address" : "18 jane" }
+{ "name"   : "John Smith", "sku"    : "20223", "shipTo" : { "name" : "Jane Smith", "address" : "123 Maple Street" }
+{ "name"   : "Frank lil", "sku"    : "20224", "shipTo" : { "name" : "Jessi", "address" : "154 Webster" }
+
+```
+==> executer le fichien client.json avec mon topic clients_info, en utilisant kafka_console_producer :
+
+```
+$ cat ./client.json | docker exec --interactive kafka kafka-console-producer --b                                                                                            roker-list kafka:9092 --topic clients_info
+```
+
 
 
