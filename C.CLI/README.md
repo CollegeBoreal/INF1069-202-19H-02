@@ -4,6 +4,8 @@
 
 voir [D.DEMO](../D.DEMO)
 
+[Install with Docker - Lynda Link](https://www.lynda.com/Kafka-tutorials/Start-Kafka-development-environment-using-Docker/777399/803814-4.html)
+
 
 ## Topics
 
