@@ -20,4 +20,14 @@ Created topic "repas"
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic dessert --create --partitions 5 --replication-factor 1
 Created topic "dessert"
 ```
-
+```
+$ nano ~/my_file.json
+```
+```
+{"name": "Crock Pot Roast","ingredients": [{"quantity": "1","name": " beef roast","type": "Meat"}
+```
+```
+$ cat ~/my_file.json | docker exec \
+>                    --interactive kafka kafka-console-producer \
+>                    --broker-list kafka:9092 --topic repas
+```
