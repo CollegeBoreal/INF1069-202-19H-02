@@ -22,3 +22,5 @@ $ cd 300107710
  ``` $ docker-compose up -d 
 $ docker network ls
 $ docker run --tty --network 300089059_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -L ```
+
+Accèder à Kafka bash
