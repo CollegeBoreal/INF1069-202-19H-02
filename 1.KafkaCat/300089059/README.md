@@ -24,4 +24,4 @@ $ docker network ls
 $ docker run --tty --network 300089059_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -L ```
 
 
--Accèder à Kafka bash
+5-Aller sur kafka bash
