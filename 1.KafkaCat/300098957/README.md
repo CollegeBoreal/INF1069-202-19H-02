@@ -7,7 +7,9 @@ Le but de l'activité cinsiste à créeer un jeu d'essai permettnt de manipuler 
 Essayer avec la commande kafka-console-producer et `cat:
 
 ```
-$ cat ~/my_file.json | docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic my_topic
+$ cat ~/my_file.json | docker exec \
+                   --interactive kafka kafka-console-producer \
+                   --broker-list kafka:9092 --topic my_topic
 ```
 
 ## Load files (kafkacat)
