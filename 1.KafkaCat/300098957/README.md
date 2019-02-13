@@ -1,5 +1,16 @@
+# Jeu d'essai
+
+Le but de l'activité cinsiste à créeer un jeu d'essai permettnt de manipuler l'environnement Kafka
 
 
+## Load files (kafka-console-producer)
+Essayer avec la commande kafka-console-producer et `cat:
+
+```
+$ cat ~/my_file.json | docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic my_topic
+```
+
+## Load files (kafkacat)
 
 https://www.csvjson.com/csv2json
 
