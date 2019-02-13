@@ -11,5 +11,4 @@ $ cd 300107710
  
  2-Récupérer le fichier docker-compose.yml 
  
- ``` $ cp ../../D.Demo/docker-compose.yml .
- ```
+ ``` $ cp ../../D.Demo/docker-compose.yml .```
