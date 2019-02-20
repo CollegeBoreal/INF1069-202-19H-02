@@ -22,7 +22,7 @@ $ cd ../../D.Demo
 $ docker-compose stop 
 $ docker-compose rm 
 ```
-###  Executez votre environnement dans 1.KafkaCat/ID :
+### :two:  Executez votre environnement dans 1.KafkaCat/ID :
 
 ```
 $ cd ../../1.KafkaCat/ ID   
@@ -57,7 +57,7 @@ root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic artists --create 
 partitions 3  --replication-factor 1
 ```
 
-### Creation de fichier JSON :
+### :three: Creation de fichier JSON :
 
 * Vous devez revenir a votre path Develper/INF1069../1.KafkaCat/ID
 et vous creez un fichier de json 
