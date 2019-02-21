@@ -3,9 +3,11 @@
 
 function main {
    echo "foodie"
-for filename in ./repas*.json; do
-for ((i ...)); do
-	docker exec --interactive kafka kafka-console -producer --broker-list kafka:9092 --topic repas < ./
+   for repas in ./repas*.json; do
+   for ((i=1; i<=2; i++)); do
+	docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic repas < ./repas$i.json
+   done
+done
 }
 
 main
