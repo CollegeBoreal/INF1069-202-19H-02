@@ -1,8 +1,11 @@
 #!/bin/bash
 
+
 function main {
-   echo "copy de fichier"
-   docker cp file1.json kafka:/tmp/file1.json
+   echo "foodie"
+for filename in ./repas*.json; do
+for ((i ...)); do
+	docker exec --interactive kafka kafka-console -producer --broker-list kafka:9092 --topic repas < ./
 }
 
 main
