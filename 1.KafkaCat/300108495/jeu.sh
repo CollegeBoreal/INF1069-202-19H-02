@@ -2,7 +2,7 @@
 
 function main {
    echo "Copy de fichier "
-   docker cp file1.json kafka:/tmp/file1.json
+   docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic artists < ./file1.json
 }
 
 main
