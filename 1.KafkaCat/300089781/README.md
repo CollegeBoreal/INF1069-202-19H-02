@@ -17,17 +17,30 @@ root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic repas --create --
 Created topic "repas"
 ```
 ```
-root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic dessert --create --partitions 5 --replication-factor 1
-Created topic "dessert"
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic clients --create --partitions 3 --replication-factor 1
+Created topic "clients"
 ```
+### Sortir de kafka pour aller changer les fichiers séparemment
 ```
-$ nano ~/my_file.json
+$ nano repas1.json
 ```
 ```
 {"name": "Crock Pot Roast","ingredients": [{"quantity": "1","name": " beef roast","type": "Meat"}
 ```
 ```
-$ cat ~/my_file.json | docker exec \
->                    --interactive kafka kafka-console-producer \
->                    --broker-list kafka:9092 --topic repas
+$ nano client1.json
+```
+```
+{"client": "Jo", "like": {"quantity": 1, "name": "Crock Pot Roast"}
+```
+### Tester le tout sur le terminal ET sur le control center
+```
+toronto:300089781 ameliedubois$ sh jeu.sh
+foodie
+>>>>>>>>>>>>>>>>>>>>>>>>toronto:300089781 ameliedubois$ sh jeu1.sh
+Clients 
+>>>>>>>>>>>>
+```
+```
+http://10.10.121.159:9021/management/clusters/
 ```
