@@ -8,6 +8,13 @@
 3) Extraire les commandes KSQL
 
 
+## Commandes :
+
+```
+$ docker exec --interactive --tty ksql-cli ksql http://ksql-server:8088
+```
+
+
 
 ## Reference:
 
