@@ -69,3 +69,7 @@ ksql> CREATE STREAM ksql_songplaycountsstream WITH (KAFKA_TOPIC='song-feed', VAL
 ```
 ksql> CREATE STREAM ksql_songplaycountsstream  AS SELECT * from ksql_songplaaycountsstream WHERE ROWTIME is not null PARTITION BY KEYCOL;
 ```
+### pour faire tourner le jeu:
+```
+$ sh jeu.sh
+```
