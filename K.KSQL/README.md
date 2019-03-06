@@ -2,6 +2,9 @@
 # KSQL
 
 
+
+[CREATE STREAM stream_name](https://docs.confluent.io/current/ksql/docs/developer-guide/syntax-reference.html#create-stream)
+
 ## Reference:
 
 https://docs.confluent.io/current/ksql/docs/developer-guide/syntax-reference.html
