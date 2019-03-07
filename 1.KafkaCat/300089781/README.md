@@ -25,13 +25,13 @@ Created topic "clients"
 $ nano repas1.json
 ```
 ```
-{"name": "Crock Pot Roast","ingredients": [{"quantity": "1","name": " beef roast","type": "Meat"}
+{"name": "Crock Pot Roast","ingredients": [{"quantity": "1","name": " beef roast","type": "Meat"}}
 ```
 ```
 $ nano client1.json
 ```
 ```
-{"client": "Jo", "like": {"quantity": 1, "name": "Crock Pot Roast"}
+{"client": "Jo", "like": {"quantity": 1, "name": "Crock Pot Roast"}}
 ```
 ### Tester le tout sur le terminal ET sur le control center
 ```
