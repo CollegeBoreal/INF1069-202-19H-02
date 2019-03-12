@@ -60,7 +60,9 @@ Créez une autre requête, en ajoutant une clause WINDOW, qui indique le nombre 
 ``` ksql> CREATE TABLE ksql_songplaycounts30 AS SELECT ID, NAME, GENRE, KEYCOL, COUNT(*) AS COUNT FROM ksql_songplays WINDOW TUMBLING (size 30 seconds) GROUP BY ID, NAME, GENRE, KEYCOL; ```
 
 Pour voir tout les infos de cette table:
-``` ksql> SELECT * FROM ksql_songplaycounts30; ```
+```
+ksql> SELECT * FROM ksql_songplaycounts30;
+```
 
 Convertir la table en stream :
 ``` 
