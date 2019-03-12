@@ -15,12 +15,6 @@
  
  ```docker-compose exec ksql-cli ksql http://ksql-server:8088```
  
- 
- 
- 
- 
- 
- 
 CREATE STREAM ksql_playevents
 ```
 ksql> CREATE STREAM ksql_playevents WITH (KAFKA_TOPIC='play-events', VALUE_FORMAT='AVRO');
@@ -38,7 +32,9 @@ Create un STREAM à partir de Kafka song-feed
 ``` 
 ksql> CREATE STREAM ksql_songfeed WITH (KAFKA_TOPIC='song-feed', VALUE_FORMAT='AVRO'); 
 ```
-
+Selectionner les 5 partition dans song-feed
+``` ksql> SELECT * FROM ksql_songfeed limit 5; 
+```
 DESCRIBE ksql_songfeed;
 
 CREATE TABLE ksql_songtable WITH;
