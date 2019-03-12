@@ -30,7 +30,9 @@ Test de la duree
 ``` 
 ksql> CREATE STREAM ksql_playevents_min_duration AS SELECT * FROM ksql_playevents WHERE DURATION > 30000;
 ```
+Description du stream
 
+``` ksql> DESCRIBE ksql_playevents; ```
 
 DESCRIBE ksql_songfeed;
 
