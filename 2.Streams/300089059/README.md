@@ -50,6 +50,17 @@ Creer une table d'apres le stream precedent :
 ```
 ksql> CREATE STREAM ksql_songplays AS SELECT plays.SONG_ID AS ID, ALBUM, ARTIST, NAME, GENRE, DURATION, 1 AS KEYCOL FROM ksql_playevents_min_duration plays LEFT JOIN ksql_songtable songtable ON plays.SONG_ID = songtable.ID;
 ```
+Créer les meilleurs classements musicaux :
+
+``` ksql> CREATE TABLE ksql_songplaycounts AS SELECT ID, NAME, GENRE, KEYCOL, COUNT(*) AS COUNT FROM ksql_songplays GROUP BY ID, NAME, GENRE, KEYCOL;
+```
+Créez une autre requête, en ajoutant une clause WINDOW, qui indique le nombre d'événements de lecture pour toutes les chansons, par intervalles de 30 secondes.
+
+``` ksql> CREATE TABLE ksql_songplaycounts30 AS SELECT ID, NAME, GENRE, KEYCOL, COUNT(*) AS COUNT FROM ksql_songplays WINDOW TUMBLING (size 30 seconds) GROUP BY ID, NAME, GENRE, KEYCOL; ```
+
+Pour voir tous les infos de cette table:
+``` ksql> SELECT * FROM ksql_songplaycounts30; ```
+
 
 Convertir 'TABLE' avec le champs 'ID' comme clé
 ```
