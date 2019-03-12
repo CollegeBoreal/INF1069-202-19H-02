@@ -22,7 +22,9 @@
  
  
 CREATE STREAM ksql_playevents
-````ksql> CREATE STREAM ksql_playevents WITH (KAFKA_TOPIC='play-events', VALUE_FORMAT='AVRO');```
+```
+ksql> CREATE STREAM ksql_playevents WITH (KAFKA_TOPIC='play-events', VALUE_FORMAT='AVRO');
+```
 
 
 DESCRIBE ksql_songfeed;
