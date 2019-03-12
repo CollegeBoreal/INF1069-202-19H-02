@@ -33,3 +33,5 @@ $ docker-compose exec kafka bash
 ```
 
 6-Creer les topics
+``` root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic repas --create --partitions 3 --replication-factor 1
+Created topic "services" ```
