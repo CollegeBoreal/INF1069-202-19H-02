@@ -42,3 +42,7 @@ Created topic "services"
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic clients --create --partitions 3 --replication-factor 1
 Created topic "clients" 
 ```
+Sortir de kafka pour changer les fichiers séparemment
+```
+nano services1.json
+```
