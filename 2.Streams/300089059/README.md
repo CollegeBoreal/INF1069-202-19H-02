@@ -36,6 +36,9 @@ Selectionner les 5 partition dans song-feed
 ``` 
 ksql> SELECT * FROM ksql_songfeed limit 5; 
 ```
-DESCRIBE ksql_songfeed;
+Description du stream
+```
+ksql> DESCRIBE ksql_songfeed; 
+```
 
 CREATE TABLE ksql_songtable WITH;
