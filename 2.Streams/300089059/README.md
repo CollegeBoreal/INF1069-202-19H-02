@@ -52,7 +52,8 @@ ksql> CREATE STREAM ksql_songplays AS SELECT plays.SONG_ID AS ID, ALBUM, ARTIST,
 ```
 Créer les meilleurs classements musicaux :
 
-``` ksql> CREATE TABLE ksql_songplaycounts AS SELECT ID, NAME, GENRE, KEYCOL, COUNT(*) AS COUNT FROM ksql_songplays GROUP BY ID, NAME, GENRE, KEYCOL;
+``` 
+ksql> CREATE TABLE ksql_songplaycounts AS SELECT ID, NAME, GENRE, KEYCOL, COUNT(*) AS COUNT FROM ksql_songplays GROUP BY ID, NAME, GENRE, KEYCOL;
 ```
 Créez une autre requête, en ajoutant une clause WINDOW, qui indique le nombre d'événements de lecture pour toutes les chansons, par intervalles de 30 secondes.
 
