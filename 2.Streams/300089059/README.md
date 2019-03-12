@@ -26,6 +26,8 @@ CREATE STREAM ksql_playevents
 ksql> CREATE STREAM ksql_playevents WITH (KAFKA_TOPIC='play-events', VALUE_FORMAT='AVRO');
 ```
 
+``` ksql> CREATE STREAM ksql_playevents_min_duration AS SELECT * FROM ksql_playevents WHERE DURATION > 30000; ```
+
 
 DESCRIBE ksql_songfeed;
 
