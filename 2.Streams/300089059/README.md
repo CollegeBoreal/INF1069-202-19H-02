@@ -2,10 +2,12 @@
  
  Faire repertoire
  
- ```cd Developper/INF1069etc...
+ ```
+ cd Developper/INF1069etc...
  cd 2.etc...
  mkdir 300089059
- cd 300089059 ```
+ cd 300089059
+ ```
  
  Creation d'un Stream
  
