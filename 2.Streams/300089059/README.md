@@ -45,6 +45,12 @@ Utilisez la PARTITION BY pour affecter une clé et utilisez la fonction CAST pou
 ksql> CREATE STREAM ksql_songfeedwithkey WITH (KAFKA_TOPIC='KSQL_SONGFEEDWITHKEY', VALUE_FORMAT='AVRO') AS SELECT CAST(ID AS STRING) AS ID, ALBUM, ARTIST, NAME, GENRE FROM ksql_songfeed PARTITION BY ID; 
 ksql> DESCRIBE ksql_songfeedwithkey;
 ```
+Rejoignez les événements de jeu avec la table des chansons :
+Creer une table d'apres le stream precedent :
+```
+ksql> CREATE STREAM ksql_songplays AS SELECT plays.SONG_ID AS ID, ALBUM, ARTIST, NAME, GENRE, DURATION, 1 AS KEYCOL FROM ksql_playevents_min_duration plays LEFT JOIN ksql_songtable songtable ON plays.SONG_ID = songtable.ID;
+```
+
 Convertir 'TABLE' avec le champs 'ID' comme clé
 ```
 ksql> CREATE TABLE ksql_songtable WITH (KAFKA_TOPIC='KSQL_SONGFEEDWITHKEY', VALUE_FORMAT='Avro', KEY='ID'); 
