@@ -34,7 +34,10 @@ Description du stream
 
 ``` ksql> DESCRIBE ksql_playevents; ```
 
-Create un STREAM à partir de Kafka song-feed 
+Create un STREAM à partir de Kafka song-feed
+``` 
+ksql> CREATE STREAM ksql_songfeed WITH (KAFKA_TOPIC='song-feed', VALUE_FORMAT='AVRO'); 
+```
 
 DESCRIBE ksql_songfeed;
 
