@@ -40,5 +40,8 @@ Description du stream
 ```
 ksql> DESCRIBE ksql_songfeed; 
 ```
-
+Utilisez la PARTITION BY pour affecter une clé et utilisez la fonction CAST pour changer le type de champ en String
+``` 
+ksql> CREATE STREAM ksql_songfeedwithkey WITH (KAFKA_TOPIC='KSQL_SONGFEEDWITHKEY', VALUE_FORMAT='AVRO') AS SELECT CAST(ID AS STRING) AS ID, ALBUM, ARTIST, NAME, GENRE FROM ksql_songfeed PARTITION BY ID; 
+```
 CREATE TABLE ksql_songtable WITH;
