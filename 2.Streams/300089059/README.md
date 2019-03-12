@@ -34,6 +34,8 @@ Description du stream
 
 ``` ksql> DESCRIBE ksql_playevents; ```
 
+Create un STREAM à partir de Kafka song-feed 
+
 DESCRIBE ksql_songfeed;
 
 CREATE TABLE ksql_songtable WITH;
