@@ -59,14 +59,14 @@ Créez une autre requête, en ajoutant une clause WINDOW, qui indique le nombre 
 
 ``` ksql> CREATE TABLE ksql_songplaycounts30 AS SELECT ID, NAME, GENRE, KEYCOL, COUNT(*) AS COUNT FROM ksql_songplays WINDOW TUMBLING (size 30 seconds) GROUP BY ID, NAME, GENRE, KEYCOL; ```
 
-Pour voir tous les infos de cette table:
+Pour voir tout les infos de cette table:
 ``` ksql> SELECT * FROM ksql_songplaycounts30; ```
 
-Pour convertir la table qu'on a cree a un stream :
+Convertir la table en stream :
 ``` 
 ksql> CREATE STREAM ksql_songplaycountsstream WITH (KAFKA_TOPIC='song-feed', VALUE_FORMAT='AVRO');
 ```
-Pour metter ce stream global et pas de partition :
+Avoir ce stream sans la partition :
 
 ``` 
 ksql> CREATE STREAM ksql_songplaycountsstream  AS SELECT * from ksql_songplaaycountsstream WHERE ROWTIME is not null PARTITION BY KEYCOL; 
