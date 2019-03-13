@@ -53,7 +53,7 @@ $ docker-compose exec kafka bash
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic clients_info --create --
 partitions 3  --replication-factor 1
 
-root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic artists --create --
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic products --create --
 partitions 3  --replication-factor 1
 ```
 
