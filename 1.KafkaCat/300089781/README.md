@@ -35,7 +35,7 @@ $ nano client.json
 {"client": "Jess", "like": {"quantity": 1, "name": "Roasted Asparagus"}}
 {"client": "Jane", "like": {"quantity": -1, "name": "Chicken salad"}}
 ```
-### Tester le tout sur le terminal ET sur le control center
+### Tester le tout sur le terminal (2) ET sur le control center
 ```
 toronto:300089781 ameliedubois$ sh jeu.sh
 foodie
@@ -44,5 +44,41 @@ Clients
 >>>>>>>>>>>>
 ```
 ```
-http://10.10.121.159:9021/management/clusters/
+ ksql> CREATE STREAM clients (client string, quantity string, name string) WITH (KAFKA_TOPIC='clients', VALUE_FORMAT='JSON');
+
+ Message        
+----------------
+ Stream created 
+----------------
+ksql> SELECT * FROM clients;
+^CQuery terminated
+ksql> DESCRIBE clients;
+
+Name                 : CLIENTS
+ Field    | Type                      
+--------------------------------------
+ ROWTIME  | BIGINT           (system) 
+ ROWKEY   | VARCHAR(STRING)  (system) 
+ CLIENT   | VARCHAR(STRING)           
+ QUANTITY | VARCHAR(STRING)           
+ NAME     | VARCHAR(STRING)           
+--------------------------------------
+For runtime statistics and query details run: DESCRIBE EXTENDED <Stream,Table>;
+
+ksql> show streams;
+
+ Stream Name | Kafka Topic | Format 
+------------------------------------
+ PLAT        | repas       | JSON   
+ CLIENTS     | clients     | JSON   
+------------------------------------
+
+ksql> SELECT * FROM clients;
+1552500719172 | null | Jo | null | null
+1552500726561 | null | Jess | null | null
+1552500735352 | null | Jo | null | null
+
+```
+```
+
 ```
