@@ -45,3 +45,10 @@ Essayer avec la commande `kafka-console-producer` et `cat:
 ```
 $ $ cat ~/my_file.json | docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic my_topic
 ```
+
+
+# DataGen and Avro
+
+https://docs.confluent.io/current/ksql/docs/tutorials/generate-custom-test-data.html#
+
+
