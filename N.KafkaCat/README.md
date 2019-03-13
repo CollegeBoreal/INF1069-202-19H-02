@@ -38,7 +38,13 @@ A l'aide de l'utilitaire KafkaCat créer un environemment permettant de créer d
 https://github.com/edenhill/kafkacat
 
 
+
+
 # Load files
+
+nested-json-data
+
+https://www.confluent.io/stream-processing-cookbook/ksql-recipes/nested-json-data
 
 Essayer avec la commande `kafka-console-producer` et `cat:
 
