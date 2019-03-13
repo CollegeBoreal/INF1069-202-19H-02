@@ -28,10 +28,12 @@ $ nano repas1.json
 {"name": "Crock Pot Roast","ingredients": [{"quantity": "1","name": " beef roast","type": "Meat"}}
 ```
 ```
-$ nano client1.json
+$ nano client.json
 ```
 ```
 {"client": "Jo", "like": {"quantity": 1, "name": "Crock Pot Roast"}}
+{"client": "Jess", "like": {"quantity": 1, "name": "Roasted Asparagus"}}
+
 ```
 ### Tester le tout sur le terminal ET sur le control center
 ```
