@@ -33,7 +33,7 @@ $ nano client.json
 ```
 {"client": "Jo", "like": {"quantity": 1, "name": "Crock Pot Roast"}}
 {"client": "Jess", "like": {"quantity": 1, "name": "Roasted Asparagus"}}
-
+{"client": "Jane", "like": {"quantity": -1, "name": "Chicken salad"}}
 ```
 ### Tester le tout sur le terminal ET sur le control center
 ```
