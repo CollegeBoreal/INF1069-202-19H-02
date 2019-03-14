@@ -132,3 +132,5 @@ toronto:300089781 ameliedubois$ sh jeu.sh
 foodie
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ```
+## Regarder le jeu marcher sur Control Center (127.0.0.1:9021)
+![alt tag](cc.png)
