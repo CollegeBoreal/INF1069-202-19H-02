@@ -17,8 +17,8 @@ root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic repas --create --
 Created topic "repas"
 ```
 ```
-root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic clients --create --partitions 3 --replication-factor 1
-Created topic "clients"
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic client --create --partitions 3 --replication-factor 1
+Created topic "client"
 ```
 ### Sortir de kafka pour aller changer les fichiers séparemment
 ```
