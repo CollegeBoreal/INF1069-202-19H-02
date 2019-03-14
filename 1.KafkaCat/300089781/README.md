@@ -83,8 +83,8 @@ ksql> SELECT * FROM clients;
 
 ```
 CREATE STREAM client \
-      (like STRUCT<\
-            client VARCHAR, \
-            quantity VARCHAR, \
-            name VARCHAR>) \
+      (client STRING, \
+       like STRUCT<, \
+       quantity BIGINT, \
+       name STRING>) \
     WITH (KAFKA_TOPIC='client', VALUE_FORMAT='JSON');
