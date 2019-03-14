@@ -20,7 +20,7 @@ Created topic "repas"
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic client --create --partitions 3 --replication-factor 1
 Created topic "client"
 ```
-### Sortir de kafka pour aller changer les fichiers séparemment
+### Sortir de kafka pour aller changer les fichiers séparemment, par exemple:
 ```
 $ nano repas1.json
 ```
@@ -96,4 +96,29 @@ ksql> show tables;
 ----------------------------------------------
  CLIENT     | client      | JSON   | false    
 ----------------------------------------------
+```
+###Créer le stream 'repas'
+```
+ksql> CREATE STREAM repas \
+      (name STRING, \
+       ingredients STRUCT< \
+       quantity BIGINT, \
+       name STRING, \
+       type STRING>) \
+    WITH (KAFKA_TOPIC='repas', VALUE_FORMAT='JSON');
+ Message        
+----------------
+ Stream created 
+----------------    
+```
+##Tester le jeu dans les 2 terminals:
+```
+(1er terminal)
+
+```
+```
+(2e terminal)
+toronto:300089781 ameliedubois$ sh jeu.sh
+foodie
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ```
