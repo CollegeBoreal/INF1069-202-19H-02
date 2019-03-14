@@ -49,9 +49,9 @@ root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic devise --create -
 Created topic "devise".
 ````
 
-6.  Création des Streams
+6.  Création de table et Stream
 
-6.1  Création de devise
+6.1  Création de table devise
 ````
 file1.json, file2.json, file3.json, …. File6.json
 { "FXAUDCAD":{"label":"AUD/CAD","description":"Taux de change quotidien du dollar australien en dollars canadiens"} }
@@ -66,7 +66,7 @@ file1.json, file2.json, file3.json, …. File6.json
 
 
 ````
-ksql> CREATE STREAM devise \
+ksql> CREATE Stream devise \
       (FXCHFCAD STRING, \
       FXCNYCAD STRING, \
       FXEURCAD STRING, \
