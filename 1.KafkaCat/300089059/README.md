@@ -36,6 +36,8 @@ docker-compose exec kafka bash
 Pour aller sur ksql
 ```
 $ docker-compose exec ksql-cli ksql http://8088
+docker-compose exec ksql-cli ksql http://ksql-server:8088
+
 
 ```
 
