@@ -22,6 +22,8 @@ $ cd 300089059
  
  ``` 
 $ docker-compose up -d 
+
+
 $ docker network ls
 $ docker run --tty --network 300089059_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -L
 ```
