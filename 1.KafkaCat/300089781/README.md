@@ -39,7 +39,7 @@ $ nano client.json
 ```
 ksql> CREATE STREAM client \
       (client STRING, \
-       aime STRUCT<, \
+       aime STRUCT< \
        quantity BIGINT, \
        name STRING>) \
     WITH (KAFKA_TOPIC='client', VALUE_FORMAT='JSON');
