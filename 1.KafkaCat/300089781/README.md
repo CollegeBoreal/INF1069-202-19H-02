@@ -82,3 +82,9 @@ ksql> SELECT * FROM clients;
 ```
 
 ```
+CREATE STREAM client \
+      (user STRUCT<\
+            client VARCHAR, \
+            quantity VARCHAR, \
+            name VARCHAR>) \
+    WITH (KAFKA_TOPIC='client', VALUE_FORMAT='JSON');
