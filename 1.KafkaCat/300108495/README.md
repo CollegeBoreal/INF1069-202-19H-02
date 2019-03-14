@@ -102,10 +102,10 @@ $ docker-compose exec ksql-cli ksql http://ksql-server:8088
 ```
 
 Creaton d'un nouveau Stream du topic `clients_info` 
-{ "name"   : "John Smith", "sku"    : "20223", "shipTo" : { "name" : "Jane Smith", "address" : "123 Maple Street" }}
+
 
 ```
-ksql> CREATE STREAM ksql_clientsinfo (name string, sku bigint, shipTo struct> name string, address string) WITH (KAFKA_TOPIC='clients_info', VALUE_FORMAT='JSON');
+ksql> CREATE STREAM ksql_clientsinfo (name string, sku bigint, shipTo struct< name string, address string>) WITH (KAFKA_TOPIC='clients_info', VALUE_FORMAT='JSON');
 ```
 
 Pour voir tous  les info des clients :
