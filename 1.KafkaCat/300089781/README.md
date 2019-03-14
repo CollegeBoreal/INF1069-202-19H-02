@@ -116,8 +116,7 @@ ksql> CREATE STREAM repas \
 (1er terminal)
 ksql> select * from repas;
 1552588012407 | null | Crock Pot Roast | {QUANTITY=1, NAME= beef roast, TYPE=Meat}
-1552588124733 | null | Crock Pot Roast | {QUANTITY=1, NAME= beef roast, TYPE=Meat}
-1552588150086 | null | Crock Pot Roast | {QUANTITY=1, NAME= beef roast, TYPE=Meat}
+1552588418594 | null | Roasted Asparagus | {QUANTITY=5, NAME=asparagus, TYPE=Produce}
 1552588199980 | null | Crock Pot Roast | {QUANTITY=1, NAME= beef roast, TYPE=Meat}
 1552588208184 | null | Chicken salad | {QUANTITY=3, NAME=skinless, boneless chicken breasts, TYPE=Meat}
 1552588211963 | null | Crock Pot Roast | {QUANTITY=1, NAME= beef roast, TYPE=Meat}
@@ -125,7 +124,7 @@ ksql> select * from repas;
 1552588225112 | null | Crock Pot Roast | {QUANTITY=1, NAME= beef roast, TYPE=Meat}
 1552588233591 | null | Chicken salad | {QUANTITY=3, NAME=skinless, boneless chicken breasts, TYPE=Meat}
 1552588237367 | null | Crock Pot Roast | {QUANTITY=1, NAME= beef roast, TYPE=Meat}
-1552588245761 | null | Chicken salad | {QUANTITY=3, NAME=skinless, boneless chicken breasts, TYPE=Meat}
+1552588443476 | null | Roasted Asparagus | {QUANTITY=5, NAME=asparagus, TYPE=Produce}
 ```
 ```
 (2e terminal)
