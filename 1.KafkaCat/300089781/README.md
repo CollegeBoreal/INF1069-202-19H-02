@@ -37,54 +37,40 @@ $ nano client.json
 ```
 ### Tester le tout sur le terminal (2) ET sur le control center
 ```
-toronto:300089781 ameliedubois$ sh jeu.sh
-foodie
 >>>>>>>>>>>>>>>>>>>>>>>>toronto:300089781 ameliedubois$ sh jeu1.sh
-Clients 
+Client
 >>>>>>>>>>>>
 ```
 ```
- ksql> CREATE STREAM clients (client string, quantity string, name string) WITH (KAFKA_TOPIC='clients', VALUE_FORMAT='JSON');
-
- Message        
-----------------
- Stream created 
-----------------
-ksql> SELECT * FROM clients;
-^CQuery terminated
-ksql> DESCRIBE clients;
-
-Name                 : CLIENTS
- Field    | Type                      
---------------------------------------
- ROWTIME  | BIGINT           (system) 
- ROWKEY   | VARCHAR(STRING)  (system) 
- CLIENT   | VARCHAR(STRING)           
- QUANTITY | VARCHAR(STRING)           
- NAME     | VARCHAR(STRING)           
---------------------------------------
-For runtime statistics and query details run: DESCRIBE EXTENDED <Stream,Table>;
-
-ksql> show streams;
-
- Stream Name | Kafka Topic | Format 
-------------------------------------
- PLAT        | repas       | JSON   
- CLIENTS     | clients     | JSON   
-------------------------------------
-
-ksql> SELECT * FROM clients;
-1552500719172 | null | Jo | null | null
-1552500726561 | null | Jess | null | null
-1552500735352 | null | Jo | null | null
-
-```
-```
-
-```
 CREATE STREAM client \
       (client STRING, \
-       like STRUCT<, \
+       aime STRUCT<, \
        quantity BIGINT, \
        name STRING>) \
     WITH (KAFKA_TOPIC='client', VALUE_FORMAT='JSON');
+```
+```
+ksql> SELECT * FROM client;
+1552585858177 | null | Jo | {QUANTITY=1, NAME=Crock Pot Roast}
+1552585862330 | null | Jess | {QUANTITY=1, NAME=Roasted Asparagus}
+1552585866496 | null | Jane | {QUANTITY=-1, NAME=Chicken salad}
+1552585872980 | null | Jo | {QUANTITY=1, NAME=Crock Pot Roast}
+...
+```
+```
+ksql> select client, aime->QUANTITY,aime->NAME from client;
+Jo | 1 | Crock Pot Roast
+Jess | 1 | Roasted Asparagus
+Jane | -1 | Chicken salad
+Jo | 1 | Crock Pot Roast
+Jess | 1 | Roasted Asparagus
+Jane | -1 | Chicken salad
+Jo | 1 | Crock Pot Roast
+Jane | -1 | Chicken salad
+Jo | 1 | Crock Pot Roast
+Jane | -1 | Chicken salad
+Jane | -1 | Chicken salad
+Jo | 1 | Crock Pot Roast
+...
+```
+
