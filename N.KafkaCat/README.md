@@ -52,6 +52,10 @@ Essayer avec la commande `kafka-console-producer` et `cat:
 $ $ cat ~/my_file.json | docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic my_topic
 ```
 
+# stream-processing-cookbook
+
+https://www.confluent.io/stream-processing-cookbook/
+
 
 # DataGen and Avro
 
