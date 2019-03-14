@@ -35,21 +35,25 @@ $ nano client.json
 {"client": "Jess", "like": {"quantity": 1, "name": "Roasted Asparagus"}}
 {"client": "Jane", "like": {"quantity": -1, "name": "Chicken salad"}}
 ```
-### Tester le tout sur le terminal (2) ET sur le control center
+### Créer le stream "client"
 ```
->>>>>>>>>>>>>>>>>>>>>>>>toronto:300089781 ameliedubois$ sh jeu1.sh
-Client
->>>>>>>>>>>>
-```
-```
-CREATE STREAM client \
+ksql> CREATE STREAM client \
       (client STRING, \
        aime STRUCT<, \
        quantity BIGINT, \
        name STRING>) \
     WITH (KAFKA_TOPIC='client', VALUE_FORMAT='JSON');
 ```
+## Sur le 1er terminal, partir le jeu SH.JEU1.SH et sur 2e terminal, tester :
+
 ```
+(1er terminal)
+toronto:300089781 ameliedubois$ sh jeu1.sh
+Client
+>>>>>>>>>>>>
+```
+```
+(2e terminal)
 ksql> SELECT * FROM client;
 1552585858177 | null | Jo | {QUANTITY=1, NAME=Crock Pot Roast}
 1552585862330 | null | Jess | {QUANTITY=1, NAME=Roasted Asparagus}
