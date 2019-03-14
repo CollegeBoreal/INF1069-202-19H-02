@@ -77,4 +77,23 @@ Jane | -1 | Chicken salad
 Jo | 1 | Crock Pot Roast
 ...
 ```
+##Création d'une table 'client'
+```
+ksql> CREATE TABLE client \
+>      (client STRING, \
+>       aime STRUCT< \
+>       quantity BIGINT, \
+>       name STRING>) \
+>    WITH (KAFKA_TOPIC='client', VALUE_FORMAT='JSON', KEY='aime');
 
+ Message       
+---------------
+ Table created 
+---------------
+ksql> show tables;
+
+ Table Name | Kafka Topic | Format | Windowed 
+----------------------------------------------
+ CLIENT     | client      | JSON   | false    
+----------------------------------------------
+```
