@@ -120,23 +120,12 @@ ALors pour Decrire ce stream :
 ksql> DESCRIBE ksql_clientsinfo;
 ```
 
-### Creation d'une table utilisant le topic clients_info :
 
-Créez un STREAM à partir du fil d'actualité Kafka `clients_info` :
 
-Utilisez la PARTITION BY pour affecter une clé et utilisez la fonction CAST pour changer le type de champ en String.
+#### Créer une table d'apres le topic products :
 
 ```
-ksql> CREATE STREAM ksql_clientsinfowithkey WITH (KAFKA_TOPIC='KSQL_SONGFEEDWITHKEY', VALUE_FORMAT='JSON') AS SELECT CAST(SKU AS STRING) AS SKU, NAME, ADDRESS, SHIPTO FROM ksql_clientsinfo PARTITION BY SKU;
-
-ksql> DESCRIBE ksql_clientsinfowithkey;
-```
-
-
-#### Créer les meilleurs classements musicaux :
-
-```
-ksql> CREATE TABLE ksql_products AS SELECT SKU, NAME, PRICE, DATE, COUNT(*) AS COUNT FROM ksql_products GROUP BY SKU, NAME, PRICE, DATE;
+ksql> CREATE TABLE ksql_products (name STRING, sku bigint ,ticket STRUCT< price BIGINT, date DATE>) WITH  (KAFKA_TOPIC='products',VALUE_FORMAT='JSON');
 ```
 Pour voir tous les infos de cette table :
 
