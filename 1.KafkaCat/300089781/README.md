@@ -31,9 +31,9 @@ $ nano repas1.json
 $ nano client.json
 ```
 ```
-{"client": "Jo", "like": {"quantity": 1, "name": "Crock Pot Roast"}}
-{"client": "Jess", "like": {"quantity": 1, "name": "Roasted Asparagus"}}
-{"client": "Jane", "like": {"quantity": -1, "name": "Chicken salad"}}
+{"client": "Jo", "aime": {"quantity": 1, "name": "Crock Pot Roast"}}
+{"client": "Jess", "aime": {"quantity": 1, "name": "Roasted Asparagus"}}
+{"client": "Jane", "aime": {"quantity": -1, "name": "Chicken salad"}}
 ```
 ### Créer le stream "client"
 ```
