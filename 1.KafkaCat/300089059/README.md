@@ -51,6 +51,7 @@ Created topic "clients"
 ```
 Sortir de kafka pour changer les fichiers séparemment
 ```
-nano services1.json
+nano services.json
+nano clients.json
 ```
  
