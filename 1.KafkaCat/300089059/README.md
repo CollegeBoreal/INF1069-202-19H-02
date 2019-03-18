@@ -22,6 +22,8 @@ $ cd 300089059
  
  ``` 
 $ docker-compose up -d 
+
+
 $ docker network ls
 $ docker run --tty --network 300089059_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -L
 ```
@@ -29,7 +31,29 @@ $ docker run --tty --network 300089059_default confluentinc/cp-kafkacat kafkacat
 5-Aller sur kafka bash
 
 ``` 
-$ docker-compose exec kafka bash 
+docker-compose exec kafka bash 
+```
+Pour aller sur ksql
+```
+$ docker-compose exec ksql-cli ksql http://8088
+docker-compose exec ksql-cli ksql http://ksql-server:8088
+
+
 ```
 
 6-Creer les topics
+``` 
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic services --create --partitions 3 --replication-factor 1
+Created topic "services" 
+```
+
+``` 
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic clients --create --partitions 3 --replication-factor 1
+Created topic "clients" 
+```
+Sortir de kafka pour changer les fichiers séparemment
+```
+nano services.json
+nano clients.json
+```
+  

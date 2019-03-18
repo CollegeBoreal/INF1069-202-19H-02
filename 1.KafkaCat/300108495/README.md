@@ -53,7 +53,7 @@ $ docker-compose exec kafka bash
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic clients_info --create --
 partitions 3  --replication-factor 1
 
-root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic artists --create --
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic products --create --
 partitions 3  --replication-factor 1
 ```
 
@@ -63,7 +63,7 @@ partitions 3  --replication-factor 1
 et vous creez un fichier de json 
 
 ```
-$ nano client.json 
+$ nano client1.json 
 ```
 
 * ajoutez ce code
@@ -71,24 +71,71 @@ $ nano client.json
 ```
 
 { "name"   : "John Smith", "sku"    : "20223", "shipTo" : { "name" : "Jane Smith", "address" : "123 Maple Street" }
+
+```
+et vous pouvez ajouter les autres fichier de client$.json avec un de ces lignes 
+```
 { "name"   : "Frank lil", "sku"    : "20224", "shipTo" : { "name" : "Jessi", "address" : "154 Webster" }
 { "name"   : "Lele Pos", "sku"    : "20225", "shipTo" : { "name" : "Amelie", "address" : "18 jane" }
 { "name"   : "John Smith", "sku"    : "20226", "shipTo" : { "name" : "Jane Smith", "address" : "123 Maple Street" }
 { "name"   : "Frank lil", "sku"    : "20227", "shipTo" : { "name" : "Jessi", "address" : "154 Webster" }
 { "name"   : "Lele Pos", "sku"    : "20228", "shipTo" : { "name" : "Amelie", "address" : "18 jane" }
 { "name"   : "John Smith", "sku"    : "20223", "shipTo" : { "name" : "Jane Smith", "address" : "123 Maple Street" }
-{ "name"   : "Frank lil", "sku"    : "20224", "shipTo" : { "name" : "Jessi", "address" : "154 Webster" }
-{ "name"   : "Lele Pos", "sku"    : "20225", "shipTo" : { "name" : "Amelie", "address" : "18 jane" }
-{ "name"   : "Lele Pos", "sku"    : "20228", "shipTo" : { "name" : "Amelie", "address" : "18 jane" }
-{ "name"   : "John Smith", "sku"    : "20223", "shipTo" : { "name" : "Jane Smith", "address" : "123 Maple Street" }
-{ "name"   : "Frank lil", "sku"    : "20224", "shipTo" : { "name" : "Jessi", "address" : "154 Webster" }
 
 ```
-
-* executer le fichien client.json avec mon topic clients_info, en utilisant kafka_console_producer :
+et la meme chose pour le fichier de product$.json
+```
+{ "name"   : "Scarf", "sku"    : "20223", "ticket" : { "price" : 25 , "date" : "20-02-2019" }}
+{ "name"   : "pants", "sku"    : "20224", "ticket" : { "price" : 56 , "date" : "10-02-2019" }}
+{ "name"   : "shirt", "sku"    : "20225", "ticket" : { "price" : 13 , "date" : "20-02-2019" }}
+{ "name"   : "Scarf", "sku"    : "20226", "ticket" : { "price" : 30.67 , "date" : "20-02-2019" }}
+```
+il faut creer des jeux.sh pour chaque topic 
+pour clients_info
 
 ```
-$ cat ./client.json | docker exec --interactive kafka kafka-console-producer --b                                                                                            roker-list kafka:9092 --topic clients_info
+$ nano jeu1.sh
+
+```
+et vous tappez ce code :
+```
+#!/bin/bash
+
+function main {
+   echo "Copy de fichier "
+   for client in ./client*.json; do
+    for ((i=1; i<=4 ;i++)); do
+        docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic clients_info < ./client$i.json
+    done
+done
+}
+
+main
+```
+* meme chose pour le topic de product :
+```
+$ nano jeu2.sh
+```
+et taper ce code
+
+```
+#!/bin/bash
+
+function main {
+   echo "Copy de fichier "
+   for product in ./product*.json; do
+    for ((i=1; i<=4 ;i++)); do
+        docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic products < ./product$i.json
+    done
+done
+}
+
+main
+```
+afin de tester votre fichier de json vous devez juste faire :
+
+```
+$ sh jeu*.sh
 ```
 
 * Pour voir le resultat vous pouvez voir dans le site http://10.13.237.13:9021/management/clusters
@@ -103,8 +150,9 @@ $ docker-compose exec ksql-cli ksql http://ksql-server:8088
 
 Creaton d'un nouveau Stream du topic `clients_info` 
 
+
 ```
-ksql> CREATE STREAM ksql_clientsinfo WITH (KAFKA_TOPIC='clients_info', VALUE_FORMAT='JSON');
+ksql> CREATE STREAM ksql_clientsinfo (name string, sku bigint, shipTo struct< name string, address string>) WITH (KAFKA_TOPIC='clients_info', VALUE_FORMAT='JSON');
 ```
 
 Pour voir tous  les info des clients :
@@ -119,51 +167,28 @@ ALors pour Decrire ce stream :
 ksql> DESCRIBE ksql_clientsinfo;
 ```
 
-### Creation d'une table utilisant le topic clients_info :
 
-Créez un STREAM à partir du fil d'actualité Kafka `clients_info` :
 
-Utilisez la PARTITION BY pour affecter une clé et utilisez la fonction CAST pour changer le type de champ en String.
+#### Créer une table d'apres le topic products :
 
 ```
-ksql> CREATE STREAM ksql_clientsinfowithkey WITH (KAFKA_TOPIC='KSQL_SONGFEEDWITHKEY', VALUE_FORMAT='AVRO') AS SELECT CAST(ID AS STRING) AS ID, ALBUM, ARTIST, NAME, GENRE FROM ksql_songfeed PARTITION BY ID;
-
-ksql> DESCRIBE ksql_songfeedwithkey;
+ksql> CREATE TABLE ksql_products (name STRING, sku bigint ,ticket STRUCT< price BIGINT, date DATE>) WITH  (KAFKA_TOPIC='products',VALUE_FORMAT='JSON');
 ```
-#### Rejoignez les événements de jeu avec la table des chansons :
-
-Creer une table d'apres le stream precedent :
-
-```
-ksql> CREATE STREAM ksql_songplays AS SELECT plays.SONG_ID AS ID, ALBUM, ARTIST, NAME, GENRE, DURATION, 1 AS KEYCOL FROM ksql_playevents_min_duration plays LEFT JOIN ksql_songtable songtable ON plays.SONG_ID = songtable.ID;
-```
-
-#### Créer les meilleurs classements musicaux :
-
-```
-ksql> CREATE TABLE ksql_songplaycounts AS SELECT ID, NAME, GENRE, KEYCOL, COUNT(*) AS COUNT FROM ksql_songplays GROUP BY ID, NAME, GENRE, KEYCOL;
-```
- Il serait également bon de voir les statistiques pour les 30 dernières secondes. Créez une autre requête, en ajoutant une clause WINDOW, qui indique le nombre d'événements de lecture pour toutes les chansons, par intervalles de 30 secondes.
- 
- ```
- ksql> CREATE TABLE ksql_songplaycounts30 AS SELECT ID, NAME, GENRE, KEYCOL, COUNT(*) AS COUNT FROM ksql_songplays WINDOW TUMBLING (size 30 seconds) GROUP BY ID, NAME, GENRE, KEYCOL;
- ```
-
 Pour voir tous les infos de cette table :
 
 ```
-ksql> SELECT * FROM ksql_songplaycounts30;
+ksql> SELECT * FROM ksql_products;
 ```
 Pour convertir la table qu'on a cree a un stream :
 
 ```
-ksql> CREATE STREAM ksql_songplaycountsstream WITH (KAFKA_TOPIC='song-feed', VALUE_FORMAT='AVRO');
+ksql> CREATE STREAM ksql_productsstream (name string, sku bigint, price bigint, date bigint ) WITH (KAFKA_TOPIC='products', VALUE_FORMAT='JSON');
 ```
 
 Pour metter ce stream global et pas de partition :
 
 ```
-ksql> CREATE STREAM ksql_songplaycountsstream  AS SELECT * from ksql_songplaaycountsstream WHERE ROWTIME is not null PARTITION BY KEYCOL;
+ksql> CREATE STREAM ksql_productsstream  AS SELECT * from ksql_productsstream WHERE ROWTIME is not null PARTITION BY KEYCOL;
 ```
 
 

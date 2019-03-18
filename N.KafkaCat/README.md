@@ -38,10 +38,27 @@ A l'aide de l'utilitaire KafkaCat créer un environemment permettant de créer d
 https://github.com/edenhill/kafkacat
 
 
+
+
 # Load files
+
+nested-json-data
+
+https://www.confluent.io/stream-processing-cookbook/ksql-recipes/nested-json-data
 
 Essayer avec la commande `kafka-console-producer` et `cat:
 
 ```
 $ $ cat ~/my_file.json | docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic my_topic
 ```
+
+# stream-processing-cookbook
+
+https://www.confluent.io/stream-processing-cookbook/
+
+
+# DataGen and Avro
+
+https://docs.confluent.io/current/ksql/docs/tutorials/generate-custom-test-data.html#
+
+
