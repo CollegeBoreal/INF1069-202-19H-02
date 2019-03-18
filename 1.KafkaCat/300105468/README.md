@@ -62,4 +62,86 @@ EOF
 ```
 $ nano chanson.json 
 ```
+## . Ajouter un code
+```
+ { "duration":"4 minutes", "id":"140gh", { "frenquence":"500 hrz", "artist":"FKJ"}}
+```
+en suite vous pouvez ajouter les autres foichiers de chanson$.json avec un des lignes ci-dessous: 
+```
+{ "duration":"2.5minutes", "id":"180gh", "frenquence":"400 hrz", "artist":"RMB"}
+{ "duration":" 3 minutes", "id":"190gh", "frenquence":"350 hrz", "artist":"dont"}
+{ "duration":" 3 minutes", "id":"190gh", "frenquence":"350 hrz", "artist":"dont"}
+{ "duration":"4 minutes", "id":"140gh", "frenquence":"500 hrz", "artist":"FKJ"}
+```
+et aussi la même chose pour le fichier de chanteur$.json
+```
+{ "platform":"spotify", "id":"140gh", "title":"Lying Together", "artist":"FKJ", "album":"Casse T"}
+{ "platform":"spotify", "id":"180gh", "title":"dancing Together", "artist":"RMB", "album":"Playing "}
+{ "platform":"spotify", "id":"190gh", "title":"Reaggae", "artist":"Lion", "album":"dont"}
+{ "platform":"spotify", "id":"200gh", "title":"Nil", "artist":"Formuler", "album":"Labe"}
+```
+il faut creer des jeux.sh pour chaque topic pour clients_info
 
+``` 
+$ nano jeu1.sh
+```
+
+Vous allez tapper en suite ce code:
+
+```
+#!/bin/bash
+
+function main {
+   echo "Copy de fichier "
+   for chanteur in ./chanteur*.json; do
+    for ((i=1; i<=4 ;i++)); do
+        docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic chanteurs_info < ./chanteur$i.json
+    done
+done
+}
+
+main
+```
+## * Faire la même chose pour le topic chanson:
+```
+#!/bin/bash
+
+function main {
+   echo "Copy de fichier "
+   for chanson in ./chanson*.json; do
+    for ((i=1; i<=4 ;i++)); do
+        docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic chansons < ./chanson$i.json
+    done
+done
+}
+
+main
+```
+Pour tester votre fichier de json vous devez juste faire:
+```
+$ sh jeu*.sh
+```
+## * Pour voir le resultat vous pouvez voir dans le site http://10.13.237.14:9021/management/clusters
+
+## 📍 Création d'un nouveau Stream:
+Premièrement il faut aller premierment au KSQL Bash :
+```
+$ docker-compose exec ksql-cli ksql http://ksql-server:8088
+```
+Creaton d'un nouveau Stream du topic chanteurs
+```
+ksql> CREATE STREAM ksql_chanteurs (platform string, id bigint, lying string,artist string>) WITH (KAFKA_TOPIC='chanteurs', VALUE_FORMAT='JSON');
+```
+Pour voir tous les info des clients :
+```
+ksql> SELECT * FROM ksql_chanteurs ;
+```
+## Créer une table d'apres le topic chansons :
+```
+ksql> CREATE TABLE ksql_products (duration bigint, id bigint ,frequence bigint, artist string) WITH  (KAFKA_TOPIC='chansons',VALUE_FORMAT='JSON');
+```
+Pour voir tous les infos de cette table :
+
+```
+ksql> SELECT * FROM ksql_chansons;
+```
