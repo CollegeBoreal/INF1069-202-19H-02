@@ -38,12 +38,12 @@ $ docker-compose exec kafka bash
 ```
 ### 4. Création des topics
 ```
-root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic reggae_music --create --partitions 3 --replication-factor 1
-Created topic "reggae_music"
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic chanteurs --create --partitions 3 --replication-factor 1
+Created topic "chanteurs"
 ```
 ```
-root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic Clients --create --partitions 5 --replication-factor 1
-Created topic "Clients"
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic chansons --create --partitions 5 --replication-factor 1
+Created topic "chansons"
 ```
 ```
 $ docker run --interactive \
