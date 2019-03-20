@@ -1,5 +1,12 @@
 * Liste des taches à faires 
 
+:o: Créer un environnement Kafka - KSQL
+```
+  1 - Utiliser votre propre orchestration pour utiliser l'environnement KSQL (docker-compose.yml)
+  2 - créer un topic pour l'utilisation d'un STREAM KSQL (Volatile)
+  3 - créer un topic pour l'utilisation d'une TABLE KSQL (statique)
+```
+
 :a: Données
 
 :one: - Créer un jeu d'essai que l'on peut executer à souhait comportant :
