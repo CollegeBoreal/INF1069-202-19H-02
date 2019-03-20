@@ -1,18 +1,26 @@
 KAFKACAT
+
 Environement dans un repertoire
+
  -Récupérer le fichier docker-compose.yml 
  
- ``` $ cp ../../D.Demo/docker-compose.yml .```
+ ``` 
+ $ cp ../../D.Demo/docker-compose.yml .
+ ```
  
  -Modifier le fichier
  
- ``` $ nano docker-compose.yml ```
+ ```
+ $ nano docker-compose.yml
+ ```
  
 
 Supression de l environnemnet dans D.Demo
+```
 $ cd ../../D.Demo
 $docker-compose stop 
- docker-compose rm
+ docker-compose rm 
+ ```
  
  
  
