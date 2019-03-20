@@ -40,15 +40,7 @@ $ nano client.json
 ```
 $ docker-compose exec ksql-cli ksql http://ksql-server:8088
 ```
-### Créer le stream "client"
-```
-ksql> CREATE STREAM client \
-      (client STRING, \
-       aime STRUCT< \
-       quantity BIGINT, \
-       name STRING>) \
-    WITH (KAFKA_TOPIC='client', VALUE_FORMAT='JSON');
-```
+
 ## Sur le 1er terminal, partir le jeu SH.JEU1.SH et sur 2e terminal, tester :
 
 ```
