@@ -36,6 +36,10 @@ $ nano client.json
 {"client": "Jane", "aime": {"quantity": -1, "name": "Chicken salad"}}
 ...
 ```
+### Entrer dans ksql:
+```
+$ docker-compose exec ksql-cli ksql http://ksql-server:8088
+```
 ### Créer le stream "client"
 ```
 ksql> CREATE STREAM client \
@@ -78,7 +82,7 @@ Jane | -1 | Chicken salad
 Jo | 1 | Crock Pot Roast
 ...
 ```
-##Création d'une table 'client'
+## Création d'une table 'client'
 ```
 ksql> CREATE TABLE client \
 >      (client STRING, \
@@ -98,7 +102,7 @@ ksql> show tables;
  CLIENT     | client      | JSON   | false    
 ----------------------------------------------
 ```
-###Créer le stream 'repas'
+### Créer le stream 'repas'
 ```
 ksql> CREATE STREAM repas \
       (name STRING, \
@@ -112,7 +116,7 @@ ksql> CREATE STREAM repas \
  Stream created 
 ----------------    
 ```
-##Tester le jeu dans les 2 terminals:
+## Tester le jeu dans les 2 terminals:
 ```
 (1er terminal)
 ksql> select * from repas;
