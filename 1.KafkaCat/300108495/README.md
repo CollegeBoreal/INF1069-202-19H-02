@@ -75,12 +75,12 @@ $ nano client1.json
 ```
 et vous pouvez ajouter les autres fichier de client$.json avec un de ces lignes 
 ```
-{ "name"   : "Frank lil", "sku"    : "20224", "shipTo" : { "name" : "Jessi", "address" : "154 Webster" }
-{ "name"   : "Lele Pos", "sku"    : "20225", "shipTo" : { "name" : "Amelie", "address" : "18 jane" }
+{ "name"   : "Frank lil", "sku"    : "20224", "shipTo" : { "name" : "Frank", "address" : "154 Webster" }
+{ "name"   : "Lele Pos", "sku"    : "20225", "shipTo" : { "name" : "LeLe", "address" : "18 jane" }
 { "name"   : "John Smith", "sku"    : "20226", "shipTo" : { "name" : "Jane Smith", "address" : "123 Maple Street" }
-{ "name"   : "Frank lil", "sku"    : "20227", "shipTo" : { "name" : "Jessi", "address" : "154 Webster" }
-{ "name"   : "Lele Pos", "sku"    : "20228", "shipTo" : { "name" : "Amelie", "address" : "18 jane" }
-{ "name"   : "John Smith", "sku"    : "20223", "shipTo" : { "name" : "Jane Smith", "address" : "123 Maple Street" }
+{ "name"   : "Safaa Zaoui", "sku"    : "20227", "shipTo" : { "name" : "Jessi", "address" : "154 Webster" }
+{ "name"   : "LAmelie Dubois", "sku"    : "20228", "shipTo" : { "name" : "Amelie", "address" : "18 jane" }
+
 
 ```
 et la meme chose pour le fichier de product$.json
@@ -88,7 +88,7 @@ et la meme chose pour le fichier de product$.json
 { "name"   : "Scarf", "sku"    : "20223", "ticket" : { "price" : 25 , "date" : "20-02-2019" }}
 { "name"   : "pants", "sku"    : "20224", "ticket" : { "price" : 56 , "date" : "10-02-2019" }}
 { "name"   : "shirt", "sku"    : "20225", "ticket" : { "price" : 13 , "date" : "20-02-2019" }}
-{ "name"   : "Scarf", "sku"    : "20226", "ticket" : { "price" : 30.67 , "date" : "20-02-2019" }}
+{ "name"   : "dress-pinky", "sku"   : "20226", "ticket" : { "price" : 189.78 , "date" : "20-02-2019" }}
 ```
 il faut creer des jeux.sh pour chaque topic 
 pour clients_info
@@ -135,11 +135,7 @@ main
 afin de tester votre fichier de json vous devez juste faire :
 
 ```
-$ sh jeu1.sh
-Copy de fichier
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-$ sh jeu2.sh
+$ sh jeu*.sh
 Copy de fichier
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
