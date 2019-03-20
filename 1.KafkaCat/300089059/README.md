@@ -1,5 +1,21 @@
 KAFKACAT
+Environement dans un repertoire
+ -Récupérer le fichier docker-compose.yml 
+ 
+ ``` $ cp ../../D.Demo/docker-compose.yml .```
+ 
+ -Modifier le fichier
+ 
+ ``` $ nano docker-compose.yml ```
+ 
 
+Supression de l environnemnet dans D.Demo
+$ cd ../../D.Demo
+$docker-compose stop 
+ docker-compose rm
+ 
+ 
+ 
 ENVIRONEMENT
 
 1-Cree le repertoire
@@ -10,13 +26,7 @@ $ mkdir 300089059
 $ cd 300089059
  ```
  
- 2-Récupérer le fichier docker-compose.yml 
- 
- ``` $ cp ../../D.Demo/docker-compose.yml .```
- 
- 3-Modifier le fichier
- 
- ``` $ nano docker-compose.yml ```
+
  
  4-Executer
  
