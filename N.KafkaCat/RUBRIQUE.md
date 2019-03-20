@@ -40,7 +40,7 @@
   3 - afficher son contenu en utilisant la commande SELECT
 ```
 
-:c: Composition (KSQL JOIN)
+:ab: Composition (KSQL JOIN)
 ```
   1 - À partir du STREAM et de la TABLE, créer un jointure
   2 - Afficher la jointure
