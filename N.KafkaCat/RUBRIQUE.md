@@ -27,7 +27,21 @@
 :b: Flux (KSQL)
 
 :three: - Créer un STREAM en KSQL
-
-
+```
+  1 - Créer une commande KSQL permettant la création d'un STREAM
+  2 - La commande doit comporter un objet JSON imbriqué (STRUCT)
+  3 - afficher son contenu en utilisant la commande SELECT
+```
 
 :four: - Créer une TABLE en KSQL
+```
+  1 - Créer une commande KSQL permettant la création d'une TABLE
+  2 - La commande doit mettre en valeur la clé de la table
+  3 - afficher son contenu en utilisant la commande SELECT
+```
+
+:c: Composition (KSQL JOIN)
+```
+  1 - À partir du STREAM et de la TABLE, créer un jointure
+  2 - Afficher la jointure
+```
