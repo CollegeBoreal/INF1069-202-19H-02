@@ -1,6 +1,6 @@
 * Liste des taches à faires 
 
-:A: Données
+:a: Données
 
 A - Créer un jeu d'essai que l'on peut executer à souhait comportant :
   1 - un shell script permettant de lancer les messages
