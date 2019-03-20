@@ -2,9 +2,10 @@
 
 function main {
    echo "Copy de fichier "
+   i=1; 
    for client in ./client*.json; do
-      (i=1; i++ ;i++); do
-        docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic clients_info < ./client$i.json
+        docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic clients_info < ./client$i.json  
+        i++;
     done
 done
 }
