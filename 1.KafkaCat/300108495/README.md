@@ -52,9 +52,11 @@ $ docker-compose exec kafka bash
 ```
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic clients_info --create --
 partitions 3  --replication-factor 1
+Created topic "clients_info".
 
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic products --create --
 partitions 3  --replication-factor 1
+Created topic "products".
 ```
 
 ### :three: Creation de fichier JSON :
@@ -85,10 +87,10 @@ et vous pouvez ajouter les autres fichier de client$.json avec un de ces lignes
 ```
 et la meme chose pour le fichier de product$.json
 ```
-{ "name"   : "Scarf", "sku"    : "20223", "ticket" : { "price" : 25 , "date" : "20-02-2019" }}
-{ "name"   : "pants", "sku"    : "20224", "ticket" : { "price" : 56 , "date" : "10-02-2019" }}
-{ "name"   : "shirt", "sku"    : "20225", "ticket" : { "price" : 13 , "date" : "20-02-2019" }}
-{ "name"   : "dress-pinky", "sku"   : "20226", "ticket" : { "price" : 189.78 , "date" : "20-02-2019" }}
+{ "name"   : "Scarf", "sku"    : "20223", "ticket" : { "price" : 25 , "product_date" : "20-02-2019" }}
+{ "name"   : "pants", "sku"    : "20224", "ticket" : { "price" : 56 ,"product_date" : "10-02-2019" }}
+{ "name"   : "shirt", "sku"    : "20225", "ticket" : { "price" : 13 , "product_date" : "20-02-2019" }}
+{ "name"   : "dress-pinky", "sku"   : "20226", "ticket" : { "price" : 189.78 , "product_date" : "20-02-2019" }}
 ```
 il faut creer des jeux.sh pour chaque topic 
 pour clients_info
@@ -143,6 +145,8 @@ Copy de fichier
 
 * Pour voir le resultat vous pouvez voir dans le site http://10.13.237.13:9021/management/clusters
 
+photo
+
 
 ### Creation d'un nouveau Stream :
 
@@ -157,18 +161,41 @@ Creaton d'un nouveau Stream du topic `clients_info`
 
 ```
 ksql> CREATE STREAM ksql_clientsinfo (name string, sku bigint, shipTo struct< name string, address string>) WITH (KAFKA_TOPIC='clients_info', VALUE_FORMAT='JSON');
+
+ Message
+----------------
+ Stream created
+
 ```
 
 Pour voir tous  les info des clients :
 
 ```
 ksql> SELECT * FROM ksql_clientsinfo ;
+
+1553104904755 | null | John Smith | 20223 | {NAME=Jane Smith, ADDRESS=123 Maple Street}
+1553104908552 | null | Lele Pos | 20225 | {NAME=Amelie, ADDRESS=18 jane}
+1553104912303 | null | Safaa Zaoui | 20227 | {NAME=Safaa Zaoui, ADDRESS=196 wellington st, toronto}
+1553104897173 | null | Lele Pos | 20225 | {NAME=Amelie, ADDRESS=18 jane}
+1553104918027 | null | Frank lil | 20224 | {NAME=Jessi, ADDRESS=154 Webster}
+1553104869991 | null | Amelie Dubois | 20228 | {NAME=Amelie Dubois, ADDRESS=65 gorgia victoria street }
+
 ```
 
 ALors pour Decrire ce stream :
 
 ```
 ksql> DESCRIBE ksql_clientsinfo;
+
+ Field   | Type
+-----------------------------------------------------------------
+ ROWTIME | BIGINT           (system)
+ ROWKEY  | VARCHAR(STRING)  (system)
+ NAME    | VARCHAR(STRING)
+ SKU     | BIGINT
+ SHIPTO  | STRUCT<NAME VARCHAR(STRING), ADDRESS VARCHAR(STRING)>
+-----------------------------------------------------------------
+
 ```
 
 
@@ -176,23 +203,28 @@ ksql> DESCRIBE ksql_clientsinfo;
 #### Créer une table d'apres le topic products :
 
 ```
-ksql> CREATE TABLE ksql_products (name STRING, sku bigint ,ticket STRUCT< price BIGINT, date DATE>) WITH  (KAFKA_TOPIC='products',VALUE_FORMAT='JSON');
+ksql> CREATE TABLE ksql_products (name STRING, sku bigint ,ticket STRUCT< price BIGINT, product_date BIGINT>) WITH  (KAFKA_TOPIC='products',VALUE_FORMAT='JSON', KEY='sku');
+ 
+  Message
+---------------
+ Table created
+---------------
+
 ```
 Pour voir tous les infos de cette table :
 
 ```
 ksql> SELECT * FROM ksql_products;
 ```
-Pour convertir la table qu'on a cree a un stream :
+
+
+Pour faire la jointure entre le Stream ``` ksql_clientsinfo```et La table ``` ksql_products``` :
+```
+SELECT * FROM ksql_products PR \
+         LEFT OUTER JOIN \
+         ksql_clientsinfo CI \
+         ON PR.name = CI.name \
+WHERE  PR.sku = CI.sku;
 
 ```
-ksql> CREATE STREAM ksql_productsstream (name string, sku bigint, price bigint, date bigint ) WITH (KAFKA_TOPIC='products', VALUE_FORMAT='JSON');
-```
-
-Pour metter ce stream global et pas de partition :
-
-```
-ksql> CREATE STREAM ksql_productsstream  AS SELECT * from ksql_productsstream WHERE ROWTIME is not null PARTITION BY KEYCOL;
-```
-
 
