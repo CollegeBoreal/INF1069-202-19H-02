@@ -56,4 +56,9 @@ Sortir de kafka pour changer les fichiers séparemment
 nano services.json
 nano clients.json
 ```
+Entrer dans ksql:
+``` 
+docker-compose exec ksql-cli ksql http://ksql-server:8088 
+```
+Dans 1er terminal faire jeu sh.jeu1.sh et ouvrire un 2eme terminal pour tester :
   
