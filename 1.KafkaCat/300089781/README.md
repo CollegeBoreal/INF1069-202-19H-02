@@ -98,6 +98,8 @@ ksql> show tables;
 ```
 ksql> CREATE STREAM repas \
       (name STRING, \
+	      client STRING, \
+	      eta BIGINT, \
        ingredients STRUCT< \
        quantity BIGINT, \
        name STRING, \
