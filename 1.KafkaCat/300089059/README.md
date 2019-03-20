@@ -37,14 +37,14 @@ $ docker-compose up -d
  
 
  
- 4-Executer
+ -Executer
  
  ``` 
 $ docker network ls
 $ docker run --tty --network 300089059_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -L
 ```
 
-5-Aller sur kafka bash
+-Aller sur kafka bash
 
 ``` 
 docker-compose exec kafka bash 
@@ -57,7 +57,7 @@ docker-compose exec ksql-cli ksql http://ksql-server:8088
 
 ```
 
-6-Creer les topics
+-Creer les topics
 ``` 
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic services --create --partitions 3 --replication-factor 1
 Created topic "services" 
