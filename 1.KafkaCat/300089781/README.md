@@ -34,6 +34,7 @@ $ nano client.json
 {"client": "Jo", "aime": {"quantity": 1, "name": "Crock Pot Roast"}}
 {"client": "Jess", "aime": {"quantity": 1, "name": "Roasted Asparagus"}}
 {"client": "Jane", "aime": {"quantity": -1, "name": "Chicken salad"}}
+...
 ```
 ### Créer le stream "client"
 ```
