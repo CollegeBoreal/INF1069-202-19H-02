@@ -6,7 +6,7 @@ function main {
    for client in ./client*.json; do
         docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic clients_info < ./client$i.json  
         i++;
-    done
+    
 done
 }
 
