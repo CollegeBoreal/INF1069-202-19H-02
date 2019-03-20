@@ -10,18 +10,18 @@
 
 :a: Données
 
-:one: - Créer un jeu d'essai que l'on peut éxecuter à souhait comportant :
+:one: - Créer un jeu d'essai que l'on peut éxecuter à souhait comportant : (statique)
 ```
   1 - un shell script permettant de lancer les messages
   2 - plusieurs fichiers de données (au moins cinq) permettant une visibilité sur le flux des messages
-  3 - ce jeu d'essai sera de type TABLE (statique)
+  3 - ce jeu d'essai sera de type TABLE 
 ```
 
-:two: - Créer un jeu d'essai que l'on peut éxecuter à souhait comportant :
+:two: - Créer un jeu d'essai que l'on peut éxecuter à souhait comportant : (volatile)
 ```
   1 - un shell script permettant de lancer les messages
   2 - plusieurs fichiers de données (au moins cinq) permettant une visibilité sur le flux des messages
-  3 - ce jeu d'essai sera de type STREAM (volatile)
+  3 - ce jeu d'essai sera de type STREAM 
 ```
 
 :b: Flux (KSQL)
