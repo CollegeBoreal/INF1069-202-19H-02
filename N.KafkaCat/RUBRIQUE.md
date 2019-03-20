@@ -12,31 +12,35 @@
 
 :one: - Créer un jeu d'essai que l'on peut éxecuter à souhait comportant : (statique)
 ```
-  1 - un shell script permettant de lancer les messages
-  2 - plusieurs fichiers de données (au moins cinq) permettant une visibilité sur le flux des messages
-  3 - ce jeu d'essai sera de type TABLE 
+  0 - un shell script permettant de lancer les messages
+  1 - plusieurs fichiers de données permettant une visibilité sur le flux des messages
+  2 - ce jeu d'essai sera de type TABLE 
+  3 - Le jeu de données est élaboré (au moins cinq fichiers) 
 ```
 
 :two: - Créer un jeu d'essai que l'on peut éxecuter à souhait comportant : (volatile)
 ```
-  1 - un shell script permettant de lancer les messages
-  2 - plusieurs fichiers de données (au moins cinq) permettant une visibilité sur le flux des messages
-  3 - ce jeu d'essai sera de type STREAM 
+  0 - un shell script permettant de lancer les messages
+  1 - plusieurs fichiers de données (au moins cinq) permettant une visibilité sur le flux des messages
+  2 - ce jeu d'essai sera de type STREAM 
+  3 - Le jeu de données est élaboré (au moins cinq fichiers) 
 ```
 
 :b: Flux (KSQL)
 
 :three: - Créer une TABLE en KSQL
 ```
-  1 - Créer une commande KSQL permettant la création d'une TABLE
-  3 - afficher son contenu en utilisant la commande SELECT
+  0 - Créer une commande KSQL permettant la création d'une TABLE
+  1 - afficher son contenu en utilisant la commande SELECT
+  2 - la création KSQL comporte un objet JSON imbriqué (STRUCT) 
+  3 - la création KSQL montre une gestion des dates
 ```
 
 :four: - Créer un STREAM en KSQL
 ```
-  1 - Créer une commande KSQL permettant la création d'un STREAM
-  2 - La commande doit mettre en valeur la clé de la table
-  3 - afficher son contenu en utilisant la commande SELECT
+  0 - Créer une commande KSQL permettant la création d'un STREAM
+  1 - afficher son contenu en utilisant la commande SELECT
+  3 - La commande doit mettre en valeur la clé de la TABLE à lier 
 ```
 
 :ab: - Composition (KSQL JOIN)
@@ -45,8 +49,9 @@
   2 - Afficher la jointure
 ```
 
-:100: - Structure - Les commandes KSQL pourraient [Point en plus]
+:100: - Présentation [Point en plus]
 ```
-  1 - comporter un objet JSON imbriqué (STRUCT) 
-  2 - montrer une gestion des dates
+  1 - Comporte un fichier README.md
+  2 - Comporte toutes les commandes bash et KSQL
+  2 - Comporte toutes les commandes bash et KSQL
 ```
