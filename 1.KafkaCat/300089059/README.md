@@ -57,6 +57,7 @@ nano services.json
 nano clients.json
 ```
 Entrer dans ksql:
-``` docker-compose exec ksql-cli ksql http://ksql-server:8088 
+``` 
+docker-compose exec ksql-cli ksql http://ksql-server:8088 
 ```
   
