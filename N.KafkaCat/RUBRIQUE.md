@@ -45,7 +45,7 @@
   2 - Afficher la jointure
 ```
 
-:five: - Structure - Les commandes KSQL pourraient [Point en plus]
+:100: - Structure - Les commandes KSQL pourraient [Point en plus]
 ```
   1 - comporter un objet JSON imbriqué (STRUCT) 
   2 - montrer une gestion des dates
