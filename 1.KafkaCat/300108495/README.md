@@ -145,8 +145,11 @@ Copy de fichier
 
 * Pour voir le resultat vous pouvez voir dans le site http://10.13.237.13:9021/management/clusters
 
-photo
+pour Clients_info
+![alt tag](pic1.png)
 
+pour Products
+![alt tag](pic2.png)
 
 ### Creation d'un nouveau Stream :
 
