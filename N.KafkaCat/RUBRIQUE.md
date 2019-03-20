@@ -41,7 +41,7 @@
 
 :ab: - Composition (KSQL JOIN)
 ```
-  1 - À partir du STREAM et de la TABLE, créer un jointure
+  1 - À partir du STREAM et de la TABLE, créer une jointure
   2 - Afficher la jointure
 ```
 
