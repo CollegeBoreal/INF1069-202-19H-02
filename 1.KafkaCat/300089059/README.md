@@ -72,6 +72,22 @@ Sortir de kafka pour changer les fichiers séparemment
 nano services.json
 nano clients.json
 ```
+Dans nano saisir ce code
+```
+#!/bin/bash
+
+function main {
+        echo "qwerty"
+for service in ./services*.json
+ do
+        docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic services < $service
+done
+}
+
+main
+```
+
+
 Entrer dans ksql:
 ``` 
 docker-compose exec ksql-cli ksql http://ksql-server:8088 
