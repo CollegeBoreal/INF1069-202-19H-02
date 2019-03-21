@@ -114,16 +114,12 @@ ksql> CREATE STREAM repas \
 ```
 (1er terminal)
 ksql> select * from repas;
-1552588012407 | null | Crock Pot Roast | {QUANTITY=1, NAME= beef roast, TYPE=Meat}
-1552588418594 | null | Roasted Asparagus | {QUANTITY=5, NAME=asparagus, TYPE=Produce}
-1552588199980 | null | Crock Pot Roast | {QUANTITY=1, NAME= beef roast, TYPE=Meat}
-1552588208184 | null | Chicken salad | {QUANTITY=3, NAME=skinless, boneless chicken breasts, TYPE=Meat}
-1552588211963 | null | Crock Pot Roast | {QUANTITY=1, NAME= beef roast, TYPE=Meat}
-1552588220435 | null | Chicken salad | {QUANTITY=3, NAME=skinless, boneless chicken breasts, TYPE=Meat}
-1552588225112 | null | Crock Pot Roast | {QUANTITY=1, NAME= beef roast, TYPE=Meat}
-1552588233591 | null | Chicken salad | {QUANTITY=3, NAME=skinless, boneless chicken breasts, TYPE=Meat}
-1552588237367 | null | Crock Pot Roast | {QUANTITY=1, NAME= beef roast, TYPE=Meat}
-1552588443476 | null | Roasted Asparagus | {QUANTITY=5, NAME=asparagus, TYPE=Produce}
+1553191266415 | null | Roasted Asparagus | Jess | null | {QUANTITY=5, NAME=asparagus, TYPE=Produce}
+1553191266422 | null | French toast | Johnny | 1553970944 | {QUANTITY=1, NAME=breakfast, TYPE=bread}
+1553191271821 | null | Crock Pot Roast | Jo | 1553279744 | {QUANTITY=1, NAME= beef roast, TYPE=Meat}
+1553191275905 | null | Roasted Asparagus | Jess | 1553711744 | {QUANTITY=5, NAME=asparagus, TYPE=Produce}
+1553191279736 | null | Chicken salad | Jane | 1553798144 | {QUANTITY=3, NAME=skinless, boneless chicken breasts, TYPE=Meat}
+1553191283758 | null | Mac N Cheese | Jack | 1553884544 | {QUANTITY=2, NAME=mac n cheese, TYPE=pasta}
 ```
 ```
 (2e terminal)
