@@ -6,6 +6,31 @@ Le but de l'activité cinsiste à créeer un jeu d'essai permettant de manipuler
 SET 'auto.offset.reset' = 'earliest';
 
 
+
+
+### 3. Accedez a votre bash de Kafaka
+
+```
+$ docker-compose exec kafka bash 
+```
+
+### 4. Création des topics
+
+* Bus Schedule
+
+```
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic bus-sched --create --partitions 3 --replication-factor 1
+```
+
+* Bus Events
+
+```
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic bus-events --create --partitions 5 --replication-factor 1
+```
+
+----------
+
+
 ## Load files (kafka-console-producer)
 Essayer avec la commande kafka-console-producer et `cat:
 
