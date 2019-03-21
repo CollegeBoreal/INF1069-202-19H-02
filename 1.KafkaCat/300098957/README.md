@@ -85,6 +85,32 @@ ksql> SELECT BUS_ID, ROUTE_ID, TIMESTAMPTOSTRING(TIMESTAMP, 'yyyy-MM-dd  HH:mm:s
 
 ----------
 
+### 5. Accedez a votre bash de Kafaka
+
+```
+$ docker-compose exec kafka bash 
+```
+
+### 6. Accedez a votre bash de Kafaka
+
+```
+$ kafka-console-consumer --bootstrap-server kafka:9092 --topic bus-sched --from-beginning
+{ "ROUTE_ID" :  6 , "STOP_NUM" : 266 , "ETA" : 1553216400000 }
+{ "ROUTE_ID" :  6 , "STOP_NUM" : 925 , "ETA" : 1553220000000 }
+{ "ROUTE_ID" :  6 , "STOP_NUM" : 256 , "ETA" : 1553191200000 }
+{ "ROUTE_ID" :  6 , "STOP_NUM" : 231 , "ETA" : 1553194800000 }
+{ "ROUTE_ID" :  6 , "STOP_NUM" : 243 , "ETA" : 1553202000000 }
+{ "ROUTE_ID" :  6 , "STOP_NUM" : 15128 , "ETA" : 1553176800000 }
+{ "ROUTE_ID" :  6 , "STOP_NUM" : 1467 , "ETA" : 1553184000000 }
+{ "ROUTE_ID" :  6 , "STOP_NUM" : 247 , "ETA" : 1553187600000 }
+{ "ROUTE_ID" :  6 , "STOP_NUM" : 261 , "ETA" : 1553198400000 }
+{ "ROUTE_ID" :  6 , "STOP_NUM" : 268 , "ETA" : 1553212800000 }
+{ "ROUTE_ID" :  6 , "STOP_NUM" : 15129 , "ETA" : 1553180400000 }
+{ "ROUTE_ID" :  6 , "STOP_NUM" : 238 , "ETA" : 1553209200000 }
+```
+
+----------
+
 
 
 
