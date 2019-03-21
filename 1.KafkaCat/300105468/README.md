@@ -96,7 +96,7 @@ function main {
    echo "Copy de fichier"
    for chanteur in chanteur*.json
    do
-     docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic chanteurs<  ./$chanteur
+     docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic chanteurs <  ./$chanteur
    done
 }
 
@@ -111,7 +111,7 @@ function main {
    echo "Copy de fichier"
    for chanson in chanson*.json
    do
-     docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic chansons<  ./$chanson
+     docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic chansons <  ./$chanson
    done
 }
 
