@@ -139,7 +139,7 @@ $ kafka-console-consumer --bootstrap-server kafka:9092 --topic bus-sched --from-
 ----------
 
 
-
+https://docs.confluent.io/current/ksql/docs/developer-guide/syntax-reference.html#tables
 
 
 
