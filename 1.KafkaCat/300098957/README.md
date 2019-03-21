@@ -28,7 +28,38 @@ root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic bus-sched --creat
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic bus-events --create --partitions 3 --replication-factor 1
 ```
 
+
+
+
+### Creation d'un nouveau Stream :
+
+* Ouvrir KSQL CLI :
+
+```
+$ docker-compose exec ksql-cli ksql http://ksql-server:8088 
+```
+
+
+* Creer un nouveau Stream du topic bus-sched
+
+```
+ksql> CCREATE TABLE BUS_SCHEDULE (ROUTE_ID INTEGER, \
+                           STOP_NUM INTEGER, \
+                           ETA BIGINT) \
+                     WITH (VALUE_FORMAT='JSON', \
+                           KAFKA_TOPIC='bus-sched', \
+                          KEY='STOP_NUM');
+```
+
+
+
+
+
 ----------
+
+
+
+
 
 
 ## Load files (kafka-console-producer)
