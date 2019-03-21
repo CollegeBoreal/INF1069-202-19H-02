@@ -85,7 +85,7 @@ ksql> SELECT BUS_ID, ROUTE_ID, TIMESTAMPTOSTRING(TIMESTAMP, 'yyyy-MM-dd  HH:mm:s
 ```
 ksql> CREATE STREAM BUS_EVENTS_WITH_KEY \
           WITH (VALUE_FORMAT='AVRO', \
-                KAFKA_TOPIC='bus-events') AS \
+                KAFKA_TOPIC='bus-events-with-key') AS \
           SELECT BUS_ID, CAST(ROUTE_ID AS STRING) AS ID, TIMESTAMP, LAST_STOP \
                 FROM BUS_EVENTS PARTITION BY ID;
 ```
