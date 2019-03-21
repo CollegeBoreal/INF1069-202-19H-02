@@ -51,6 +51,9 @@ ksql> CREATE TABLE BUS_SCHEDULE (ROUTE_ID INTEGER, \
                           KEY='STOP_NUM');
 ```
 
+```
+ksql> SELECT ROUTE_ID, STOP_NUM, TIMESTAMPTOSTRING(ETA, 'yyyy-MM-dd  HH:mm:ss') FROM BUS_SCHEDULE;
+```
 
 * Creer un nouveau Stream du topic bus-events
 
@@ -65,6 +68,18 @@ ksql> CREATE STREAM BUS_EVENTS (BUS_ID INTEGER, \
 
 ```
 ksql> SELECT BUS_ID, ROUTE_ID, TIMESTAMPTOSTRING(TIMESTAMP, 'yyyy-MM-dd  HH:mm:ss'), LAST_STOP FROM BUS_EVENTS;
+1 | 6 | 2019-03-21  14:00:10 | 925
+1 | 6 | 2019-03-22  00:00:10 | 266
+1 | 6 | 2019-03-22  01:00:10 | 925
+1 | 6 | 2019-03-22  02:00:10 | 925
+1 | 6 | 2019-03-21  15:00:10 | 925
+1 | 6 | 2019-03-21  16:01:40 | 925
+1 | 6 | 2019-03-21  18:00:10 | 925
+1 | 6 | 2019-03-21  18:00:10 | 925
+1 | 6 | 2019-03-21  19:00:10 | 925
+1 | 6 | 2019-03-21  20:00:10 | 268
+1 | 6 | 2019-03-21  21:00:10 | 925
+1 | 6 | 2019-03-21  23:00:10 | 925
 ```
 
 
