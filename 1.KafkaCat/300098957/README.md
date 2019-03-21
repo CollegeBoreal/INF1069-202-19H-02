@@ -61,6 +61,13 @@ ksql> CREATE STREAM BUS_EVENTS (BUS_ID INTEGER, \
                           LAST_STOP INTEGER) \
                     WITH (VALUE_FORMAT='JSON', \
                           KAFKA_TOPIC='bus-events');
+```
+
+```
+ksql> SELECT BUS_ID, ROUTE_ID, TIMESTAMPTOSTRING(TIMESTAMP, 'yyyy-MM-dd  HH:mm:ss Z'), LAST_STOP FROM BUS_EVENTS;
+```
+
+
 ----------
 
 
