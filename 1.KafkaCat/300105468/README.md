@@ -94,7 +94,7 @@ Vous allez tapper en suite ce code:
 
 function main {
    echo "Copy de fichier"
-   for client in chanteur*.json
+   for chanteur in chanteur*.json
    do
      docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic chanteurs<  ./$chanteur
    done
@@ -109,7 +109,7 @@ main
 
 function main {
    echo "Copy de fichier"
-   for client in chanson*.json
+   for chanson in chanson*.json
    do
      docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic chansons<  ./$chanson
    done
