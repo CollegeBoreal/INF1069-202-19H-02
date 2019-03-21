@@ -2,9 +2,9 @@
 
 function main {
    echo "Copy de fichier"
-   for i in {1..12}
+   for bus_schedule in bus_schedule*.json
    do
-     cat bus_schedule$i.json
+     docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic bus-sched <  ./$bus_schedule
    done
 }
 
