@@ -225,8 +225,7 @@ Pour faire la jointure entre le Stream ``` ksql_clientsinfo```et La table ``` ks
 SELECT * FROM ksql_products PR \
          LEFT OUTER JOIN \
          ksql_clientsinfo CI \
-         ON PR.name = CI.name \
-WHERE  PR.sku = CI.sku;
+         ON  PR.sku = CI.sku;
 
 ```
 
