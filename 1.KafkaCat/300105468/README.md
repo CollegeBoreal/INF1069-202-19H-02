@@ -130,9 +130,7 @@ $ docker-compose exec ksql-cli ksql http://ksql-server:8088
 ```
 Creaton d'un nouveau Stream du topic chanteurs
 ```
-ksql> CREATE STREAM ksql_chanteurs (platform string, id bigint, lying string,artist string>) WITH (KAFKA_TOPIC='chanteurs', VALUE_FORMAT='JSON');
-
-ksql> CREATE STREAM ksql_chanteurs (platform string, id bigint, lying string< artist string, address string>) WITH (KAFKA_TOPIC='chanteurs', VALUE_FORMAT='JSON');
+ksql> CREATE STREAM ksql_chanteurs (platform string, id bigint, title string, artist string, album string>) WITH (KAFKA_TOPIC='chanteurs', VALUE_FORMAT='JSON');
 ```
 Pour voir tous les info des clients :
 ```
@@ -140,7 +138,7 @@ ksql> SELECT * FROM ksql_chanteurs ;
 ```
 ## Créer une table d'apres le topic chansons :
 ```
-ksql> CREATE TABLE ksql_products (duration bigint, id bigint ,frequence bigint, artist string) WITH  (KAFKA_TOPIC='chansons',VALUE_FORMAT='JSON');
+ksql> CREATE TABLE ksql_chanson (duration bigint, id bigint ,frequence bigint, artist string) WITH  (KAFKA_TOPIC='chansons',VALUE_FORMAT='JSON');
 ```
 Pour voir tous les infos de cette table :
 
