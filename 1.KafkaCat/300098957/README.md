@@ -1,6 +1,9 @@
 # Jeu d'essai
 
-Le but de l'activité cinsiste à créeer un jeu d'essai permettnt de manipuler l'environnement Kafka
+Le but de l'activité cinsiste à créeer un jeu d'essai permettant de manipuler l'environnement Kafka
+
+
+SET 'auto.offset.reset' = 'earliest';
 
 
 ## Load files (kafka-console-producer)

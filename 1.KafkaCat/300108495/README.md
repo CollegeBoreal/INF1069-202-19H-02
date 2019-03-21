@@ -72,16 +72,16 @@ $ nano client1.json
 
 ```
 
-{ "name"   : "John Smith", "sku"    : "20223", "shipTo" : { "name" : "Jane Smith", "address" : "123 Maple Street" }
+{ "name"   : "John Smith", "sku"    : "20223", "shipTo" : { "name" : "Jane Smith", "address" : "123 Maple Street" }}
 
 ```
 et vous pouvez ajouter les autres fichier de client$.json avec un de ces lignes 
 ```
-{ "name"   : "Frank lil", "sku"    : "20224", "shipTo" : { "name" : "Frank", "address" : "154 Webster" }
-{ "name"   : "Lele Pos", "sku"    : "20225", "shipTo" : { "name" : "LeLe", "address" : "18 jane" }
-{ "name"   : "John Smith", "sku"    : "20226", "shipTo" : { "name" : "Jane Smith", "address" : "123 Maple Street" }
-{ "name"   : "Safaa Zaoui", "sku"    : "20227", "shipTo" : { "name" : "Jessi", "address" : "154 Webster" }
-{ "name"   : "LAmelie Dubois", "sku"    : "20228", "shipTo" : { "name" : "Amelie", "address" : "18 jane" }
+{ "name"   : "Frank lil", "sku"    : "20224", "shipTo" : { "name" : "Frank", "address" : "154 Webster" }}
+{ "name"   : "Lele Pos", "sku"    : "20225", "shipTo" : { "name" : "LeLe", "address" : "18 jane" }}
+{ "name"   : "John Smith", "sku"    : "20226", "shipTo" : { "name" : "Jane Smith", "address" : "123 Maple Street" }}
+{ "name"   : "Safaa Zaoui", "sku"    : "20227", "shipTo" : { "name" : "Jessi", "address" : "154 Webster" }}
+{ "name"   : "LAmelie Dubois", "sku"    : "20228", "shipTo" : { "name" : "Amelie", "address" : "18 jane" }}
 
 
 ```
@@ -106,9 +106,9 @@ et vous tappez ce code :
 function main {
    echo "Copy de fichier "
    for client in ./client*.json; do
-     for ((i=1; i<=6; i++)); do
-        docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic clients_info < ./client$i.json
-       done
+        
+        docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic clients_info < ./client$.json
+     
 done
 }
 
@@ -126,10 +126,9 @@ et taper ce code
 function main {
    echo "Copy de fichier "
    for product in ./product*.json; do
-   for ((i=1; i<=6; i++)); do
-        docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic products < ./product$i.json
-       done
-done
+  
+        docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic products < ./product$.json
+ done
 }
 
 main
@@ -145,8 +144,11 @@ Copy de fichier
 
 * Pour voir le resultat vous pouvez voir dans le site http://10.13.237.13:9021/management/clusters
 
-photo
+pour Clients_info
+![alt tag](pic1.png)
 
+pour Products
+![alt tag](pic2.png)
 
 ### Creation d'un nouveau Stream :
 

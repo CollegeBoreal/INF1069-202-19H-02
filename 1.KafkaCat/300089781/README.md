@@ -133,3 +133,38 @@ foodie
 ```
 ## Regarder le jeu marcher sur Control Center (127.0.0.1:9021)
 ![alt tag](cc.png)
+
+### inner join problem...
+```
+ksql> describe repas;
+
+Name                 : REPAS
+ Field       | Type                                                                
+-----------------------------------------------------------------------------------
+ ROWTIME     | BIGINT           (system)                                           
+ ROWKEY      | VARCHAR(STRING)  (system)                                           
+ NAME        | VARCHAR(STRING)                                                     
+ CLIENT      | VARCHAR(STRING)                                                     
+ ETA         | BIGINT                                                              
+ INGREDIENTS | STRUCT<QUANTITY BIGINT, NAME VARCHAR(STRING), TYPE VARCHAR(STRING)> 
+-----------------------------------------------------------------------------------
+For runtime statistics and query details run: DESCRIBE EXTENDED <Stream,Table>;
+ksql> describe client;
+
+Name                 : CLIENT
+ Field   | Type                                          
+---------------------------------------------------------
+ ROWTIME | BIGINT           (system)                     
+ ROWKEY  | VARCHAR(STRING)  (system)                     
+ CLIENT  | VARCHAR(STRING)                               
+ AIME    | STRUCT<QUANTITY BIGINT, NAME VARCHAR(STRING)> 
+---------------------------------------------------------
+For runtime statistics and query details run: DESCRIBE EXTENDED <Stream,Table>;
+ksql> SELECT * FROM repas INNER JOIN client ON client;
+Failed to prepare statement: Field CLIENT is ambiguous.
+Caused by: Field CLIENT is ambiguous.
+ksql> SELECT * FROM repas INNER JOIN client ON client.client=repas.client;
+Source table (CLIENT) key column (AIME) is not the column used in the join criteria (CLIENT).
+ksql> SELECT * FROM client INNER JOIN repas ON client.client=repas.client;
+Join between invalid operands requested: left type: KTABLE, right type: KSTREAM
+```
