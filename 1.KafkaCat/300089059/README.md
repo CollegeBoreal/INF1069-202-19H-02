@@ -72,6 +72,10 @@ Sortir de kafka pour changer les fichiers séparemment
 nano services.json
 nano clients.json
 ```
+Cree jeu1.sh
+``` 
+nano jeu1.sh
+```
 Dans nano saisir ce code
 ```
 #!/bin/bash
