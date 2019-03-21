@@ -25,7 +25,7 @@ root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic bus-sched --creat
 * Bus Events
 
 ```
-root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic bus-events --create --partitions 5 --replication-factor 1
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic bus-events --create --partitions 3 --replication-factor 1
 ```
 
 ----------
