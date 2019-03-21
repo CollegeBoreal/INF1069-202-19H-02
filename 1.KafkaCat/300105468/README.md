@@ -131,6 +131,8 @@ $ docker-compose exec ksql-cli ksql http://ksql-server:8088
 Creaton d'un nouveau Stream du topic chanteurs
 ```
 ksql> CREATE STREAM ksql_chanteurs (platform string, id bigint, lying string,artist string>) WITH (KAFKA_TOPIC='chanteurs', VALUE_FORMAT='JSON');
+
+ksql> CREATE STREAM ksql_chanteurs (platform string, id bigint, lying string< artist string, address string>) WITH (KAFKA_TOPIC='chanteurs', VALUE_FORMAT='JSON');
 ```
 Pour voir tous les info des clients :
 ```
