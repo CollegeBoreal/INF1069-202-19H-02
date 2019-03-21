@@ -129,6 +129,10 @@ foodie
 ```
 ## Regarder le jeu marcher sur Control Center (127.0.0.1:9021)
 ![alt tag](cc.png)
+## Si Control Center ne fonctionne pas, utiliser kafka consumer:
+```
+root@kafka:/# kafka-console-consumer --bootstrap-server kafka:9092 --topic repas
+```
 
 ### inner join problem...
 ```
