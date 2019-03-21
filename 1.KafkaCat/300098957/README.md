@@ -40,7 +40,7 @@ $ docker-compose exec ksql-cli ksql http://ksql-server:8088
 ```
 
 
-* Creer un nouveau Stream du topic bus-sched
+* Creer une nouvelle table du topic bus-sched
 
 ```
 ksql> CREATE TABLE BUS_SCHEDULE (ROUTE_ID INTEGER, \
@@ -52,9 +52,15 @@ ksql> CREATE TABLE BUS_SCHEDULE (ROUTE_ID INTEGER, \
 ```
 
 
+* Creer un nouveau Stream du topic bus-events
 
-
-
+```
+ksql> CREATE STREAM BUS_EVENTS (BUS_ID INTEGER, \
+                          ROUTE_ID INTEGER, \
+                          TIMESTAMP BIGINT, \
+                          LAST_STOP INTEGER) \
+                    WITH (VALUE_FORMAT='JSON', \
+                          KAFKA_TOPIC='bus-events');
 ----------
 
 
