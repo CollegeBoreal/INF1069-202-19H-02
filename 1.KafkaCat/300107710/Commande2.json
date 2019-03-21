@@ -1,1 +1,1 @@
-{"client_id": "1002", "Commande": {"Plat_name": "Couscous", "Quantity": 1, "Paiement":"Visa"}}
+{"client_id": "1002", "Commande": {"Plat_name": "Couscous", "Quantite":"1", "Paiement":"Visa"}}
