@@ -15,6 +15,8 @@
 
 https://docs.confluent.io/current/ksql/docs/developer-guide/syntax-reference.html
 
+https://docs.confluent.io/current/ksql/docs/troubleshoot-ksql.html
+
 
 
 ## Lecture:
