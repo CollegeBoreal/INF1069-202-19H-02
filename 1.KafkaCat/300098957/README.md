@@ -82,6 +82,11 @@ ksql> SELECT BUS_ID, ROUTE_ID, TIMESTAMPTOSTRING(TIMESTAMP, 'yyyy-MM-dd  HH:mm:s
 1 | 6 | 2019-03-21  23:00:10 | 925
 ```
 
+### Afficher le topic du debut en KSQL
+
+```
+ksql> PRINT 'bus-events' FROM BEGINNING;
+```
 
 ----------
 
