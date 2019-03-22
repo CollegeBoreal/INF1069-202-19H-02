@@ -17,6 +17,8 @@ https://docs.confluent.io/current/ksql/docs/developer-guide/syntax-reference.htm
 
 https://docs.confluent.io/current/ksql/docs/troubleshoot-ksql.html
 
+[KSQL shows no data for a query against TABLE if the source messages are not keyed.](https://github.com/confluentinc/ksql/issues/1405)
+
 
 
 ## Lecture:
