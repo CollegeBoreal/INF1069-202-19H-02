@@ -40,18 +40,20 @@
 ```
   0 - Créer une commande KSQL permettant la création d'un STREAM
   1 - afficher son contenu en utilisant la commande SELECT
+  2 - la création KSQL comporte un objet JSON imbriqué (STRUCT) 
   3 - La commande doit mettre en valeur la clé de la TABLE à lier 
-```
-
-:ab: - Composition (KSQL JOIN)
-```
-  1 - À partir du STREAM et de la TABLE, créer une jointure
-  2 - Afficher la jointure
 ```
 
 :100: - Présentation [Point en plus]
 ```
-  1 - Comporte un fichier README.md
-  2 - Comporte toutes les commandes bash et KSQL
-  2 - Comporte toutes les commandes bash et KSQL
+  0 - Comporte un fichier README.md
+  1 - Comporte des commandes bash
+  2 - Comporte des commandes KSQL
+  3 - Comporte des resultats de requestes KSQL
+```
+
+:ab: - Composition (KSQL JOIN)
+```
+  1 - À partir du STREAM ou de la TABLE, créer une jointure
+  2 - Afficher le résultat de la jointure
 ```
