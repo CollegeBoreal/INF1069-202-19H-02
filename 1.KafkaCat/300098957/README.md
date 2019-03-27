@@ -40,10 +40,10 @@ $ docker-compose exec ksql-cli ksql http://ksql-server:8088
 ```
 
 
-* Creer une nouvelle table du topic bus-sched
+* Creer un nouveau stream du topic bus-sched
 
 ```
-ksql> CREATE TABLE BUS_SCHEDULE (ROUTE_ID INTEGER, \
+ksql> CREATE STREAM BUS_SCHEDULE (ROUTE_ID INTEGER, \
                            STOP_NUM INTEGER, \
                            ETA BIGINT) \
                      WITH (VALUE_FORMAT='JSON', \
@@ -102,6 +102,24 @@ Format:AVRO
 3/21/19 10:30:55 PM UTC, 6, {"BUS_ID": 1, "ID": "6", "TIMESTAMP": 1553198410000, "LAST_STOP": 268}
 3/21/19 10:30:57 PM UTC, 6, {"BUS_ID": 1, "ID": "6", "TIMESTAMP": 1553202010000, "LAST_STOP": 925}
 3/21/19 11:21:41 PM UTC, 6, {"BUS_ID": 1, "ID": "6", "TIMESTAMP": 1553212810000, "LAST_STOP": 266}
+```
+
+```
+ksql> CREATE TABLE BUS_EVENTS_TABLE \
+                     WITH (VALUE_FORMAT='AVRO', \
+                           KAFKA_TOPIC='bus-events-with-key', \
+                          KEY='ID');
+```
+
+```
+ksql> select * from BUS_EVENTS_TABLE;
+1553203821628 | 6 | 1 | 6 | 1553176810000 | 925
+1553203823487 | 6 | 1 | 6 | 1553212810000 | 266
+1553203827188 | 6 | 1 | 6 | 1553220010000 | 925
+```
+
+```
+ksql> SELECT BUS_ID, ID, TIMESTAMPTOSTRING(TIMESTAMP, 'yyyy-MM-dd  HH:mm:ss'), LAST_STOP FROM BUS_EVENTS_TABLE;
 ```
 
 ### Afficher le topic du debut en KSQL
