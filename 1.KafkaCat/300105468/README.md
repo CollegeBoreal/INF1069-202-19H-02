@@ -120,6 +120,8 @@ main
 Pour tester votre fichier de json vous devez juste faire:
 ```
 $ sh jeu*.sh
+Copy de fichier
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ```
 ## * Pour voir le resultat vous pouvez voir dans le site http://10.13.237.14:9021/management/clusters
 
@@ -128,13 +130,23 @@ Premièrement il faut aller premierment au KSQL Bash :
 ```
 $ docker-compose exec ksql-cli ksql http://ksql-server:8088
 ```
-Creaton d'un nouveau Stream du topic chanteurs
+## Creaton d'un nouveau Stream du topic chanteurs
 ```
-ksql> CREATE STREAM ksql_chanteurs (platform string, id bigint, title string, artist string, album string>) WITH (KAFKA_TOPIC='chanteurs', VALUE_FORMAT='JSON');
+ksql> CREATE STREAM ksql_chanteurs (platform string, id string, title string, artist string, album string) WITH (KAFKA_TOPIC='chanteurs', VALUE_FORMAT='JSON');
 ```
 Pour voir tous les info des clients :
 ```
 ksql> SELECT * FROM ksql_chanteurs ;
+```
+## pour voir les streams 
+```
+ksql> show streams ;
+
+ Stream Name    | Kafka Topic | Format
+---------------------------------------
+ KSQL_CHANTEURS | chanteurs   | JSON
+---------------------------------------
+ksql>
 ```
 ## Créer une table d'apres le topic chansons :
 ```

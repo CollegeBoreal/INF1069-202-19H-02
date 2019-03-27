@@ -81,7 +81,7 @@ Dans nano saisir ce code
 #!/bin/bash
 
 function main {
-        echo "qwerty"
+        echo "azerty"
 for service in ./services*.json
  do
         docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic services < $service
@@ -91,6 +91,7 @@ done
 main
 ```
 
+Faire de meme pour jeu2.sh et mettre clients a la place de service
 
 Entrer dans ksql:
 ``` 
@@ -115,4 +116,23 @@ Dans KSQP bash
 ```
 docker-compose exec ksql-cli ksql http://ksql-server:8088
 ```
-Cree le nouveau Stream du topic 
+Creer le nouveau Stream du topic CLIENTS
+```
+CREATE STREAM clients \
+  (client VARCHAR, \
+   information STRUCT < \
+birthday string, address string , phone string > ) \
+  WITH (KAFKA_TOPIC='clients', \
+        VALUE_FORMAT='JSON');
+```
+Cree le stream du topic SERVICE
+```
+CREATE STREAM services \
+  (service VARCHAR, \
+   statut VARCHAR,) \
+  WITH (KAFKA_TOPIC='services', \
+        VALUE_FORMAT='JSON');
+```
+
+
+Creer une table 'client'

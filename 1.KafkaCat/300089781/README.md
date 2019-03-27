@@ -74,7 +74,7 @@ Jane | -1 | Chicken salad
 Jo | 1 | Crock Pot Roast
 ...
 ```
-## Création d'une table 'client'
+### Création d'une table 'client'
 ```
 ksql> CREATE TABLE client \
 >      (client STRING, \
@@ -82,6 +82,7 @@ ksql> CREATE TABLE client \
 >       quantity BIGINT, \
 >       name STRING>) \
 >    WITH (KAFKA_TOPIC='client', VALUE_FORMAT='JSON', KEY='aime');
+
 
  Message       
 ---------------
@@ -98,17 +99,41 @@ ksql> show tables;
 ```
 ksql> CREATE STREAM repas \
       (name STRING, \
-	      client STRING, \
-	      eta BIGINT, \
+       client STRING, \
+       eta BIGINT, \
        ingredients STRUCT< \
        quantity BIGINT, \
        name STRING, \
        type STRING>) \
-    WITH (KAFKA_TOPIC='repas', VALUE_FORMAT='JSON');
+    WITH (KAFKA_TOPIC='repas', VALUE_FORMAT='JSON') 
+    ```
+	
  Message        
 ----------------
  Stream created 
 ----------------    
+```    
+### Creer un nouveau Stream du topic ksql_repas pour ensuite faire la creation d'un autre stream ayant un KEY
+```
+ksql>   CREATE STREAM ksql_repas (name STRING, \
+                          client STRING, \
+                          eta BIGINT, \
+                          ingredients STRUCT< \
+			  quantity BIGINT, \
+			  name STRING, \
+			  type STRING>) \
+                    WITH (VALUE_FORMAT='JSON', \
+                          KAFKA_TOPIC='repas');
+ Message        
+----------------
+ Stream created 
+----------------    
+    
+ksql>  CREATE STREAM ksql_repas_key \
+    WITH (VALUE_FORMAT='AVRO', \
+    KAFKA_TOPIC='repas_with_key') AS \
+          SELECT name, client, eta, ingredients->quantity, ingredients->name, ingredients->type \
+                FROM ksql_repas PARTITION BY client;
 ```
 ## Tester le jeu dans les 2 terminals:
 ```
