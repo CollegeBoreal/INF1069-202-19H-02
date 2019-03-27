@@ -49,9 +49,11 @@ root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic commande --create
 Created topic "commande".
 ````
 
-6.  Création de table et Stream
+o  Création du jeu d'essaie
 
-6.1  Création de table client
+````
+$ nano client.json
+````
 ````
 {"client_id":"1001", "client_name":"Jack", "Client_address":{"City":"Toronto", "Street_name":"Church St", "Street_num": 12, "Unit":805}}
 {"client_id":"1002", "client_name":"Paul", "Client_address":{"City":"Toronto", "Street_name":"Yonge St", "Street_num":150, "Unit":615}}
@@ -61,6 +63,30 @@ Created topic "commande".
 {"client_id":"1006", "client_name":"Jane", "Client_address":{"City":"Toronto", "Street_name":"Bay St", "Street_num":1250, "Unit":615}}
 
 ````
+ o  Création du shell script client
+
+````
+$ nanao client.sh
+````
+````
+
+#!/bin/bash
+
+function main {
+   echo "Copy de fichier"
+   for client in client*.json
+   do
+     docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic client <  ./$client
+   done
+}
+
+main
+
+````
+6.  Création de table et Stream
+
+6.1  Création de table client
+
 
 ksql> CREATE TABLE client \
       (client_id INTEGER, \
@@ -80,8 +106,9 @@ ksql> CREATE TABLE client \
 
 6.2 Création de stream commande 
 ````
-fx1.json, fx2.json, fx3.json, …   fx6.json
-
+$ nano commande.json
+````
+````
 {"client_id":"1001", "Commande":{"Plat_name":"Tagine", "Quantite":1, "Paiement":"Espèce"}}
 {"client_id":"1002", "Commande":{"Plat_name":"Couscous", "Quantité":1, "Paiement":"Visa"}}
 {"client_id":"1003", "Commande":{"Plat_name":"Pastilla", "Quantité":1, "Paiement":"Master"}}
@@ -90,3 +117,39 @@ fx1.json, fx2.json, fx3.json, …   fx6.json
 {"client_id":"1006", "Commande":{"Plat_name":"Poisson", "Quantité":1, "Paiement":"Visa"}}
 
 ````
+ o   Création du shell script commande
+ 
+ o  Création du shell script client
+
+````
+$ nanao client.sh
+````
+
+````
+#!/bin/bash
+
+function main {
+   echo "Copy de fichier"
+   for client in client*.json
+   do
+     docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic client <  ./$client
+   done
+}
+
+main
+
+````
+
+````
+bouchichi@Doha MINGW64docker ~/Developer/INF1069-202-19H-02/1.KafkaCat/300107710 (master)
+$ sh Commande.sh
+Hello world
+Commande.sh: line 8: ./commande0.json: No such file or directory
+>>>>>>>>>>>>>>>
+````
+
+
+
+
+ 
+ 
