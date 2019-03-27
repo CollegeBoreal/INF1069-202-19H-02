@@ -81,7 +81,7 @@ Dans nano saisir ce code
 #!/bin/bash
 
 function main {
-        echo "qwerty"
+        echo "azerty"
 for service in ./services*.json
  do
         docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic services < $service
