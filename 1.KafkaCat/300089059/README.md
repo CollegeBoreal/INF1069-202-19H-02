@@ -115,4 +115,6 @@ Dans KSQP bash
 ```
 docker-compose exec ksql-cli ksql http://ksql-server:8088
 ```
-Cree le nouveau Stream du topic 
+Creer le nouveau Stream du topic 
+
+Creer une table 'client'
