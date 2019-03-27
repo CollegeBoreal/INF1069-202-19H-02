@@ -255,6 +255,40 @@ Copy de fichier
 
 [Alt-tag](jeu_commande.png)
 
+Créer Stream commande_key
+````
+ksql> CREATE STREAM commande_key\
+>      (client_id INTEGER, \
+>       Commande STRUCT< \
+>       Plat_name STRING,\
+>       Quantite INTEGER,\
+>      Paiement STRING, TIMESTAMP BIGINT > )\
+>    WITH (KAFKA_TOPIC='commande', VALUE_FORMAT='JSON');
 
+ Message
+----------------
+ Stream created
+----------------
+ksql> DESCRIBE COMMANDE_KEY;
+
+Name                 : COMMANDE_KEY
+ Field     | Type
+
+------------------------------------------------------------------------------------
+-------------------------
+ ROWTIME   | BIGINT           (system)
+
+ ROWKEY    | VARCHAR(STRING)  (system)
+
+ CLIENT_ID | INTEGER
+
+ COMMANDE  | STRUCT<PLAT_NAME VARCHAR(STRING), QUANTITE INTEGER, PAIEMENT VARCHAR(ST
+RING), TIMESTAMP BIGINT>
+------------------------------------------------------------------------------------
+-------------------------
+For runtime statistics and query details run: DESCRIBE EXTENDED <Stream,Table>;
+ksql>
+
+````
 
  
