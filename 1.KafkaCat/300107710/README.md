@@ -89,13 +89,13 @@ main
 
 
 ksql> CREATE TABLE client \
-      (client_id INTEGER, \
-       client_name STRING, \
-       Client_address STRUCT< \
-       City STRING,\
-       Street_name STRING,\
-       Street_num INTEGER,\
-      Unit INTEGER >)\
+       (client_id INTEGER, \
+        client_name STRING, \
+        Client_address STRUCT< \
+        City STRING,\
+        Street_name STRING,\
+        Street_num INTEGER,\
+        Unit INTEGER >)\
     WITH (KAFKA_TOPIC=' client ', VALUE_FORMAT='JSON', KEY=' client_id ');
 ````
  Message
@@ -146,9 +146,32 @@ $ sh Commande.sh
 Hello world
 >>>>>>>>>>>>>>>>
 ````
+````
+bouchichi@Doha MINGW64 ~/Developer/INF1069-202-19H-02/1.KafkaCat/300107710 (master)
+$ sh client.sh
+Copy de fichier
+>>>>>>>>>>>>>>>>
+````
 
 
+````
+ksql> CREATE TABLE client \
+      (client_id INTEGER, \
+       client_name STRING, \
+       Client_address STRUCT< \
+       City STRING,\
+       Street_name STRING,\
+       Street_num INTEGER,\
+      Unit INTEGER >)\
+    WITH (KAFKA_TOPIC=' client ', VALUE_FORMAT='JSON', KEY=' client_id ');
+````
 
+````
+ Message
+----------------
+ table created
+----------------
+````
 
- 
+````
  
