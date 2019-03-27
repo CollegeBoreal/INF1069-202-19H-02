@@ -59,7 +59,7 @@ docker-compose exec ksql-cli ksql http://ksql-server:8088
 
 -Creer les topics
 ``` 
-root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic services --create --partitions 3 --replication-factor 1
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic service --create --partitions 3 --replication-factor 1
 Created topic "services" 
 ```
 
