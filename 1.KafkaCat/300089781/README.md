@@ -115,7 +115,7 @@ ksql> CREATE STREAM repas \
 ```    
 ### Creer un nouveau Stream du topic ksql_repas pour ensuite faire la creation d'un autre stream ayant un KEY
 ```
-    CREATE STREAM ksql_repas (name STRING, \
+ksql>   CREATE STREAM ksql_repas (name STRING, \
                           client STRING, \
                           eta BIGINT, \
                           ingredients STRUCT< \
@@ -124,9 +124,12 @@ ksql> CREATE STREAM repas \
 			  type STRING>) \
                     WITH (VALUE_FORMAT='JSON', \
                           KAFKA_TOPIC='repas');
+ Message        
+----------------
+ Stream created 
+----------------    
     
-    
-    CREATE STREAM ksql_repas_key \
+ksql>  CREATE STREAM ksql_repas_key \
     WITH (VALUE_FORMAT='AVRO', \
     KAFKA_TOPIC='repas_with_key') AS \
           SELECT name, client, eta, ingredients->quantity, ingredients->name, ingredients->type \
