@@ -91,6 +91,7 @@ done
 main
 ```
 
+Faire de meme pour jeu2.sh et mettre clients a la place de service
 
 Entrer dans ksql:
 ``` 
