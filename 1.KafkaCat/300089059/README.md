@@ -103,3 +103,7 @@ sh jeu1.sh
 Clients
 >>>>>>>>>>>>
 ```
+Idem pour service.
+
+
+Voir le resultat sur http://10.13.237.14:9021
