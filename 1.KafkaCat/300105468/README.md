@@ -120,6 +120,8 @@ main
 Pour tester votre fichier de json vous devez juste faire:
 ```
 $ sh jeu*.sh
+Copy de fichier
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ```
 ## * Pour voir le resultat vous pouvez voir dans le site http://10.13.237.14:9021/management/clusters
 
