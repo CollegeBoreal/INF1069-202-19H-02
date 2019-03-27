@@ -205,27 +205,91 @@ ksql> DESCRIBE ksql_clientsinfo;
 #### Créer une table d'apres le topic products :
 
 ```
-ksql> CREATE TABLE ksql_products (name STRING, sku bigint ,ticket STRUCT< price BIGINT, product_date BIGINT>) WITH  (KAFKA_TOPIC='products',VALUE_FORMAT='JSON', KEY='sku');
+ksql> CREATE STREAM ksql_products (NAME STRING, SKU BIGINT ,TICKET STRUCT< PRICE BIGINT, PRODUCT_DATE BIGINT>)\
+       WITH (KAFKA_TOPIC='products',VALUE_FORMAT='JSON');
+```
+le select 
+```
+ksql>SELECT NAME, SKU, TICKET->PRICE, TIMESTAMPTOSTRING(TICKET->PRODUCT_DATE, '
+yyyy-MM-dd HH:mm:ss') FROM ksql_products;
+
+
+T-shirt | 20228 | 40 | null
+Scarf | 20223 | 25 | 2019-03-26 13:35:08
+Braclet | 20224 | 35 | 2019-03-12 13:35:08
+T-shirt | 20228 | 40 | 2019-03-16 13:35:08
+Long-Pants | 20225 | 75 | 2019-03-26 13:35:08
+Dress-Pinky | 20227 | 89 | 2019-03-02 13:35:08
+Scarf | 20223 | 25 | 2019-03-26 13:35:08
+Braclet | 20224 | 35 | 2019-03-12 13:35:08
+Long-Pants | 20225 | 75 | 2019-03-26 13:35:08
+Dress-Pinky | 20227 | 89 | 2019-03-02 13:35:08
+T-shirt | 20228 | 40 | 2019-03-16 13:35:08
+
+```
+creation de stream avec key et partition 
+```
+ksql> CREATE STREAM products_with_key \
+         WITH (VALUE_FORMAT='AVRO', KAFKA_TOPIC='products-with-key') \
+         AS SELECT NAME, CAST(SKU AS STRING) AS ID, TICKET->PRICE, TICKET->PRODUCT_DATE \
+         FROM ksql_products PARTITION BY ID;
+         
  
+ Message
+----------------------------
+ Stream created and running
+
+```
+creation du table
+```
+ksql> CREATE TABLE ksql_products_table \
+      WITH (VALUE_FORMAT='AVRO', \
+      KAFKA_TOPIC='ksql-products-with-key', KEY='ID');
+      
+      
   Message
 ---------------
  Table created
 ---------------
 
+
 ```
+
 Pour voir tous les infos de cette table :
 
 ```
-ksql> SELECT * FROM ksql_products;
+ksql> SELECT * FROM ksql_products_table;
+
+1553708750703 | 20225 | Long-Pants | 20225 | 75 | 1553708324
+1553708754537 | 20227 | Dress-Pinky | 20227 | 89 | 1553708324
+1553708748742 | 20224 | Braclet | 20224 | 35 | 1553708324
+1553709673819 | 20227 | Dress-Pinky | 20227 | 89 | 1553708324
+1553711811611 | 20223 | Scarf | 20223 | 25 | 1553708324
+1553711813625 | 20224 | Braclet | 20224 | 35 | 1553708324
 ```
 
 
-Pour faire la jointure entre le Stream ``` ksql_clientsinfo```et La table ``` ksql_products``` :
+Pour faire la jointure entre le Stream ``` ksql_clientsinfo```et La table ``` ksql_products_table``` :
 ```
-SELECT * FROM ksql_products PR \
+ksql> SELECT * FROM ksql_clientsinfo CI  \
          LEFT OUTER JOIN \
-         ksql_clientsinfo CI \
-         ON  PR.sku = CI.sku;
+         ksql_products_table PR \
+         ON  PR.id = CI.sku;
+         
+         
+ 1553713219712 | 20223 | John Smith | 20223 | {NAME=Jane Smith, ADDRESS=123 Maple
+ Street} | 1553711811611 | 20223 | Scarf | 20223 | 25 | 1553708324
+1553713229313 | 20228 | Amelie Dubois | 20228 | {NAME=Amelie Dubois, ADDRESS=65
+gorgia victoria street } | 1553711821278 | 20228 | T-shirt | 20228 | 40 | 155370
+8324
+1553713227368 | 20227 | Safaa Zaoui | 20227 | {NAME=Safaa Zaoui, ADDRESS=196 wel
+lington st, toronto} | 1553711819361 | 20227 | Dress-Pinky | 20227 | 89 | 155370
+8324
+1553713221609 | 20224 | Frank lil | 20224 | {NAME=Jessi, ADDRESS=154 Webster} |
+1553711813625 | 20224 | Braclet | 20224 | 35 | 1553708324
+1553713223531 | 20225 | Lele Pos | 20225 | {NAME=Amelie, ADDRESS=18 jane} | 1553
+711815576 | 20225 | Long-Pants | 20225 | 75 | 1553708324
+
 
 ```
 
