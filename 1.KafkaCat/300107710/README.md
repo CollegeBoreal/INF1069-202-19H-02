@@ -165,6 +165,8 @@ $ sh Commande.sh
 Hello world
 >>>>>>>>>>>>>>>>
 ````
+[Alt-tag](jeu_commande.png)
+
 
 ````
 bouchichi@Doha MINGW64 ~/Developer/INF1069-202-19H-02/1.KafkaCat/300107710 (master)
