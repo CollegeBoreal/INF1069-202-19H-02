@@ -28,9 +28,8 @@ $ docker-compose up -d
 $ docker network ls
 $ docker run --tty --network 300107710_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -L
 ````
-5.	
-o  Decrire mon environnement
-Il s'agit des cours de change de la banque du canada et sera composé de deux topics:
+5. Decrire mon environnement
+Création de de deux topics:
 -	client
 -	commande
 
@@ -63,48 +62,7 @@ $ nano client.json
 {"client_id":"1006", "client_name":"Jane", "Client_address":{"City":"Toronto", "Street_name":"Bay St", "Street_num":1250, "Unit":615}}
 
 ````
- o  Création du shell script client
-
-````
-$ nanao client.sh
-````
-````
-
-#!/bin/bash
-
-function main {
-   echo "Copy de fichier"
-   for client in client*.json
-   do
-     docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic client <  ./$client
-   done
-}
-
-main
-
-````
-6.  Création de table et Stream
-
-6.1  Création de table client
-
-
-ksql> CREATE TABLE client \
-       (client_id INTEGER, \
-        client_name STRING, \
-        Client_address STRUCT< \
-        City STRING,\
-        Street_name STRING,\
-        Street_num INTEGER,\
-        Unit INTEGER >)\
-    WITH (KAFKA_TOPIC=' client ', VALUE_FORMAT='JSON', KEY=' client_id ');
-````
- Message
-----------------
- Stream created
-----------------
-````
-
-6.2 Création de stream commande 
+ 
 ````
 $ nano commande.json
 ````
@@ -117,15 +75,14 @@ $ nano commande.json
 {"client_id":"1006", "Commande":{"Plat_name":"Poisson", "Quantité":1, "Paiement":"Visa"}}
 
 ````
- o   Création du shell script commande
- 
+
  o  Création du shell script client
 
 ````
 $ nanao client.sh
 ````
-
 ````
+
 #!/bin/bash
 
 function main {
@@ -140,20 +97,49 @@ main
 
 ````
 
+ o   Création du shell script commande
+ 
+ ````
+$ nanao commande.sh
 ````
-bouchichi@Doha MINGW64docker ~/Developer/INF1069-202-19H-02/1.KafkaCat/300107710 (master)
-$ sh Commande.sh
-Hello world
->>>>>>>>>>>>>>>>
+
 ````
+#!/bin/bash
+
+function main {
+   echo "Copy de fichier"
+   for commande in commande*.json
+   do
+     docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic commande <  ./$commande
+   done
+}
+
+main
+
 ````
-bouchichi@Doha MINGW64 ~/Developer/INF1069-202-19H-02/1.KafkaCat/300107710 (master)
-$ sh client.sh
-Copy de fichier
->>>>>>>>>>>>>>>>
+
+6.1  Création de stream commande en KSQL
+
+````
+ksql> CREATE STREAM commande \
+      (client_id INTEGER, \
+       Commande STRUCT< \
+       Plat_name STRING,\
+       Quantite INTEGER,\
+      Paiement STRING>)\
+    WITH (KAFKA_TOPIC='commande', VALUE_FORMAT='JSON');
 ````
 
 
+````
+ Message
+----------------
+ Stream created
+----------------
+
+````
+
+6.1  Création de la table client en KSQL
 ````
 ksql> CREATE TABLE client \
       (client_id INTEGER, \
@@ -174,4 +160,20 @@ ksql> CREATE TABLE client \
 ````
 
 ````
+bouchichi@Doha MINGW64docker ~/Developer/INF1069-202-19H-02/1.KafkaCat/300107710 (master)
+$ sh Commande.sh
+Hello world
+>>>>>>>>>>>>>>>>
+````
+
+````
+bouchichi@Doha MINGW64 ~/Developer/INF1069-202-19H-02/1.KafkaCat/300107710 (master)
+$ sh client.sh
+Copy de fichier
+>>>>>>>>>>>>>>>>
+````
+
+
+
+
  
