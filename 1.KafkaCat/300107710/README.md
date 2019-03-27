@@ -117,10 +117,32 @@ function main {
 main
 
 ````
+6. Ouverture de ksql bach
 
+````
+bouchichi@Doha MINGW64 ~/Developer/INF1069-202-19H-02/1.KafkaCat/300107710 (master)
+$ winpty docker-compose exec ksql-cli ksql http://ksql-server:8088
+
+                  ===========================================
+                  =        _  __ _____  ____  _             =
+                  =       | |/ // ____|/ __ \| |            =
+                  =       | ' /| (___ | |  | | |            =
+                  =       |  <  \___ \| |  | | |            =
+                  =       | . \ ____) | |__| | |____        =
+                  =       |_|\_\_____/ \___\_\______|       =
+                  =                                         =
+                  =  Streaming SQL Engine for Apache Kafka® =
+                  ===========================================
+
+Copyright 2017-2018 Confluent Inc.
+
+CLI v5.1.0, Server v5.1.0 located at http://ksql-server:8088
+
+Having trouble? Type 'help' (case-insensitive) for a rundown of how things work!
+
+ksql>
+````
 6.1  Création de stream commande en KSQL
-
-[Alt-tag](ksql.png)
 
 ````
 ksql> CREATE STREAM commande \
@@ -131,17 +153,47 @@ ksql> CREATE STREAM commande \
       Paiement STRING>)\
     WITH (KAFKA_TOPIC='commande', VALUE_FORMAT='JSON');
 ````
-
-
 ````
  Message
 ----------------
  Stream created
 ----------------
+````
+o. Description du stream commande 
+````
+ksql> DESCRIBE commande;
+
+Name                 : COMMANDE
+ Field     | Type
+-------------------------------------------------------------------------------------------
+ ROWTIME   | BIGINT           (system)
+ ROWKEY    | VARCHAR(STRING)  (system)
+ CLIENT_ID | INTEGER
+ COMMANDE  | STRUCT<PLAT_NAME VARCHAR(STRING), QUANTITE INTEGER, PAIEMENT VARCHAR(STRING)>
+-------------------------------------------------------------------------------------------
+For runtime statistics and query details run: DESCRIBE EXTENDED <Stream,Table>;
+ksql>
+
+````
+````
+ksql> SELECT * FROM COMMANDE;
+
+1553113912810 | null | 1001 | {PLAT_NAME=Tagine, QUANTITE=null, PAIEMENT=Espèce}
+1553113914747 | null | 1002 | {PLAT_NAME=Couscous, QUANTITE=null, PAIEMENT=Visa}
+1553113916676 | null | 1003 | {PLAT_NAME=Pastilla, QUANTITE=null, PAIEMENT=Master}
+1553113918638 | null | 1004 | {PLAT_NAME=Zaalook, QUANTITE=null, PAIEMENT=Visa}
+1553113920611 | null | 1005 | {PLAT_NAME=Poulet, QUANTITE=null, PAIEMENT=Espèce}
+1553113922604 | null | 1006 | {PLAT_NAME=Poisson, QUANTITE=null, PAIEMENT=Visa}
+1553114270437 | null | 1001 | {PLAT_NAME=Tagine, QUANTITE=null, PAIEMENT=Espèce}
+1553114272379 | null | 1002 | {PLAT_NAME=Couscous, QUANTITE=null, PAIEMENT=Visa}
+1553114274354 | null | 1003 | {PLAT_NAME=Pastilla, QUANTITE=null, PAIEMENT=Master}
+1553114276353 | null | 1004 | {PLAT_NAME=Zaalook, QUANTITE=null, PAIEMENT=Visa}
+1553114278299 | null | 1005 | {PLAT_NAME=Poulet, QUANTITE=null, PAIEMENT=Espèce}
+1553114280226 | null | 1006 | {PLAT_NAME=Poisson, QUANTITE=null, PAIEMENT=Visa}
 
 ````
 
-6.1  Création de la table client en KSQL
+6.2  Création de la table client en KSQL
 ````
 ksql> CREATE TABLE client \
       (client_id INTEGER, \
@@ -160,7 +212,31 @@ ksql> CREATE TABLE client \
  table created
 ----------------
 ````
+o. Description de la table client
+````
+ksql> DESCRIBE client;
 
+Name                 : CLIENT
+ Field          | Type
+
+------------------------------------------------------------------------------------
+--------------------------
+ ROWTIME        | BIGINT           (system)
+
+ ROWKEY         | VARCHAR(STRING)  (system)
+
+ CLIENT_ID      | INTEGER
+
+ CLIENT_NAME    | VARCHAR(STRING)
+
+ CLIENT_ADDRESS | STRUCT<CITY VARCHAR(STRING), STREET_NAME VARCHAR(STRING), STREET_N
+UM INTEGER, UNIT INTEGER>
+------------------------------------------------------------------------------------
+--------------------------
+For runtime statistics and query details run: DESCRIBE EXTENDED <Stream,Table>;
+ksql>
+
+````
 ````
 bouchichi@Doha MINGW64docker ~/Developer/INF1069-202-19H-02/1.KafkaCat/300107710 (master)
 $ sh Commande.sh
