@@ -243,7 +243,7 @@ $ sh Commande.sh
 Hello world
 >>>>>>>>>>>>>>>>
 ````
-[Alt-tag](jeu_commande.png)
+![Alt tag](jeu_commande.png)
 
 
 ````
@@ -253,7 +253,7 @@ Copy de fichier
 >>>>>>>>>>>>>>>>
 ````
 
-[Alt-tag](jeu_commande.png)
+![Alt tag](jeu_commande.png)
 
 Créer Stream commande_key
 ````
