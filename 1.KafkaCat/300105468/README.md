@@ -360,6 +360,22 @@ ksql> show streams ;
 ---------------------------------------
 ksql>
 ```
+## Pour Décrire le stream
+```
+ksql> DESCRIBE ksql_chanteurs ;
+
+Name                 : KSQL_CHANTEURS
+ Field    | Type
+--------------------------------------
+ ROWTIME  | BIGINT           (system)
+ ROWKEY   | VARCHAR(STRING)  (system)
+ PLATFORM | VARCHAR(STRING)
+ ID       | BIGINT
+ TITLE    | VARCHAR(STRING)
+ ARTIST   | VARCHAR(STRING)
+ ALBUM    | VARCHAR(STRING)
+--------------------------------------
+```
 ## Créer une table d'apres le topic chansons :
 ```
 ksql> CREATE TABLE ksql_chanson (duration bigint, id bigint ,frequence bigint, artist string) WITH  (KAFKA_TOPIC='chansons',VALUE_FORMAT='JSON');
