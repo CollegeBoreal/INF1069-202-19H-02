@@ -51,11 +51,11 @@ $ docker-compose exec kafka bash
 
 ```
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic clients_info --create \
-               --partitions 3  --replication-factor 1
+               --partitions 4  --replication-factor 1
 Created topic "clients_info".
 
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic products --create \
-                 --partitions 3  --replication-factor 1
+                 --partitions 4  --replication-factor 1
 Created topic "products".
 ```
 
