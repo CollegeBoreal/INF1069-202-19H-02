@@ -189,12 +189,33 @@ Pour voir tous les infos de cette table :
 
 ```
 ksql> SELECT * FROM ksql_chansons;
+
+1553716775324 | null | 1.90 minutes | 200gh | null | labe
+1553716954418 | null |  3 minutes | 190gh | 350 hrz | dont
+1553716996573 | null | 4 minutes | 140gh | 500 hrz | FKJ
+1553716996573 | null |  3 minutes | 190gh | 350 hrz | dont
+1553716998460 | null | 4 minutes | 140gh | null | FKJ
+1553717801533 | null |  3 minutes | 190gh | 350 hrz | dont
+1553717803516 | null | 4 minutes | 140gh | null | FKJ
+1553717805359 | null | 2.5minutes | 180gh | null | RMB
+1553717807229 | null |  3 minutes | 190gh | null | dont
+1553717809115 | null | 1.90 minutes | 200gh | null | labe
 ```
+## 
 ```
 ksql> CREATE STREAM ksql_chansons_with_key \
        WITH (VALUE_FORMAT='AVRO', KAFKA_TOPIC='chansons-with-key') \
-       AS SELECT DURATION , CAST(ID AS STRING), FREQUENCE, ARTIST \
+       AS SELECT DURATION , CAST(ID AS STRING) AS ID, FREQUENCE, ARTIST \
        FROM ksql_chansons PARTITION BY ID ;
+       
+       
+Message
+----------------------------
+ Stream created and running
+----------------------------
+
 ```
+
+
 
 ## CRÉATION DE LA TABLE
