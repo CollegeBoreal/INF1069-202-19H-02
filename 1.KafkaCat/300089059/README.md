@@ -116,6 +116,14 @@ Dans KSQP bash
 ```
 docker-compose exec ksql-cli ksql http://ksql-server:8088
 ```
-Creer le nouveau Stream du topic 
+Creer le nouveau Stream du topic CLIENTS
+```
+CREATE STREAM clients \
+  (client VARCHAR, \
+   information STRUCT < \
+birthday string, address string , phone string > ) \
+  WITH (KAFKA_TOPIC='clients', \
+        VALUE_FORMAT='JSON');
+```
 
 Creer une table 'client'
