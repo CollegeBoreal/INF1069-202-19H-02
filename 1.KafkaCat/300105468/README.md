@@ -138,6 +138,16 @@ Pour voir tous les info des clients :
 ```
 ksql> SELECT * FROM ksql_chanteurs ;
 ```
+## pour voir les streams 
+```
+ksql> show streams ;
+
+ Stream Name    | Kafka Topic | Format
+---------------------------------------
+ KSQL_CHANTEURS | chanteurs   | JSON
+---------------------------------------
+ksql>
+```
 ## Créer une table d'apres le topic chansons :
 ```
 ksql> CREATE TABLE ksql_chanson (duration bigint, id bigint ,frequence bigint, artist string) WITH  (KAFKA_TOPIC='chansons',VALUE_FORMAT='JSON');
