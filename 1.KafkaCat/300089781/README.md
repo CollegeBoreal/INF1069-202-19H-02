@@ -129,7 +129,7 @@ ksql>   CREATE STREAM ksql_repas (name STRING, \
  Stream created 
 ----------------    
     
-ksql>  CREATE STREAM ksql_repas_key \
+ksql>  CREATE STREAM repas_with_key \
     WITH (VALUE_FORMAT='AVRO', \
     KAFKA_TOPIC='repas_with_key') AS \
           SELECT name, client, eta, ingredients->quantity, ingredients->name, ingredients->type \
