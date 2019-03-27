@@ -74,7 +74,7 @@ Jane | -1 | Chicken salad
 Jo | 1 | Crock Pot Roast
 ...
 ```
-## Création d'une table 'client'
+### Création d'une table 'client'
 ```
 ksql> CREATE TABLE client \
 >      (client STRING, \
