@@ -97,7 +97,7 @@ ksql> CREATE TABLE client \
        Street_num INTEGER,\
       Unit INTEGER >)\
     WITH (KAFKA_TOPIC=' client ', VALUE_FORMAT='JSON', KEY=' client_id ');
-
+````
  Message
 ----------------
  Stream created
@@ -144,8 +144,7 @@ main
 bouchichi@Doha MINGW64docker ~/Developer/INF1069-202-19H-02/1.KafkaCat/300107710 (master)
 $ sh Commande.sh
 Hello world
-Commande.sh: line 8: ./commande0.json: No such file or directory
->>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>
 ````
 
 
