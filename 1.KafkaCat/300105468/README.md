@@ -219,3 +219,35 @@ Message
 
 
 ## CRÉATION DE LA TABLE
+
+```
+ksql> CREATE TABLE ksql_chansons_table \
+       WITH (VALUE_FORMAT='AVRO',  \
+       KAFKA_TOPIC='chansons-with-key', KEY='ID') ;
+       
+       
+ Message
+---------------
+ Table created
+---------------
+
+```
+
+```
+ksql> SELECT * FROM ksql_chansons_table ;
+
+1553716996573 | 140gh | 4 minutes | 140gh | 500 hrz | FKJ
+1553716996573 | 190gh |  3 minutes | 190gh | 350 hrz | dont
+1553716998460 | 140gh | 4 minutes | 140gh | null | FKJ
+1553717803516 | 140gh | 4 minutes | 140gh | null | FKJ
+1553717801533 | 190gh |  3 minutes | 190gh | 350 hrz | dont
+1553718510452 | 190gh |  3 minutes | 190gh | 350 hrz | dont
+1553718510452 | 190gh |  3 minutes | 190gh | 350 hrz | dont
+1553718510452 | 140gh | 4 minutes | 140gh | 500 hrz | FKJ
+1553718510451 | 180gh | 2.5minutes | 180gh | 400 hrz | RMB
+1553718512335 | 140gh | 4 minutes | 140gh | null | FKJ
+1553718514542 | 180gh | 2.5minutes | 180gh | null | RMB
+1553718517260 | 190gh |  3 minutes | 190gh | null | dont
+1553718519997 | 200gh | 1.90 minutes | 200gh | null | lab
+
+```
