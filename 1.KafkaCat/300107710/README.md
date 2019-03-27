@@ -255,7 +255,7 @@ Copy de fichier
 
 ![Alt tag](jeu_commande.png)
 
-Créer Stream commande_key
+O. Création de Stream commande_key
 ````
 ksql> CREATE STREAM commande_key\
 >      (client_id INTEGER, \
@@ -290,5 +290,29 @@ For runtime statistics and query details run: DESCRIBE EXTENDED <Stream,Table>;
 ksql>
 
 ````
+O. Creation de Stream COMMANDE_WITH_KEY
+````
+ksql> CREATE STREAM COMMANDE_WITH_KEY \
+>          WITH (VALUE_FORMAT='AVRO', \
+>                KAFKA_TOPIC='Ccommande-with-key') AS \
+>          SELECT CLIENT_ID, CAST(CLIENT_ID AS STRING) AS ID \
+>                FROM COMMANDE_KEY PARTITION BY ID;
 
+ Message
+----------------------------
+ Stream created and running
+----------------------------
+ksql> DESCRIBE COMMANDE_WITH_KEY;
+
+Name                 : COMMANDE_WITH_KEY
+ Field     | Type
+---------------------------------------
+ ROWTIME   | BIGINT           (system)
+ ROWKEY    | VARCHAR(STRING)  (system)
+ CLIENT_ID | INTEGER
+ ID        | VARCHAR(STRING)
+---------------------------------------
+For runtime statistics and query details run: DESCRIBE EXTENDED <Stream,Table>;
+ksql>
+````
  
