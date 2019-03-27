@@ -120,6 +120,8 @@ main
 
 6.1  Création de stream commande en KSQL
 
+[Alt-tag](ksql.png)
+
 ````
 ksql> CREATE STREAM commande \
       (client_id INTEGER, \
