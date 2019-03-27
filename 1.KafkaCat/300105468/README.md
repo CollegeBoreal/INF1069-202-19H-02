@@ -183,10 +183,18 @@ Name                 : KSQL_CHANTEURS
 ```
 ## Créer une table d'apres le topic chansons :
 ```
-ksql> CREATE TABLE ksql_chanson (duration bigint, id bigint ,frequence bigint, artist string) WITH  (KAFKA_TOPIC='chansons',VALUE_FORMAT='JSON');
+ksql> CREATE STEAM ksql_chanson (duration bigint, id bigint ,frequence bigint, artist string) WITH  (KAFKA_TOPIC='chansons',VALUE_FORMAT='JSON');
 ```
 Pour voir tous les infos de cette table :
 
 ```
 ksql> SELECT * FROM ksql_chansons;
 ```
+```
+ksql> CREATE STEAM ksql_chanson_with_key \
+       WITH (VALUE_FORMAT='AVRO', KAFKA_TOPIC='chansons-with-key') \
+       AS SELECT DURATION , CAST(ID AS STRING), FREQUENCE, ARTIST \
+       FROM ksql_chansons PARTITION BY ID ;
+```
+
+## CRÉATION DE LA TABLE
