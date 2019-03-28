@@ -1,6 +1,6 @@
 
 
-### ⭕️ ENVIRONNEMENT KAFKA_KSQL
+### ⭕️ PROJECT KAFKA_KSQL
 
 ## 1. CRÉER SON ENVIRONNEMENT DANS UN REPERTOIRE:
   ```  cp ../../D.Demo/docker-compose.yml  .```
