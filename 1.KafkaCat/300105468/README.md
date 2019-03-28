@@ -8,7 +8,7 @@ $ cp ../../D.Demo/docker-compose.yml  .
 ```
 ## 2. Enlever les applications de musique
 ```
-$ nano docker-compose.yml
+$ vi docker-compose.yml
 ```
 ## 3. Avant de l'executer dans 1.Kafkacat/ID vous devez supprimer votre environnemnet dans D.Demo
 ```
