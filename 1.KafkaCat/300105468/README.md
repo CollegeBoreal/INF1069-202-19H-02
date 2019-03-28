@@ -262,3 +262,12 @@ ksql> SELECT * FROM ksql_chansons_table ;
 1553718519997 | 200gh | 1.90 minutes | 200gh | null | lab
 
 ```
+Pour faire la joincture entre le Stream ```ksql_chanteurs``` et la table ```ksql_chansons_table``` :
+
+```
+SELECT * FROM ksql_chanteurs CI  \
+         LEFT OUTER JOIN \
+         ksql_chansonss_table PR \
+         ON  PR.id = CI.spotify ;
+
+```
