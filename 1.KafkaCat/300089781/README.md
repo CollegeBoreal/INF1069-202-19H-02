@@ -63,14 +63,14 @@ root@kafka:/# kafka-console-consumer --bootstrap-server kafka:9092 --topic repas
 ### :six: Retourner dans le terminal où KSQL est ouvert. Créer le stream 'ksql_repas'
 ```
 ksql> CREATE STREAM ksql_repas (name STRING, \
->                              client STRING, \
->                              eta BIGINT, \
->                              ingredients STRUCT< \
->                              quantity BIGINT, \
->                              name STRING, \
->                              type STRING>) \
->     WITH (VALUE_FORMAT='JSON', \
->     KAFKA_TOPIC='repas');
+                               client STRING, \
+                               ingredients STRUCT< \
+                               quantity BIGINT, \
+                               name STRING, \
+                               type STRING>, \
+			       eta BIGINT) \
+      WITH (VALUE_FORMAT='JSON', \
+      KAFKA_TOPIC='repas');
     ```
 	
  Message        
@@ -81,88 +81,68 @@ ksql> CREATE STREAM ksql_repas (name STRING, \
 Pour voir les informations de ksql_repas:
 ```
 ksql> SELECT * FROM KSQL_REPAS;
-1553795049562 | null | null | Jane | null | {QUANTITY=3, NAME=skinless, boneless chicken breasts, TYPE=Meat}
-1553795049529 | null | null | Jo | null | {QUANTITY=1, NAME= beef roast, TYPE=Meat}
-1553795049563 | null | null | Jack | 1553884544 | {QUANTITY=2, NAME=mac n cheese, TYPE=pasta}
-1553795049559 | null | null | Jess | null | {QUANTITY=5, NAME=asparagus, TYPE=Produce}
-1553795049564 | null | null | Johnny | 1553970944 | {QUANTITY=1, NAME=breakfast, TYPE=bread}
-1553795055275 | null | null | Jo | 1553279744 | {QUANTITY=1, NAME= beef roast, TYPE=Meat}
-1553795059401 | null | null | Jess | 1553711744 | {QUANTITY=5, NAME=asparagus, TYPE=Produce}
-1553795063907 | null | null | Jane | 1553798144 | {QUANTITY=3, NAME=skinless, boneless chicken breasts, TYPE=Meat}
+1553797619399 | null | Crock Pot Roast | Jo | {QUANTITY=1, NAME= beef roast, TYPE=Meat} | 1553279744
+1553797623235 | null | Roasted Asparagus | Jess | {QUANTITY=5, NAME=asparagus, TYPE=Produce} | 1553711744
+1553797626833 | null | Chicken salad | Jane | {QUANTITY=3, NAME=skinless, boneless chicken breasts, TYPE=Meat} | 1553798144
+1553797630854 | null | Mac N Cheese | Jack | {QUANTITY=2, NAME=mac n cheese, TYPE=pasta} | 1553884544
+1553797634731 | null | French toast | Johnny | {QUANTITY=1, NAME=breakfast, TYPE=bread} | 1553970944
 ...
+```
+```
+*Faire la création du stream client:
+ksql> CREATE STREAM client (client STRING,\ 
+		      aime STRUCT< \
+		      quantity BIGINT, \
+		      name STRING>)
+	WITH (KAFKA_TOPIC='client', VALUE_FORMAT='JSON');
+	
+ Message        
+----------------
+ Stream created 
+----------------
 ```
 ### :seven: Creer un stream du topic ksql_repas ayant une clé (pour enlever les "null")
 ```
 ksql>  CREATE STREAM repas_with_key \
     WITH (VALUE_FORMAT='AVRO', \
     KAFKA_TOPIC='repas_with_key') AS \
-          SELECT name, client, eta, ingredients->quantity, ingredients->name, ingredients->type \
+          SELECT name, client, ingredients->quantity, ingredients->name, ingredients->type, eta \
                 FROM ksql_repas PARTITION BY client;
  Message                    
 ----------------------------
  Stream created and running 
 ----------------------------
 ```
+Pour voir les informations de repas_with_key:
+```
+1553797754449 | Jo | Crock Pot Roast | Jo | 1 |  beef roast | Meat | 1553279744
+1553797758337 | Jess | Roasted Asparagus | Jess | 5 | asparagus | Produce | 1553711744
+1553797762840 | Jane | Chicken salad | Jane | 3 | skinless, boneless chicken breasts | Meat | 1553798144
+1553797767394 | Jack | Mac N Cheese | Jack | 2 | mac n cheese | pasta | 1553884544
+1553797771175 | Johnny | French toast | Johnny | 1 | breakfast | bread | 1553970944
+```
 ### :eight: Faire la creation d'une table
 ```
-ksql> CREATE TABLE ksql_repas_table \
-      WITH (VALUE_FORMAT='AVRO', \
-      KAFKA_TOPIC='repas_with_key', KEY='client');
+ksql>  CREATE TABLE ksql_client_table \
+>      WITH (VALUE_FORMAT='AVRO', \
+>      KAFKA_TOPIC='repas_with_key', KEY='client');
 
  Message       
 ---------------
  Table created 
 ---------------
 ```
-## Tester le jeu dans les 2 terminals:
-```
-(1er terminal)
-ksql> select * from repas;
-1553191266415 | null | Roasted Asparagus | Jess | null | {QUANTITY=5, NAME=asparagus, TYPE=Produce}
-1553191266422 | null | French toast | Johnny | 1553970944 | {QUANTITY=1, NAME=breakfast, TYPE=bread}
-1553191271821 | null | Crock Pot Roast | Jo | 1553279744 | {QUANTITY=1, NAME= beef roast, TYPE=Meat}
-1553191275905 | null | Roasted Asparagus | Jess | 1553711744 | {QUANTITY=5, NAME=asparagus, TYPE=Produce}
-1553191279736 | null | Chicken salad | Jane | 1553798144 | {QUANTITY=3, NAME=skinless, boneless chicken breasts, TYPE=Meat}
-1553191283758 | null | Mac N Cheese | Jack | 1553884544 | {QUANTITY=2, NAME=mac n cheese, TYPE=pasta}
-```
-```
-(2e terminal)
-toronto:300089781 ameliedubois$ sh jeu.sh
-foodie
->>>>>>>>>>>>>>>>>>>>>>>>>>>>
-```
 
-### inner join problem...
+## :nine: Faire la jointure du stream KSQL_REPAS et la table KSQL_CLIENT_TABLE:
 ```
-ksql> describe repas;
-
-Name                 : REPAS
- Field       | Type                                                                
------------------------------------------------------------------------------------
- ROWTIME     | BIGINT           (system)                                           
- ROWKEY      | VARCHAR(STRING)  (system)                                           
- NAME        | VARCHAR(STRING)                                                     
- CLIENT      | VARCHAR(STRING)                                                     
- ETA         | BIGINT                                                              
- INGREDIENTS | STRUCT<QUANTITY BIGINT, NAME VARCHAR(STRING), TYPE VARCHAR(STRING)> 
------------------------------------------------------------------------------------
-For runtime statistics and query details run: DESCRIBE EXTENDED <Stream,Table>;
-ksql> describe client;
-
-Name                 : CLIENT
- Field   | Type                                          
----------------------------------------------------------
- ROWTIME | BIGINT           (system)                     
- ROWKEY  | VARCHAR(STRING)  (system)                     
- CLIENT  | VARCHAR(STRING)                               
- AIME    | STRUCT<QUANTITY BIGINT, NAME VARCHAR(STRING)> 
----------------------------------------------------------
-For runtime statistics and query details run: DESCRIBE EXTENDED <Stream,Table>;
-ksql> SELECT * FROM repas INNER JOIN client ON client;
-Failed to prepare statement: Field CLIENT is ambiguous.
-Caused by: Field CLIENT is ambiguous.
-ksql> SELECT * FROM repas INNER JOIN client ON client.client=repas.client;
-Source table (CLIENT) key column (AIME) is not the column used in the join criteria (CLIENT).
-ksql> SELECT * FROM client INNER JOIN repas ON client.client=repas.client;
-Join between invalid operands requested: left type: KTABLE, right type: KSTREAM
+ksql> select * from ksql_repas CI \
+      left outer join \
+      ksql_client_table PR \ 
+      on PR.client = CI.client;
+1553801884771 | Jo | null | Jo | {QUANTITY=1, NAME= beef roast, TYPE=Meat} | null | 1553801884771 | Jo | null | Jo | 1 |  beef roast | Meat | null
+1553801889275 | Jo | Crock Pot Roast | Jo | {QUANTITY=1, NAME= beef roast, TYPE=Meat} | 1553279744 | 1553801889275 | Jo | Crock Pot Roast | Jo | 1 |  beef roast | Meat | 1553279744
+1553801893159 | Jess | Roasted Asparagus | Jess | {QUANTITY=5, NAME=asparagus, TYPE=Produce} | 1553711744 | 1553801884817 | Jess | null | Jess | 5 | asparagus | Produce | null
+1553801898172 | Jane | Chicken salad | Jane | {QUANTITY=3, NAME=skinless, boneless chicken breasts, TYPE=Meat} | 1553798144 | 1553801898172 | Jane | Chicken salad | Jane | 3 | skinless, boneless chicken breasts | Meat | 1553798144
+1553801903170 | Jack | Mac N Cheese | Jack | {QUANTITY=2, NAME=mac n cheese, TYPE=pasta} | 1553884544 | 1553801884824 | Jack | null | Jack | 2 | mac n cheese | pasta | 1553884544
+1553801907304 | Johnny | French toast | Johnny | {QUANTITY=1, NAME=breakfast, TYPE=bread} | 1553970944 | 1553801907304 | Johnny | French toast | Johnny | 1 | breakfast | bread | 1553970944
 ```
