@@ -268,6 +268,14 @@ Pour faire la joincture entre le Stream ```ksql_chanteurs``` et la table ```ksql
 SELECT * FROM ksql_chanteurs CI  \
          LEFT OUTER JOIN \
          ksql_chansonss_table PR \
-         ON  PR.id = CI.spotify ;
+         ON  PR.ID = CI.ID ;
+         
+Can't join KSQL_CHANTEURS with KSQL_CHANSONS_TABLE since the number of partitions don't match. KSQL_CHANTEURS partitions =
+ 3; KSQL_CHANSONS_TABLE partitions = 4. Please repartition either one so that the number of partitions match.
+
+
+
+
+
 
 ```
