@@ -1,14 +1,45 @@
 
 
-# ⭕️ Environnement Kafka - KSQL
+### ⭕️ ENVIRONNEMENT KAFKA_KSQL
 
-  0 - Créer votre propre répertoire dans 1.kafkacat et documenter les étapes dans votre fichier README.md
-  1 - Utiliser votre propre orchestration pour utiliser l'environnement KSQL (docker-compose.yml)
-  2 - créer un topic pour l'utilisation d'une TABLE KSQL (statique)
-  3 - créer un topic pour l'utilisation d'un STREAM KSQL (Volatile)
+## 1. CRÉER SON ENVIRONNEMENT DANS UN REPERTOIRE:
+  ```  cp ../../D.Demo/docker-compose.yml  .```
+ 
+ ##  2. Enlever les applications de la vente
   
+  ```vi docker-compose.yml```
   
-##🅰️ Données
+## 3. Avant de l'executer dans 1.Kafkacat/ID vous devez supprimer votre environnemnet dans D.Demo
+
+ ```$ cd ../../D.Demo
+$ docker-compose stop 
+$ docker-compose rm 
+```
+## A . Executez votre environnement dans 1.KafkaCat/ID :
+
+```
+$ cd ../../1.KafkaCat/ID (ex:300093216) 
+$ docker-compose up -d 
+```
+## 1. Connaitre le nom de switch Docker de KafkaCat
+```
+docker network ls
+```
+## 2. Faire la liste de tout l'environnment
+```
+docker run --tty --network 300093216_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -L
+```
+## 3. Accedez a votre bash de Kafaka
+```
+docker-compose exec kafka bash 
+```
+
+## 4. Création des topics
+```
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic chanteurs --create --partitions 3 --replication-factor 1
+Created topic "chanteurs"
+```
+
 
 ###1️⃣ - Créer un jeu d'essai que l'on peut éxecuter à souhait comportant : (statique)
 
