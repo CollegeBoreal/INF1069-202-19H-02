@@ -1,5 +1,5 @@
 # KAFKACAT 
-### :hand: Pour commencer, entrer dans le cours et son ID puis s'assurer que Kafka, Zookeeper, KSQL et control center est "UP"
+### :hand: Pour commencer, entrer dans le cours et dans son ID puis s'assurer que Kafka, Zookeeper, KSQL et control center est "UP"
 ```
 $ cd ../../1.KafkaCat/ 300089781  
 $ docker-compose up -d 
