@@ -133,6 +133,13 @@ CREATE STREAM services \
   WITH (KAFKA_TOPIC='services', \
         VALUE_FORMAT='JSON');
 ```
-
+voir les streams
+```
+ksql> show streams ;
+```
+Decrire le stream
+```
+describe SERVICES;
+```
 
 Creer une table 'client'
