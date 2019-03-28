@@ -125,10 +125,10 @@ Copy de fichier
 ```
 ## * Pour voir le resultat vous pouvez voir dans le site http://10.13.237.14:9021/management/clusters
 
-CHANTEURS
+# ♦ CHANTEURS
 ![alt tag](chanteurs1.png) 
 
-CHANSONS
+# ♦ CHANSONS
 ![alt tag](chansons2.png)
 
 ## 📍 Création d'un nouveau Stream:
@@ -188,10 +188,18 @@ Name                 : KSQL_CHANTEURS
 --------------------------------------
 ```
 ## Créer une table d'apres le topic chansons :
+
+Tout d'abord il s'agit de créer un stream qui s'appelle ```ksql_chansons``` afin de terminer toutes les colonnes.
 ```
 ksql> CREATE STREAM ksql_chansons (DURATION STRING , ID STRING , FREQUENCE STRING , ARTIST STRING ) WITH  (KAFKA_TOPIC='chansons',VALUE_FORMAT='JSON');
+
+ Message
+----------------
+ Stream created
+----------------
+
 ```
-Pour voir tous les infos de cette table :
+Pour voir tous les informations de cette table :
 
 ```
 ksql> SELECT * FROM ksql_chansons;
@@ -207,13 +215,12 @@ ksql> SELECT * FROM ksql_chansons;
 1553717807229 | null |  3 minutes | 190gh | null | dont
 1553717809115 | null | 1.90 minutes | 200gh | null | labe
 ```
-## 
+Création de Stream ```chansons_with_key``` avec un nouveau topic ```chansons-with-key```partition par ID:
 ```
 ksql> CREATE STREAM ksql_chansons_with_key \
        WITH (VALUE_FORMAT='AVRO', KAFKA_TOPIC='chansons-with-key') \
        AS SELECT DURATION , CAST(ID AS STRING) AS ID, FREQUENCE, ARTIST \
        FROM ksql_chansons PARTITION BY ID ;
-       
        
 Message
 ----------------------------
@@ -222,9 +229,7 @@ Message
 
 ```
 
-
-
-## CRÉATION DE LA TABLE
+Et finalement on crée la table d'après le topic ```chansons-with-key```:
 
 ```
 ksql> CREATE TABLE ksql_chansons_table \
@@ -238,7 +243,7 @@ ksql> CREATE TABLE ksql_chansons_table \
 ---------------
 
 ```
-
+Pour voir toutes les informations de cette table: 
 ```
 ksql> SELECT * FROM ksql_chansons_table ;
 
