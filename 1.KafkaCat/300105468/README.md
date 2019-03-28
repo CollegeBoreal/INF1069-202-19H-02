@@ -42,7 +42,7 @@ root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic chanteurs --creat
 Created topic "chanteurs"
 ```
 ```
-root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic chansons --create --partitions 5 --replication-factor 1
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic chansons --create --partitions 3 --replication-factor 1
 Created topic "chansons"
 ```
 ```
