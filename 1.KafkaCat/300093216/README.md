@@ -36,9 +36,26 @@ docker-compose exec kafka bash
 
 ## 4. Création des topics
 ```
-root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic chanteurs --create --partitions 3 --replication-factor 1
-Created topic "chanteurs"
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic produits --create --partitions 5 --replication-factor 1
+Created topic "produits"
 ```
+
+```
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic ventes--create --partitions 5 --replication-factor 1
+Created topic "ventes"
+```
+
+### B. Creation de fichier JSON :
+
+```  
+ nano produit.json 
+```
+
+
+
+
+
+
 
 
 ###1️⃣ - Créer un jeu d'essai que l'on peut éxecuter à souhait comportant : (statique)
