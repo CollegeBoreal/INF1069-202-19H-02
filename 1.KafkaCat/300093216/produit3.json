@@ -1,1 +1,1 @@
-{ "produit" : 3, "nom" : "john lobb", "style" : { "couleur" : "vert" , "materiel" : "crocodile"}}
+{"produit":3, "nom":"john lobb", "style":{"couleur":"vert", "materiel":"crocodile"}}
