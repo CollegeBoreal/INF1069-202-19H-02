@@ -3,7 +3,7 @@
 ### ⭕️ PROJECT KAFKA_KSQL
 
 ## 1. CRÉER SON ENVIRONNEMENT DANS UN REPERTOIRE:
-  ```  cp ../../D.Demo/docker-compose.yml  .```
+  ```  cp ../../D.Demo/docker-compose.yml  .``` 
  
  ##  2. Enlever les applications de la vente
   
