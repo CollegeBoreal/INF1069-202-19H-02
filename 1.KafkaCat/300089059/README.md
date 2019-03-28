@@ -137,6 +137,11 @@ voir les streams
 ```
 ksql> show streams ;
 ```
+Si on veut voir les infos sur clients
+```
+ select * from CLIENTS;
+
+```
 Decrire le stream
 ```
 describe SERVICES;
