@@ -125,6 +125,12 @@ Copy de fichier
 ```
 ## * Pour voir le resultat vous pouvez voir dans le site http://10.13.237.14:9021/management/clusters
 
+CHANTEURS
+![alt tag](chanteurs1.png)
+
+CHANSONS
+![alt tag](chansons2.png)
+
 ## 📍 Création d'un nouveau Stream:
 Premièrement il faut aller premierment au KSQL Bash :
 ```
