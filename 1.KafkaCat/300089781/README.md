@@ -1,5 +1,5 @@
 # KAFKACAT 
-### :stop: Pour commencer, entrer dans le cours et son ID puis s'assurer que Kafka, Zookeeper, KSQL et control center est "UP"
+### :hand: Pour commencer, entrer dans le cours et son ID puis s'assurer que Kafka, Zookeeper, KSQL et control center est "UP"
 ```
 $ cd ../../1.KafkaCat/ 300089781  
 $ docker-compose up -d 
@@ -56,7 +56,7 @@ ksql> SELECT * FROM client;
 ```
 ### :five: Regarder le jeu marcher sur Control Center (127.0.0.1:9021) (exemple de mon REPAS)
 ![alt tag](cc.png)
-### :stop: Si Control Center ne fonctionne pas, utiliser kafka consumer:
+### :hand: Si Control Center ne fonctionne pas, utiliser kafka consumer:
 ```
 root@kafka:/# kafka-console-consumer --bootstrap-server kafka:9092 --topic repas
 ```
@@ -133,7 +133,7 @@ ksql>  CREATE TABLE ksql_client_table \
 ---------------
 ```
 
-## :nine: Faire la jointure du stream KSQL_REPAS et la table KSQL_CLIENT_TABLE:
+### :nine: Faire la jointure du stream KSQL_REPAS et la table KSQL_CLIENT_TABLE:
 ```
 ksql> select * from ksql_repas CI \
       left outer join \
@@ -145,4 +145,44 @@ ksql> select * from ksql_repas CI \
 1553801898172 | Jane | Chicken salad | Jane | {QUANTITY=3, NAME=skinless, boneless chicken breasts, TYPE=Meat} | 1553798144 | 1553801898172 | Jane | Chicken salad | Jane | 3 | skinless, boneless chicken breasts | Meat | 1553798144
 1553801903170 | Jack | Mac N Cheese | Jack | {QUANTITY=2, NAME=mac n cheese, TYPE=pasta} | 1553884544 | 1553801884824 | Jack | null | Jack | 2 | mac n cheese | pasta | 1553884544
 1553801907304 | Johnny | French toast | Johnny | {QUANTITY=1, NAME=breakfast, TYPE=bread} | 1553970944 | 1553801907304 | Johnny | French toast | Johnny | 1 | breakfast | bread | 1553970944
+```
+
+### :round_pushpin: Note à partager: Lorsque la table avec la clé (par exemple KSQL_REPAS_TABLE), il sera impossible de supprimer le stream KSQL_REPAS. Un message d'erreur va apparaitre:
+```
+ksql> drop stream ksql_repas;
+Cannot drop KSQL_REPAS. 
+The following queries read from this source: [CSAS_REPAS_WITH_KEY_3]. 
+The following queries write into this source: []. 
+You need to terminate them before dropping KSQL_REPAS.
+```
+*Il va falloir premièrement faire la commande " show queries; "
+```
+ksql> show queries;
+
+ Query ID              | Kafka Topic    | Query String                                                                                                                                                                                                                                          
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ CSAS_REPAS_WITH_KEY_3 | REPAS_WITH_KEY | CREATE STREAM repas_with_key     WITH (VALUE_FORMAT='AVRO',     KAFKA_TOPIC='repas_with_key') AS           SELECT name, client, ingredients->quantity, ingredients->name, ingredients->type, eta                 FROM ksql_repas PARTITION BY client; 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+For detailed information on a Query run: EXPLAIN <Query ID>;
+```
+*Copier et coller le QUERY en question et drop par la suite le ou les streams:
+```
+ksql> terminate  CSAS_REPAS_WITH_KEY_3;
+
+ Message           
+-------------------
+ Query terminated. 
+-------------------
+ksql> drop stream repas_with_key;
+
+ Message                             
+-------------------------------------
+ Source REPAS_WITH_KEY was dropped.  
+-------------------------------------
+ksql> drop stream ksql_repas;
+
+ Message                         
+---------------------------------
+ Source KSQL_REPAS was dropped.  
+---------------------------------
 ```
