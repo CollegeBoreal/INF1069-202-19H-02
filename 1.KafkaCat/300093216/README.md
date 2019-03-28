@@ -50,3 +50,4 @@
 
   1 - À partir du STREAM ou de la TABLE, créer une jointure
   2 - Afficher le résultat de la jointure
+,
