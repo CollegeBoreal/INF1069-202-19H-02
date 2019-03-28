@@ -147,4 +147,19 @@ Decrire le stream
 describe SERVICES;
 ```
 
-Creer une table 'client'
+Creer une table 'clients'
+```
+CREATE TABLE client \
+>      (client VARCHAR, \
+>       information STRUCT< \
+	Birthday string address string , phone string >) \
+>    WITH (KAFKA_TOPIC='clients', \ 
+	VALUE_FORMAT='JSON', KEY='birthday');
+```
+
+
+
+
+
+
+
