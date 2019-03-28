@@ -152,7 +152,7 @@ CREATE TABLE client \
 >       information STRUCT< \
 	Birthday string address string , phone string >) \
 >    WITH (KAFKA_TOPIC='clients', \ 
-	VALUE_FORMAT='JSON', KEY='birthday');
+	VALUE_FORMAT='JSON', KEY='client');
 ```
 
 
