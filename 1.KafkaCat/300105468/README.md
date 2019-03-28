@@ -60,7 +60,7 @@ EOF
 
 ## 1. Vous devez revenir a votre path Develper/INF1069../1.KafkaCat/ID et vous creez un fichier de json
 ```
-$ nano chanson.json 
+$ vi chanson.json 
 ```
 ## . Ajouter un code
 ```
