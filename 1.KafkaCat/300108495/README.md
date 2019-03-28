@@ -159,7 +159,7 @@ $ docker-compose exec ksql-cli ksql http://ksql-server:8088
 ```
 
 Creaton d'un nouveau Stream du topic `clients_info` 
-
+ 
 
 ```
 ksql> CREATE STREAM ksql_clientsinfo (NAME STRING, SKU BIGINT, SHIPTO STRUCT< NAME STRING, ADDRESS STRING>)\
