@@ -273,9 +273,10 @@ SELECT * FROM ksql_chanteurs CI  \
 Can't join KSQL_CHANTEURS with KSQL_CHANSONS_TABLE since the number of partitions don't match. KSQL_CHANTEURS partitions =
  3; KSQL_CHANSONS_TABLE partitions = 4. Please repartition either one so that the number of partitions match.
 
-
-
-
-
-
 ```
+On recréer une partition =4 pour ksql_chanteurs
+```
+ksql> CREATE STREAM KSQL_CHANTEURS WITH (PARTITIONS =4) \ 
+      as SELECT * FROM KSQL_CHANTEURS;
+```
+
