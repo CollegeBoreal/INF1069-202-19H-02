@@ -50,11 +50,70 @@ Created topic "ventes"
 ```  
  nano produit.json 
 ```
+## Ajouter un code 
+```
+{"produit":1, "nom":"church", "style":{"couleur":"violet", "materiel":"cuir"}}
+
+```
+en suite vous pouvez ajouter les autres foichiers de produit$.json avec un des lignes ci-dessous:
+
+```
+{"produit":2, "nom":"louboutin", "style":{"couleur":"noir", "materiel":"suede"}}
+{"produit":3, "nom":"john lobb", "style":{"couleur":"vert", "materiel":"crocodile"}}
+{"produit":4, "nom":"prada", "style":{"couleur":"gold", "materiel":"lezard"}}
+{"produit":5, "nom":"gucci", "style":{"couleur":"rouge", "materiel":"vernis"}}
+```
+et aussi la même chose pour le fichier de vente$.json
+
+```
+{"produit":1, "quantite":2}
+{"produit":2, "quantite":5}
+{"produit":3, "quantite":1}
+{"produit":4, "quantite":2}
+{"produit":5, "quantite":3}
+
+```
+
+il faut creer des jeux.sh pour chaque topic pour produits
+
+```
+ nano jeu1.sh
+```
+Vous allez tapper en suite ce code:
+
+```
+#!/bin/bash
+
+function main {
+   echo "Copy de fichier"
+   for chanteur in produit*.json
+   do
+     docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic produits <  ./$produit
+   done
+}
+main
+```
+
+ Faire la même chose pour le topic vente:
+ 
+ ```
+#!/bin/bash
+
+function main {
+   echo "Copy de fichier"
+   for chanteur in vente*.json
+   do
+     docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic ventes <  ./$vente
+   done
+}
+
+main
+```
+ 
+ 
 
 
-
-
-
+main
 
 
 
