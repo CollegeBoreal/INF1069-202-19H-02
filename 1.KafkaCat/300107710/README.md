@@ -193,9 +193,9 @@ ksql> SELECT * FROM COMMANDE;
 
 ````
 
-6.2  Création de la table client en KSQL
+6.2  Création de Stream client en KSQL
 ````
-ksql> CREATE TABLE client \
+ksql> CREATE STREAM client \
       (client_id INTEGER, \
        client_name STRING, \
        Client_address STRUCT< \
@@ -203,16 +203,16 @@ ksql> CREATE TABLE client \
        Street_name STRING,\
        Street_num INTEGER,\
       Unit INTEGER >)\
-    WITH (KAFKA_TOPIC=' client ', VALUE_FORMAT='JSON', KEY=' client_id ');
+    WITH (KAFKA_TOPIC='client', VALUE_FORMAT='JSON');
 ````
 
 ````
  Message
 ----------------
- table created
+ Stream created
 ----------------
 ````
-o. Description de la table client
+o. Description de Stream client
 ````
 ksql> DESCRIBE client;
 
@@ -255,9 +255,9 @@ Copy de fichier
 
 ![Alt tag](jeu_commande.png)
 
-O. Création de Stream commande_key
+O. Création de Stream commande_with_key
 ````
-ksql> CREATE STREAM commande_key\
+ksql> CREATE STREAM commande_with_key\
 >      (client_id INTEGER, \
 >       Commande STRUCT< \
 >       Plat_name STRING,\
@@ -290,15 +290,14 @@ For runtime statistics and query details run: DESCRIBE EXTENDED <Stream,Table>;
 ksql>
 
 ````
-O. Creation de Stream COMMANDE_WITH_KEY
+O. Creation de Stream commande_with_key
 ````
-ksql> CREATE STREAM COMMANDE_WITH_KEY \
+ksql> CREATE STREAM commande_with_key \
 >          WITH (VALUE_FORMAT='AVRO', \
->                KAFKA_TOPIC='Ccommande-with-key') AS \
->          SELECT CLIENT_ID, CAST(CLIENT_ID AS STRING) AS ID \
->                FROM COMMANDE_KEY PARTITION BY ID;
+>                KAFKA_TOPIC='commande-with-key') AS \
+>                 SELECT client_id, Commande->Plat_name, Commande->Quantite, Commande->Paiement, Commande->TimeStamp\
+>                 FROM commande PARTITION BY client_id;
 
- Message
 ----------------------------
  Stream created and running
 ----------------------------
