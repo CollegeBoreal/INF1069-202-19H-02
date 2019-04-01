@@ -51,11 +51,11 @@ $ docker-compose exec kafka bash
 
 ```
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic clients_info --create \
-               --partitions 4  --replication-factor 1
+               --partitions 3  --replication-factor 1
 Created topic "clients_info".
 
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic products --create \
-                 --partitions 4  --replication-factor 1
+                 --partitions 3  --replication-factor 1
 Created topic "products".
 ```
 
@@ -152,18 +152,21 @@ pour Products
 
 ### Creation d'un nouveau Stream :
 
-Il faut aller premierment au KSQL Bash :
+* Il faut aller premierment au KSQL Bash :
 
 ```
 $ docker-compose exec ksql-cli ksql http://ksql-server:8088 
 ```
 
-Creaton d'un nouveau Stream du topic `clients_info` 
+* Creaton d'un nouveau Stream du topic `clients_info` 
  
 
 ```
-ksql> CREATE STREAM ksql_clientsinfo (NAME STRING, SKU BIGINT, SHIPTO STRUCT< NAME STRING, ADDRESS STRING>)\
-       WITH (KAFKA_TOPIC='clients_info', VALUE_FORMAT='JSON');
+ksql> CREATE STREAM ksql_clientsinfo \
+      (NAME STRING, SKU BIGINT, \
+      SHIPTO STRUCT< NAME STRING, ADDRESS STRING>) \
+      WITH (KAFKA_TOPIC='clients_info', VALUE_FORMAT='JSON');
+      
 
  Message
 ----------------
@@ -171,7 +174,7 @@ ksql> CREATE STREAM ksql_clientsinfo (NAME STRING, SKU BIGINT, SHIPTO STRUCT< NA
 
 ```
 
-Pour voir tous  les info des clients :
+* Pour voir tous  les info des clients :
 
 ```
 ksql> SELECT * FROM ksql_clientsinfo ;
@@ -185,7 +188,7 @@ ksql> SELECT * FROM ksql_clientsinfo ;
 
 ```
 
-ALors pour Decrire ce stream :
+* ALors pour Decrire ce stream :
 
 ```
 ksql> DESCRIBE ksql_clientsinfo;
@@ -203,17 +206,19 @@ ksql> DESCRIBE ksql_clientsinfo;
 
 #### Créer une table d'apres le topic products :
 
-Premierment on va creer un Stream qui s'appelle ``` ksql_products``` afin qu'on determine tous les colomuns :
+* Premierment on va creer un Stream qui s'appelle ``` ksql_products``` afin qu'on determine tous les colomuns :
 
 ```
-ksql> CREATE STREAM ksql_products (NAME STRING, SKU BIGINT ,TICKET STRUCT< PRICE BIGINT, PRODUCT_DATE BIGINT>)\
-       WITH (KAFKA_TOPIC='products',VALUE_FORMAT='JSON');
+ksql> CREATE STREAM ksql_products \
+     (NAME STRING, SKU BIGINT ,TICKET STRUCT< PRICE BIGINT, PRODUCT_DATE BIGINT>) \
+      WITH (KAFKA_TOPIC='products',VALUE_FORMAT='JSON');
+      
        
  Message
 ----------------
  Stream created       
 ```
-Montrer les colomuns de stream :
+* Montrer les colomuns de Stream :
 
 ```
 ksql> SELECT NAME, SKU, TICKET->PRICE, TIMESTAMPTOSTRING(TICKET->PRODUCT_DATE, \
@@ -233,7 +238,7 @@ T-shirt | 20228 | 40 | 2019-03-16 13:35:08
 
 ```
 
-Creation de stream ```products_with_key ``` avec un nouveau topic ```products-with-key ```  partition  par ID :
+* Creation de stream ```products_with_key ``` avec un nouveau topic ```products-with-key ```  partition  par ID et avec Format ```Avro ``` :
 
 ```
 ksql> CREATE STREAM products_with_key \
@@ -248,7 +253,7 @@ ksql> CREATE STREAM products_with_key \
 
 ```
 
-Et finalement on cree la table d'apres le topic ``` products-with-key``` :
+* Et finalement on cree la table d'apres le topic ``` products-with-key``` :
 
 ```
 ksql> CREATE TABLE ksql_products_table \
@@ -264,7 +269,7 @@ ksql> CREATE TABLE ksql_products_table \
 
 ```
 
-Pour voir tous les infos de cette table :
+* Pour voir tous les infos de cette table :
 
 ```
 ksql> SELECT * FROM ksql_products_table;
@@ -277,7 +282,66 @@ ksql> SELECT * FROM ksql_products_table;
 1553711813625 | 20224 | Braclet | 20224 | 35 | 1553708324
 ```
 
-Pour faire la jointure entre le Stream ``` ksql_clientsinfo```et La table ``` ksql_products_table``` :
+### Suppression d'un stream qui est relié à une table : 
+ 
+Si vous voulez supprime un ancien Stream  qui est relié à une table vous devez faire les etapes suivants :
+
+* Voici l'erreur
+```
+ksql> drop stream products;
+Cannot drop PRODUCTS. 
+The following queries read from this source: [CSAS_REPAS_WITH_KEY_3]. 
+The following queries write into this source: []. 
+You need to terminate them before dropping PRODUCTS.
+```
+
+* ALors il faut faire dabord :
+
+```
+ksql> show queries;
+
+ Query ID              | Kafka Topic    | Query String                                                                                                                                                                                                                                          
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ CSAS_PRODUCTS_WITH_KEY_3 | PRODUCTS_WITH_KEY | CREATE STREAM products_with_key    WITH (VALUE_FORMAT='AVRO',     KAFKA_TOPIC='repas_with_key') 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+For detailed information on a Query run: EXPLAIN <Query ID>;
+```
+
+* a ce niveau dous devez prendre le Id  de ``` QUERY ID ``` et le terminer comme cette commande :
+
+```
+ksql> terminate  CSAS_PRODUCTS_WITH_KEY_3;
+
+ Message           
+-------------------
+ Query terminated. 
+-------------------
+```
+* et apres il faut supprimer le stream "with_key" :
+
+```
+ksql> drop stream products_with_key;
+
+ Message                             
+-------------------------------------
+ Source PRODUCTS_WITH_KEY was dropped.  
+-------------------------------------
+```
+* et finallement supprimer le stream ```PRODUCTS ``` : 
+
+```
+ksql> drop stream products;
+
+ Message                         
+---------------------------------
+ Source PRODUCTS was dropped.  
+---------------------------------
+```
+
+
+### Jointure entre Stream et la table :
+
+* Pour faire la jointure entre le Stream ``` ksql_clientsinfo```et La table ``` ksql_products_table``` :
 
 ```
 ksql> SELECT * FROM ksql_clientsinfo CI  \
@@ -299,4 +363,21 @@ ksql> SELECT * FROM ksql_clientsinfo CI  \
 
 
 ```
+
+:exclamation: Si vous avez un problème concrenat la partition du Topic que " un a 4 et l'autre a 3 " donc la solution vous devez supprimer le topic que vous avez crée en premier temps avec 3 partition et le recréer avec 4 partitions :
+
+```
+$ docker-compose exec kafka bash 
+
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic products --delete
+
+```
+* maintenat on recree le meme topic mais avec 4 partitions :
+
+```
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic products --create \
+                 --partitions 4  --replication-factor 1
+```
+:innocent: Alors maintenat vous pouvez juste tester votre jointure et ca va sur marcher. 
+
 
