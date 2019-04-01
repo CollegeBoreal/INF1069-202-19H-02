@@ -279,7 +279,7 @@ On recréer une partition =4 pour ksql_chanteurs
 ksql> CREATE STREAM KSQL_CHANTEURS WITH (PARTITIONS =4) \ 
       as SELECT * FROM KSQL_CHANTEURS;
 ```
-## On relance la commande (avec patirence🤣🤣🤣)
+## On relance la commande (avec patience🤣🤣🤣)
 
 ```
 SELECT * FROM ksql_chanteurs CI  \
@@ -328,3 +328,5 @@ SELECT * FROM ksql_chanteurs CI  \
 1554147516970 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147491304 | 180gh | 2.5minutes | 180gh | null | RMB
 
 ```
+
+#### ♦ FIN!
