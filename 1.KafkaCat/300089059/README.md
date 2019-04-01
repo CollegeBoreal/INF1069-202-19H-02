@@ -44,32 +44,34 @@ $ docker network ls
 $ docker run --tty --network 300089059_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -L
 ```
 
--Aller sur kafka bash
+-Aller sur kafka 
 
 ``` 
 docker-compose exec kafka bash 
 ```
 Pour aller sur ksql
 ```
-$ docker-compose exec ksql-cli ksql http://8088
-docker-compose exec ksql-cli ksql http://ksql-server:8088
-
+$ docker-compose exec ksql-cli ksql http://ksql-server:8088
 
 ```
 
 -Creer les topics
 ``` 
-root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic services --create --partitions 3 --replication-factor 1
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic service --create --partitions 3 --replication-factor 1
+
+
 Created topic "services" 
 ```
 
 ``` 
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic clients --create --partitions 3 --replication-factor 1
+
+
 Created topic "clients" 
 ```
 Sortir de kafka pour changer les fichiers séparemment
 ```
-nano services.json
+nano service.json
 nano clients.json
 ```
 Cree jeu1.sh
@@ -81,8 +83,8 @@ Dans nano saisir ce code
 #!/bin/bash
 
 function main {
-        echo "qwerty"
-for service in ./services*.json
+        echo "azerty"
+for service in ./services*.json 
  do
         docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic services < $service
 done
@@ -91,6 +93,7 @@ done
 main
 ```
 
+Faire de meme pour jeu2.sh et mettre clients a la place de service
 
 Entrer dans ksql:
 ``` 
@@ -103,3 +106,62 @@ sh jeu1.sh
 Clients
 >>>>>>>>>>>>
 ```
+Idem pour service.
+
+
+Voir le resultat sur http://10.13.237.12:9021
+
+
+Création du nouveau Stream
+
+Dans KSQP bash
+```
+docker-compose exec ksql-cli ksql http://ksql-server:8088
+```
+Creer le nouveau Stream du topic CLIENTS
+```
+CREATE STREAM clients \
+  (client VARCHAR, \
+   information STRUCT < \
+birthday string, address string , phone string > ) \
+  WITH (KAFKA_TOPIC='clients', \
+        VALUE_FORMAT='JSON');
+```
+Cree le stream du topic SERVICE
+```
+CREATE STREAM services \
+  (service VARCHAR, \
+   statut VARCHAR,) \
+  WITH (KAFKA_TOPIC='services', \
+        VALUE_FORMAT='JSON');
+```
+voir les streams
+```
+ksql> show streams ;
+```
+Si on veut voir les infos sur SERVICES
+```
+ select * from SERVICES;
+ 
+```
+Decrire le stream
+```
+describe SERVICES;
+```
+
+Creer une table 'clients'
+```
+CREATE TABLE client \
+>      (client VARCHAR, \
+>       information STRUCT< \
+	Birthday string address string , phone string >) \
+>    WITH (KAFKA_TOPIC='clients', \ 
+	VALUE_FORMAT='JSON', KEY='client');
+```
+
+
+
+
+
+
+

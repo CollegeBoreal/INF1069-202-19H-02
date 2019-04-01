@@ -28,72 +28,291 @@ $ docker-compose up -d
 $ docker network ls
 $ docker run --tty --network 300107710_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -L
 ````
-5.	
-o  Decrire mon environnement
-Il s'agit des cours de change de la banque du canada et sera composé de deux topics:
--	Devise
--	Taux de change
+5. Decrire mon environnement
+Création de de deux topics:
+-	client
+-	commande
 
 o  Création des topics
 ````
 $ winpty docker-compose exec kafka bash
 root@kafka:/#
 
-    # kafka-topics --zookeeper zookeeper:32181 --topic taux_de_change --create --partitions 3 --replication-factor 1
+    # kafka-topics --zookeeper zookeeper:32181 --topic client --create --partitions 3 --replication-factor 1
 
-Created topic "taux_de_change".
+Created topic "client".
 
 
-root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic devise --create --partitions 3 --replication-factor 1
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic commande --create --partitions 3 --replication-factor 1
 
-Created topic "devise".
+Created topic "commande".
 ````
 
-6.  Création de table et Stream
-
-6.1  Création de table devise
-````
-file1.json, file2.json, file3.json, …. File6.json
-{ "FXAUDCAD":{"label":"AUD/CAD","description":"Taux de change quotidien du dollar australien en dollars canadiens"} }
-{ "FXCHFCAD":{"label":"CHF/CAD","description":"Taux de change quotidien du franc suisse en dollars canadiens"} }
-{ "FXCNYCAD":{"label":"CNY/CAD","description":"Taux de change quotidien du renminbi chinois en dollars canadiens"} }
-{ "FXEURCAD":{"label":"EUR/CAD","description":"Taux de change quotidien de l’euro en dollars canadiens"} }
-{ "FXGBPCAD":{"label":"GBP/CAD","description":"Taux de change quotidien de la livre sterling en dollars canadiens"} }
-{ "FXUSDCAD":{"label":"USD/CAD","description":"Taux de change quotidien du dollar américain en dollars canadiens"} }
-````
-
-
-
+o  Création du jeu d'essaie
 
 ````
-ksql> CREATE Stream devise \
-      (FXCHFCAD STRING, \
-      FXCNYCAD STRING, \
-      FXEURCAD STRING, \
-      FXGBPCAD STRING,\
-      FXUSDCAD STRING) \
-WITH (KAFKA_TOPIC='devise', VALUE_FORMAT='JSON');
+$ nano client.json
+````
+````
+{"client_id":"1001", "client_name":"Jack", "Client_address":{"City":"Toronto", "Street_name":"Church St", "Street_num": 12, "Unit":805}}
+{"client_id":"1002", "client_name":"Paul", "Client_address":{"City":"Toronto", "Street_name":"Yonge St", "Street_num":150, "Unit":615}}
+{"client_id":"1003", "client_name":"Alfred", "Client_address":{"City":"Toronto", "Street_name":"Danforth Ave", "Street_num":150, "Unit":608}}
+{"client_id":"1004", "client_name":"Sandra", "Client_address":{"City":"Toronto", "Street_name":"Spadina Ave", "Street_num":305, "Unit":903}}
+{"client_id":"1005", "client_name":"Merinda", "Client_address":{"City":"Toronto", "Street_name":"Yonge St", "Street_num":450, "Unit":702}}
+{"client_id":"1006", "client_name":"Jane", "Client_address":{"City":"Toronto", "Street_name":"Bay St", "Street_num":1250, "Unit":615}}
 
+````
+ 
+````
+$ nano commande.json
+````
+````
+{"client_id":"1001", "Commande":{"Plat_name":"Tagine", "Quantite":1, "Paiement":"Espèce"}}
+{"client_id":"1002", "Commande":{"Plat_name":"Couscous", "Quantité":1, "Paiement":"Visa"}}
+{"client_id":"1003", "Commande":{"Plat_name":"Pastilla", "Quantité":1, "Paiement":"Master"}}
+{"client_id":"1004", "Commande":{"Plat_name":"Zaalook", "Quantité":1, "Paiement":"Visa"}}
+{"client_id":"1005", "Commande":{"Plat_name":"Poulet", "Quantité":1, "Paiement":"Espèce"}}
+{"client_id":"1006", "Commande":{"Plat_name":"Poisson", "Quantité":1, "Paiement":"Visa"}}
+
+````
+
+ o  Création du shell script client
+
+````
+$ nanao client.sh
+````
+````
+
+#!/bin/bash
+
+function main {
+   echo "Copy de fichier"
+   for client in client*.json
+   do
+     docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic client <  ./$client
+   done
+}
+
+main
+
+````
+
+ o   Création du shell script commande
+ 
+ ````
+$ nanao commande.sh
+````
+
+````
+#!/bin/bash
+
+function main {
+   echo "Copy de fichier"
+   for commande in commande*.json
+   do
+     docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic commande <  ./$commande
+   done
+}
+
+main
+
+````
+6. Ouverture de ksql bach
+
+````
+bouchichi@Doha MINGW64 ~/Developer/INF1069-202-19H-02/1.KafkaCat/300107710 (master)
+$ winpty docker-compose exec ksql-cli ksql http://ksql-server:8088
+
+                  ===========================================
+                  =        _  __ _____  ____  _             =
+                  =       | |/ // ____|/ __ \| |            =
+                  =       | ' /| (___ | |  | | |            =
+                  =       |  <  \___ \| |  | | |            =
+                  =       | . \ ____) | |__| | |____        =
+                  =       |_|\_\_____/ \___\_\______|       =
+                  =                                         =
+                  =  Streaming SQL Engine for Apache Kafka® =
+                  ===========================================
+
+Copyright 2017-2018 Confluent Inc.
+
+CLI v5.1.0, Server v5.1.0 located at http://ksql-server:8088
+
+Having trouble? Type 'help' (case-insensitive) for a rundown of how things work!
+
+ksql>
+````
+6.1  Création de stream commande en KSQL
+
+````
+ksql> CREATE STREAM commande \
+      (client_id INTEGER, \
+       Commande STRUCT< \
+       Plat_name STRING,\
+       Quantite INTEGER,\
+      Paiement STRING>)\
+    WITH (KAFKA_TOPIC='commande', VALUE_FORMAT='JSON');
+````
+````
  Message
 ----------------
  Stream created
 ----------------
 ````
-
-6.2 Création de taux_de_change 
+o. Description du stream commande 
 ````
-fx1.json, fx2.json, fx3.json, …   fx6.json
+ksql> DESCRIBE commande;
 
-{ "d":"2017-01-03", "FXAUDCAD":{"v":0.9702}, "FXCNYCAD":{"v":0.1930}, "FXEURCAD":{"v":1.3973}, "FXJPYCAD":{"v":0.01140}, "FXMXNCAD":{"v":0.06439}, "FXNZDCAD":{"v":0.9295}, "FXSEKCAD":{"v":0.1465}, "FXCHFCAD":{"v":1.3064}, "FXGBPCAD":{"v":1.6459}, "FXUSDCAD":{"v":1.3435} }
+Name                 : COMMANDE
+ Field     | Type
+-------------------------------------------------------------------------------------------
+ ROWTIME   | BIGINT           (system)
+ ROWKEY    | VARCHAR(STRING)  (system)
+ CLIENT_ID | INTEGER
+ COMMANDE  | STRUCT<PLAT_NAME VARCHAR(STRING), QUANTITE INTEGER, PAIEMENT VARCHAR(STRING)>
+-------------------------------------------------------------------------------------------
+For runtime statistics and query details run: DESCRIBE EXTENDED <Stream,Table>;
+ksql>
 
-{ "d":"2017-01-04","FXAUDCAD":{"v":0.9678}, "FXCNYCAD":{"v":0.1920}, "FXEURCAD":{"v":1.3930}, "FXJPYCAD":{"v":0.01134}, "FXMXNCAD":{"v":0.06242}, "FXNZDCAD":{"v":0.9251}, "FXSEKCAD":{"v":0.1460}, "FXCHFCAD":{"v":1.3005}, "FXGBPCAD":{"v":1.6377}, "FXUSDCAD":{"v":1.3315} }
-
-{ "d":"2017-01-05","FXAUDCAD":{"v":0.9708}, "FXCNYCAD":{"v":0.1922}, "FXEURCAD":{"v":1.4008}, "FXJPYCAD":{"v":0.01145}, "FXMXNCAD":{"v":0.06195}, "FXNZDCAD":{"v":0.9285}, "FXSEKCAD":{"v":0.1468}, "FXCHFCAD":{"v":1.3083}, "FXGBPCAD":{"v":1.6400}, "FXUSDCAD":{"v":1.3244} }
-
-{ "d":"2017-01-06","FXAUDCAD":{"v":0.9668}, "FXCNYCAD":{"v":0.1911}, "FXEURCAD":{"v":1.3953}, "FXJPYCAD":{"v":0.01133}, "FXMXNCAD":{"v":0.06213}, "FXNZDCAD":{"v":0.9230}, "FXSEKCAD":{"v":0.1461}, "FXCHFCAD":{"v":1.3020}, "FXGBPCAD":{"v":1.6275}, "FXUSDCAD":{"v":1.3214} }
-
-
-{ "d":"2017-01-07","FXAUDCAD":{"v":0.9728}, "FXCNYCAD":{"v":0.1907}, "FXEURCAD":{"v":1.3967}, "FXJPYCAD":{"v":0.01138}, "FXMXNCAD":{"v":0.06202}, "FXNZDCAD":{"v":0.9276}, "FXSEKCAD":{"v":0.1460}, "FXCHFCAD":{"v":1.3020}, "FXGBPCAD":{"v":1.6084}, "FXUSDCAD":{"v":1.3240} }
-
-{ "d":"2017-01-08","FXAUDCAD":{"v":0.9732}, "FXCNYCAD":{"v":0.1909}, "FXEURCAD":{"v":1.3970}, "FXJPYCAD":{"v":0.01141}, "FXMXNCAD":{"v":0.06113}, "FXNZDCAD":{"v":0.9236}, "FXSEKCAD":{"v":0.1458}, "FXCHFCAD":{"v":1.3012}, "FXGBPCAD":{"v":1.6075}, "FXUSDCAD":{"v":1.3213} }
 ````
+````
+ksql> SELECT * FROM COMMANDE;
+
+1553113912810 | null | 1001 | {PLAT_NAME=Tagine, QUANTITE=null, PAIEMENT=Espèce}
+1553113914747 | null | 1002 | {PLAT_NAME=Couscous, QUANTITE=null, PAIEMENT=Visa}
+1553113916676 | null | 1003 | {PLAT_NAME=Pastilla, QUANTITE=null, PAIEMENT=Master}
+1553113918638 | null | 1004 | {PLAT_NAME=Zaalook, QUANTITE=null, PAIEMENT=Visa}
+1553113920611 | null | 1005 | {PLAT_NAME=Poulet, QUANTITE=null, PAIEMENT=Espèce}
+1553113922604 | null | 1006 | {PLAT_NAME=Poisson, QUANTITE=null, PAIEMENT=Visa}
+1553114270437 | null | 1001 | {PLAT_NAME=Tagine, QUANTITE=null, PAIEMENT=Espèce}
+1553114272379 | null | 1002 | {PLAT_NAME=Couscous, QUANTITE=null, PAIEMENT=Visa}
+1553114274354 | null | 1003 | {PLAT_NAME=Pastilla, QUANTITE=null, PAIEMENT=Master}
+1553114276353 | null | 1004 | {PLAT_NAME=Zaalook, QUANTITE=null, PAIEMENT=Visa}
+1553114278299 | null | 1005 | {PLAT_NAME=Poulet, QUANTITE=null, PAIEMENT=Espèce}
+1553114280226 | null | 1006 | {PLAT_NAME=Poisson, QUANTITE=null, PAIEMENT=Visa}
+
+````
+
+6.2  Création de la table client en KSQL
+````
+ksql> CREATE TABLE client \
+      (client_id INTEGER, \
+       client_name STRING, \
+       Client_address STRUCT< \
+       City STRING,\
+       Street_name STRING,\
+       Street_num INTEGER,\
+      Unit INTEGER >)\
+    WITH (KAFKA_TOPIC=' client ', VALUE_FORMAT='JSON', KEY=' client_id ');
+````
+
+````
+ Message
+----------------
+ table created
+----------------
+````
+o. Description de la table client
+````
+ksql> DESCRIBE client;
+
+Name                 : CLIENT
+ Field          | Type
+
+------------------------------------------------------------------------------------
+--------------------------
+ ROWTIME        | BIGINT           (system)
+
+ ROWKEY         | VARCHAR(STRING)  (system)
+
+ CLIENT_ID      | INTEGER
+
+ CLIENT_NAME    | VARCHAR(STRING)
+
+ CLIENT_ADDRESS | STRUCT<CITY VARCHAR(STRING), STREET_NAME VARCHAR(STRING), STREET_N
+UM INTEGER, UNIT INTEGER>
+------------------------------------------------------------------------------------
+--------------------------
+For runtime statistics and query details run: DESCRIBE EXTENDED <Stream,Table>;
+ksql>
+
+````
+````
+bouchichi@Doha MINGW64docker ~/Developer/INF1069-202-19H-02/1.KafkaCat/300107710 (master)
+$ sh Commande.sh
+Hello world
+>>>>>>>>>>>>>>>>
+````
+![Alt tag](jeu_commande.png)
+
+
+````
+bouchichi@Doha MINGW64 ~/Developer/INF1069-202-19H-02/1.KafkaCat/300107710 (master)
+$ sh client.sh
+Copy de fichier
+>>>>>>>>>>>>>>>>
+````
+
+![Alt tag](jeu_commande.png)
+
+O. Création de Stream commande_key
+````
+ksql> CREATE STREAM commande_key\
+>      (client_id INTEGER, \
+>       Commande STRUCT< \
+>       Plat_name STRING,\
+>       Quantite INTEGER,\
+>      Paiement STRING, TIMESTAMP BIGINT > )\
+>    WITH (KAFKA_TOPIC='commande', VALUE_FORMAT='JSON');
+
+ Message
+----------------
+ Stream created
+----------------
+ksql> DESCRIBE COMMANDE_KEY;
+
+Name                 : COMMANDE_KEY
+ Field     | Type
+
+------------------------------------------------------------------------------------
+-------------------------
+ ROWTIME   | BIGINT           (system)
+
+ ROWKEY    | VARCHAR(STRING)  (system)
+
+ CLIENT_ID | INTEGER
+
+ COMMANDE  | STRUCT<PLAT_NAME VARCHAR(STRING), QUANTITE INTEGER, PAIEMENT VARCHAR(ST
+RING), TIMESTAMP BIGINT>
+------------------------------------------------------------------------------------
+-------------------------
+For runtime statistics and query details run: DESCRIBE EXTENDED <Stream,Table>;
+ksql>
+
+````
+O. Creation de Stream COMMANDE_WITH_KEY
+````
+ksql> CREATE STREAM COMMANDE_WITH_KEY \
+>          WITH (VALUE_FORMAT='AVRO', \
+>                KAFKA_TOPIC='Ccommande-with-key') AS \
+>          SELECT CLIENT_ID, CAST(CLIENT_ID AS STRING) AS ID \
+>                FROM COMMANDE_KEY PARTITION BY ID;
+
+ Message
+----------------------------
+ Stream created and running
+----------------------------
+ksql> DESCRIBE COMMANDE_WITH_KEY;
+
+Name                 : COMMANDE_WITH_KEY
+ Field     | Type
+---------------------------------------
+ ROWTIME   | BIGINT           (system)
+ ROWKEY    | VARCHAR(STRING)  (system)
+ CLIENT_ID | INTEGER
+ ID        | VARCHAR(STRING)
+---------------------------------------
+For runtime statistics and query details run: DESCRIBE EXTENDED <Stream,Table>;
+ksql>
+````
+ 
