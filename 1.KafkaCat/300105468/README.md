@@ -262,12 +262,12 @@ ksql> SELECT * FROM ksql_chansons_table ;
 1553718519997 | 200gh | 1.90 minutes | 200gh | null | lab
 
 ```
-Pour faire la joincture entre le Stream ```ksql_chanteurs``` et la table ```ksql_chansons_table``` :
+### Pour faire la joincture entre le Stream ```ksql_chanteurs``` et la table ```ksql_chansons_table``` :
 
 ```
 SELECT * FROM ksql_chanteurs CI  \
          LEFT OUTER JOIN \
-         ksql_chansonss_table PR \
+         ksql_chansons_table PR \
          ON  PR.ID = CI.ID ;
          
 Can't join KSQL_CHANTEURS with KSQL_CHANSONS_TABLE since the number of partitions don't match. KSQL_CHANTEURS partitions =
@@ -279,4 +279,52 @@ On recréer une partition =4 pour ksql_chanteurs
 ksql> CREATE STREAM KSQL_CHANTEURS WITH (PARTITIONS =4) \ 
       as SELECT * FROM KSQL_CHANTEURS;
 ```
+## On relance la commande (avec patirence🤣🤣🤣)
 
+```
+SELECT * FROM ksql_chanteurs CI  \
+         LEFT OUTER JOIN \
+         ksql_chansons_table PR \
+         ON  PR.ID = CI.ID ;
+
+1554146529722 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147298287 | 190gh |  3 minutes | 190gh | null | dont
+1554146560946 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147296508 | 180gh | 2.5minutes | 180gh | null | RMB
+1554146595240 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147294652 | 140gh | 4 minutes | 140gh | null | FKJ
+1554146595252 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147298287 | 190gh |  3 minutes | 190gh | null | dont
+1554146597055 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147294652 | 140gh | 4 minutes | 140gh | null | FKJ
+1554146598861 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147296508 | 180gh | 2.5minutes | 180gh | null | RMB
+1554146723764 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147294652 | 140gh | 4 minutes | 140gh | null | FKJ
+1554146723776 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147298287 | 190gh |  3 minutes | 190gh | null | dont
+1554146729280 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147298287 | 190gh |  3 minutes | 190gh | null | dont
+1554147000041 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147294652 | 140gh | 4 minutes | 140gh | null | FKJ
+1554146568119 | 200gh | spotify | 200gh | Nil | Formuler | Labe | 1554147300106 | 200gh | 1.90 minutes | 200gh | null | labe
+1554146731073 | 200gh | spotify | 200gh | Nil | Formuler | Labe | 1554147300106 | 200gh | 1.90 minutes | 200gh | null | labe
+1554146529722 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147296508 | 180gh | 2.5minutes | 180gh | null | RMB
+1554146560919 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147294652 | 140gh | 4 minutes | 140gh | null | FKJ
+1554146560946 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147298287 | 190gh |  3 minutes | 190gh | null | dont
+1554146564509 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147296508 | 180gh | 2.5minutes | 180gh | null | RMB
+1554146595251 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147296508 | 180gh | 2.5minutes | 180gh | null | RMB
+1554146600708 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147298287 | 190gh |  3 minutes | 190gh | null | dont
+1554146723776 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147296508 | 180gh | 2.5minutes | 180gh | null | RMB
+1554147001842 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147296508 | 180gh | 2.5minutes | 180gh | null | RMB
+1554146531637 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147294652 | 140gh | 4 minutes | 140gh | null | FKJ
+1554146535532 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147298287 | 190gh |  3 minutes | 190gh | null | dont
+1554146566313 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147298287 | 190gh |  3 minutes | 190gh | null | dont
+1554146600171 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147296508 | 180gh | 2.5minutes | 180gh | null | RMB
+1554146725553 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147294652 | 140gh | 4 minutes | 140gh | null | FKJ
+1554146727340 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147296508 | 180gh | 2.5minutes | 180gh | null | RMB
+1554146998160 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147294652 | 140gh | 4 minutes | 140gh | null | FKJ
+1554146998186 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147298287 | 190gh |  3 minutes | 190gh | null | dont
+1554147003659 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147298287 | 190gh |  3 minutes | 190gh | null | dont
+1554147502455 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147489198 | 140gh | 4 minutes | 140gh | null | FKJ
+1554147502483 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147493107 | 190gh |  3 minutes | 190gh | null | dont
+1554147502482 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147491304 | 180gh | 2.5minutes | 180gh | null | RMB
+1554147504357 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147489198 | 140gh | 4 minutes | 140gh | null | FKJ
+1554147507367 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147491304 | 180gh | 2.5minutes | 180gh | null | RMB
+1554147509161 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147493107 | 190gh |  3 minutes | 190gh | null | dont
+1554147511113 | 200gh | spotify | 200gh | Nil | Formuler | Labe | 1554147494905 | 200gh | 1.90 minutes | 200gh | null | labe
+1554147516959 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147489198 | 140gh | 4 minutes | 140gh | null | FKJ
+1554147516971 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147493107 | 190gh |  3 minutes | 190gh | null | dont
+1554147516970 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147491304 | 180gh | 2.5minutes | 180gh | null | RMB
+
+```
