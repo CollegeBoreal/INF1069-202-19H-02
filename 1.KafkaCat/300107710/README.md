@@ -1,39 +1,41 @@
 
 KAFKACAT
 
-Mon environnement 
-1.	Creation de mon repertoire
+⭕️ Environnement Kafka - KSQL
+
+Mon environnement
+
+0.	Creation de mon repertoire
 ````
 bouchichi@Doha MINGW64 ~/Developer/INF1069-202-19H-02/1.KafkaCat
 $ mkdir 300107710 
 $ cd 300107710
 bouchichi@Doha MINGW64 ~/Developer/INF1069-202-19H-02/1.KafkaCat/300107710
 ````
-2.	Récupérer le fichier docker-compose.yml de D.DEMO
+1.	Récupérer le fichier docker-compose.yml de D.DEMO
 ````
 bouchichi@Doha MINGW64 ~/Developer/INF1069-202-19H-02/1.KafkaCat/300107710
 
 $ cp ../../D.Demo/docker-compose.yml .
 ````
-3.	Modification du fichier:
+1.1.	Modification du fichier:
 ````
 bouchichi@Doha MINGW64 ~/Developer/INF1069-202-19H-02/1.KafkaCat/300107710
 
 $ nano docker-compose.yml
 ````
-4.	Execution
+1.2.	Execution
 
 ````
 $ docker-compose up -d 
 $ docker network ls
 $ docker run --tty --network 300107710_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -L
 ````
-5. Decrire mon environnement
-Création de de deux topics:
+2. Création de de deux topics:
 -	client
 -	commande
 
-o  Création des topics
+2.1  Création du topic client
 ````
 $ winpty docker-compose exec kafka bash
 root@kafka:/#
@@ -42,13 +44,15 @@ root@kafka:/#
 
 Created topic "client".
 
+2.2 Création du topic commande
 
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic commande --create --partitions 3 --replication-factor 1
 
 Created topic "commande".
 ````
 
-o  Création du jeu d'essaie
+:A: Données
+ :1:Création du jeu d'essaie
 
 ````
 $ nano client.json
