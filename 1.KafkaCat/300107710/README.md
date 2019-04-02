@@ -51,42 +51,44 @@ root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic commande --create
 Created topic "commande".
 ````
 
-:A: Données
- :1:Création du jeu d'essaie
+🅰️ Données
 
+1️⃣ Création du jeu d'essaie
+
+1.1 Les données 
 ````
-$ nano client.json
+$ nano client1.json    $ nano client2.json ...  $ nano client6.json     
 ````
 ````
 {"client_id":"1001", "client_name":"Jack", "Client_address":{"City":"Toronto", "Street_name":"Church St", "Street_num": 12, "Unit":805}}
 {"client_id":"1002", "client_name":"Paul", "Client_address":{"City":"Toronto", "Street_name":"Yonge St", "Street_num":150, "Unit":615}}
 {"client_id":"1003", "client_name":"Alfred", "Client_address":{"City":"Toronto", "Street_name":"Danforth Ave", "Street_num":150, "Unit":608}}
-{"client_id":"1004", "client_name":"Sandra", "Client_address":{"City":"Toronto", "Street_name":"Spadina Ave", "Street_num":305, "Unit":903}}
+{"client_id":"1004", "client_name":"Sandra", "Client_address":{"City":"Toronto", "Street_name":"Spadina Ave", "Street_num":30, "Unit":903}}
 {"client_id":"1005", "client_name":"Merinda", "Client_address":{"City":"Toronto", "Street_name":"Yonge St", "Street_num":450, "Unit":702}}
 {"client_id":"1006", "client_name":"Jane", "Client_address":{"City":"Toronto", "Street_name":"Bay St", "Street_num":1250, "Unit":615}}
 
 ````
  
 ````
-$ nano commande.json
+$ nano commande1.json    $ nano commande2.json  ...   $ nano commande6.json
 ````
 ````
-{"client_id":"1001", "Commande":{"Plat_name":"Tagine", "Quantite":1, "Paiement":"Espèce"}}
-{"client_id":"1002", "Commande":{"Plat_name":"Couscous", "Quantité":1, "Paiement":"Visa"}}
-{"client_id":"1003", "Commande":{"Plat_name":"Pastilla", "Quantité":1, "Paiement":"Master"}}
-{"client_id":"1004", "Commande":{"Plat_name":"Zaalook", "Quantité":1, "Paiement":"Visa"}}
-{"client_id":"1005", "Commande":{"Plat_name":"Poulet", "Quantité":1, "Paiement":"Espèce"}}
-{"client_id":"1006", "Commande":{"Plat_name":"Poisson", "Quantité":1, "Paiement":"Visa"}}
+{"client_id":"1001", "Commande":{"Plat_name":"Tagine", "Quantite":1, "Paiement":"Espèce", "TimeStamp":1553176810000}}
+{"client_id":"1002", "Commande":{"Plat_name":"Couscous", "Quantité":1, "Paiement":"Visa", "TimeStamp":1553712492000}}
+{"client_id":"1003", "Commande":{"Plat_name":"Pastilla", "Quantité":1, "Paiement":"Master", "TimeStamp":1553712912000}}
+{"client_id":"1004", "Commande":{"Plat_name":"Zaalook", "Quantité":1, "Paiement":"Visa", "TimeStamp":1553716512000}}
+{"client_id":"1005", "Commande":{"Plat_name":"Poulet", "Quantité":1, "Paiement":"Espèce", "TimeStamp":1553705712000}}
+{"client_id":"1006", "Commande":{"Plat_name":"Poisson", "Quantité":1, "Paiement":"Visa", "TimeStamp":1553706012000}}
 
 ````
+1.2 Création du shell script
 
- o  Création du shell script client
+1.2.0  Création du shell script client
 
 ````
 $ nanao client.sh
 ````
 ````
-
 #!/bin/bash
 
 function main {
@@ -101,7 +103,7 @@ main
 
 ````
 
- o   Création du shell script commande
+1.2.1 Création du shell script commande
  
  ````
 $ nanao commande.sh
@@ -118,9 +120,11 @@ function main {
    done
 }
 
-main
 
+main
 ````
+🅱️ Flux (KSQL)
+
 6. Ouverture de ksql bach
 
 ````
@@ -154,7 +158,8 @@ ksql> CREATE STREAM commande \
        Commande STRUCT< \
        Plat_name STRING,\
        Quantite INTEGER,\
-      Paiement STRING>)\
+      Paiement STRING
+      TimeStamp BIGINT>)\
     WITH (KAFKA_TOPIC='commande', VALUE_FORMAT='JSON');
 ````
 ````
@@ -167,33 +172,17 @@ o. Description du stream commande
 ````
 ksql> DESCRIBE commande;
 
-Name                 : COMMANDE
- Field     | Type
--------------------------------------------------------------------------------------------
- ROWTIME   | BIGINT           (system)
- ROWKEY    | VARCHAR(STRING)  (system)
- CLIENT_ID | INTEGER
- COMMANDE  | STRUCT<PLAT_NAME VARCHAR(STRING), QUANTITE INTEGER, PAIEMENT VARCHAR(STRING)>
--------------------------------------------------------------------------------------------
-For runtime statistics and query details run: DESCRIBE EXTENDED <Stream,Table>;
-ksql>
+
+
+
 
 ````
 ````
 ksql> SELECT * FROM COMMANDE;
 
-1553113912810 | null | 1001 | {PLAT_NAME=Tagine, QUANTITE=null, PAIEMENT=Espèce}
-1553113914747 | null | 1002 | {PLAT_NAME=Couscous, QUANTITE=null, PAIEMENT=Visa}
-1553113916676 | null | 1003 | {PLAT_NAME=Pastilla, QUANTITE=null, PAIEMENT=Master}
-1553113918638 | null | 1004 | {PLAT_NAME=Zaalook, QUANTITE=null, PAIEMENT=Visa}
-1553113920611 | null | 1005 | {PLAT_NAME=Poulet, QUANTITE=null, PAIEMENT=Espèce}
-1553113922604 | null | 1006 | {PLAT_NAME=Poisson, QUANTITE=null, PAIEMENT=Visa}
-1553114270437 | null | 1001 | {PLAT_NAME=Tagine, QUANTITE=null, PAIEMENT=Espèce}
-1553114272379 | null | 1002 | {PLAT_NAME=Couscous, QUANTITE=null, PAIEMENT=Visa}
-1553114274354 | null | 1003 | {PLAT_NAME=Pastilla, QUANTITE=null, PAIEMENT=Master}
-1553114276353 | null | 1004 | {PLAT_NAME=Zaalook, QUANTITE=null, PAIEMENT=Visa}
-1553114278299 | null | 1005 | {PLAT_NAME=Poulet, QUANTITE=null, PAIEMENT=Espèce}
-1553114280226 | null | 1006 | {PLAT_NAME=Poisson, QUANTITE=null, PAIEMENT=Visa}
+
+
+
 
 ````
 
@@ -318,4 +307,19 @@ Name                 : COMMANDE_WITH_KEY
 For runtime statistics and query details run: DESCRIBE EXTENDED <Stream,Table>;
 ksql>
 ````
- 
+💯 - Présentation [Point en plus]
+
+  0 - Comporte un fichier README.md
+  
+  1 - Comporte des commandes bash
+  
+  2 - Comporte des commandes KSQL
+  
+  3 - Comporte des resultats de requestes KSQL
+  
+🆎 - Composition (KSQL JOIN)
+
+1 - À partir du STREAM ou de la TABLE, créer une jointure
+
+2 - Afficher le résultat de la jointure
+
