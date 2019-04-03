@@ -154,7 +154,7 @@ Creer une table 'clients'
 CREATE TABLE client \
       (client VARCHAR, \
        information STRUCT< \
-	Birthday string address string , phone string >) \
+	Birthday bigint, address string , phone string >) \
     WITH (KAFKA_TOPIC='clients', \ 
 	VALUE_FORMAT='JSON', KEY='client');
 ```
