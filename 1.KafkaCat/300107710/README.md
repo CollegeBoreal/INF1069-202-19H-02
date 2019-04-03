@@ -340,6 +340,7 @@ Name                 : CLIENT_TABLE
  CLIENT_ADDRESS__UNIT        | INTEGER
 ---------------------------------------------------------
 For runtime statistics and query details run: DESCRIBE EXTENDED <Stream,Table>;
+````
 
 6.5 Jeu d'essaie
 
