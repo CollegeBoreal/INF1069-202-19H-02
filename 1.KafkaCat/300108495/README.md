@@ -350,22 +350,25 @@ ksql> drop stream products;
 * Pour faire la jointure entre le Stream ``` ksql_clientsinfo```et La table ``` ksql_products_table``` :
 
 ```
-ksql> SELECT * FROM ksql_clientsinfo CI  \
-         LEFT OUTER JOIN \
-         ksql_products_table PR \
-         ON  PR.id = CI.sku;
+ksql> SELECT CI.name, PR.name, CI.sku, PR.ticket__price \
+       FROM ksql_clientsinfo CI JOIN ksql_products_table PR \
+       ON  PR.id = CI.sku;
+
          
          
-1553713219712 | 20223 | John Smith | 20223 | {NAME=Jane Smith, ADDRESS=123 Maple Street} |
-1553711811611 | 20223 | Scarf | 20223 | 25 | 1553708324000
-1553713229313 | 20228 | Amelie Dubois | 20228 | {NAME=Amelie Dubois, ADDRESS=65 gorgia victoria street } | 
-1553711821278 | 20228 | T-shirt | 20228 | 40 | 1553710097000
-1553713227368 | 20227 | Safaa Zaoui | 20227 | {NAME=Safaa Zaoui, ADDRESS=196 wellington st, toronto} | 
-1553711819361 | 20227 | Dress-Pinky | 20227 | 89 | 1553708324000
-1553713221609 | 20224 | Frank lil | 20224 | {NAME=Jessi, ADDRESS=154 Webster} |
-1553711813625 | 20224 | Braclet | 20224 | 35 | 1553089124000
-1553713223531 | 20225 | Lele Pos | 20225 | {NAME=Amelie, ADDRESS=18 jane} | 
-1553711815576 | 20225 | Long-Pants | 20225 | 75 | 1552743524000
+Lele Pos | Long-Pants | 20225 | 75
+Frank lil | Braclet | 20224 | 35
+Safaa Zaoui | Dress-Pinky | 20227 | 89
+Frank lil | Braclet | 20224 | 35
+Lele Pos | Long-Pants | 20225 | 75
+Adelle Lion | Long-Dress | 202210 | 50
+John Smith | Scarf | 20223 | 25
+Frank lil | Braclet | 20224 | 35
+Lele Pos | Long-Pants | 20225 | 75
+Safaa Zaoui | Dress-Pinky | 20227 | 89
+Amelie Dubois | T-shirt | 20228 | 40
+Brice Robert | Shirt | 20229 | 20
+Adelle Lion | Long-Dress | 202210 | 50
 
 
 ```
