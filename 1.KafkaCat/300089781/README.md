@@ -25,9 +25,8 @@ Created topic "client"
 $ docker-compose exec ksql-cli ksql http://ksql-server:8088
 ```
 ### :hand: S'assurer que les fichiers json sont créés (client.json, repas.json et pour tous les clients ET repas)
-```
 *Par exemple, client:
-
+```
 $ nano client.json
 ```
 ```
