@@ -152,9 +152,9 @@ describe SERVICES;
 Creer une table 'clients'
 ```
 CREATE TABLE client \
-      (client VARCHAR, \
-       information STRUCT< \
-	Birthday bigint, address string , phone string >) \
+      (client string, \
+       information STRUCT < \
+	birthday bigint, address string , phone string > ) \
     WITH (KAFKA_TOPIC='clients', \ 
 	VALUE_FORMAT='JSON', KEY='client');
 ```
