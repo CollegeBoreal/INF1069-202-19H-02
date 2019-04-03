@@ -1,4 +1,4 @@
-# KAFKACAT 
+# KAFKACAT , JEU DE REPAS
 ### :hand: Pour commencer, entrer dans le cours et dans son ID puis s'assurer que Kafka, Zookeeper, KSQL et control center est "UP"
 ```
 $ cd ../../1.KafkaCat/ 300089781  
@@ -71,14 +71,13 @@ ksql> CREATE STREAM ksql_repas (name STRING, \
 			       eta BIGINT) \
       WITH (VALUE_FORMAT='JSON', \
       KAFKA_TOPIC='repas');
-    ```
 	
  Message        
 ----------------
  Stream created 
 ----------------    
 ```    
-Pour voir les informations de ksql_repas:
+*Pour voir les informations de ksql_repas:
 ```
 ksql> SELECT * FROM KSQL_REPAS;
 1553797619399 | null | Crock Pot Roast | Jo | {QUANTITY=1, NAME= beef roast, TYPE=Meat} | 1553279744
@@ -88,8 +87,9 @@ ksql> SELECT * FROM KSQL_REPAS;
 1553797634731 | null | French toast | Johnny | {QUANTITY=1, NAME=breakfast, TYPE=bread} | 1553970944
 ...
 ```
-```
+
 *Faire la création du stream client:
+```
 ksql> CREATE STREAM client (client STRING,\ 
 		      aime STRUCT< \
 		      quantity BIGINT, \
@@ -104,8 +104,8 @@ ksql> CREATE STREAM client (client STRING,\
 ### :seven: Creer un stream du topic ksql_repas ayant une clé (pour enlever les "null")
 ```
 ksql>  CREATE STREAM repas_with_key \
-    WITH (VALUE_FORMAT='AVRO', \
-    KAFKA_TOPIC='repas_with_key') AS \
+       WITH (VALUE_FORMAT='AVRO', \
+       KAFKA_TOPIC='repas_with_key') AS \
           SELECT name, client, ingredients->quantity, ingredients->name, ingredients->type, eta \
                 FROM ksql_repas PARTITION BY client;
  Message                    
@@ -113,7 +113,7 @@ ksql>  CREATE STREAM repas_with_key \
  Stream created and running 
 ----------------------------
 ```
-Pour voir les informations de repas_with_key:
+*Pour voir les informations de repas_with_key:
 ```
 1553797754449 | Jo | Crock Pot Roast | Jo | 1 |  beef roast | Meat | 1553279744
 1553797758337 | Jess | Roasted Asparagus | Jess | 5 | asparagus | Produce | 1553711744
@@ -124,8 +124,8 @@ Pour voir les informations de repas_with_key:
 ### :eight: Faire la creation d'une table
 ```
 ksql>  CREATE TABLE ksql_client_table \
->      WITH (VALUE_FORMAT='AVRO', \
->      KAFKA_TOPIC='repas_with_key', KEY='client');
+       WITH (VALUE_FORMAT='AVRO', \
+       KAFKA_TOPIC='repas_with_key', KEY='client');
 
  Message       
 ---------------
