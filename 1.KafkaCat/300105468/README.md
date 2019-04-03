@@ -1,6 +1,8 @@
 
 # 🔎KAFKACAT : JEU ARTISTIQUE
+
 ## 📍 CRÉER SON ENVIRONNEMENT DANS UN REPERTOIRE:
+
 ## 1. Copier le fichier de docker-compose.yml d'apres le repertoire D.Demo.
 ```
 $ cp ../../D.Demo/docker-compose.yml  . 
@@ -16,7 +18,7 @@ $ cd ../../D.Demo
 $ docker-compose stop 
 $ docker-compose rm 
 ```
-## 📍 Executez votre environnement dans 1.KafkaCat/ID :
+## 📍 EXECUTER SON ENVIRONNEMENT DANS 1.KafkaCat/ID :
 ```
 $ cd ../../1.KafkaCat/ID (ex:300105468) 
 $ docker-compose up -d 
@@ -30,13 +32,15 @@ $ docker network ls
 ```
 $ docker run --tty --network 300105468_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -L
 ```
+### 📍 CRÉATION DE TOPICS :
 
-### 3. Accedez a votre bash de Kafaka
+## 1. Accedez a votre bash de Kafaka
 
 ```
 $ docker-compose exec kafka bash 
 ```
-### 4. Création des topics
+### 2 Création des topics 
+
 ```
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic chanteurs --create --partitions 4 --replication-factor 1
 Created topic "chanteurs"
@@ -45,24 +49,16 @@ Created topic "chanteurs"
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic chansons --create --partitions 4 --replication-factor 1
 Created topic "chansons"
 ```
-```
-$ docker run --interactive \
-           --network 300105468_default \
-           confluentinc/cp-kafkacat \
-            kafkacat -b kafka:29092 \
-                    -t my_topic \
-                    -K: \
-                    -P <<EO
-{"Date":"2019-01-08","Open":7.53,"High":7.6,"Low":7.35,"Close":7.41,"Adj Close":7.41,"Volume":3960900}
-EOF
-```
-## 📍 Creation de fichier JSON :
+
+## 📍 CRÉATION DE FICHIER JSON : 
 
 ## 1. Vous devez revenir a votre path Develper/INF1069../1.KafkaCat/ID et vous creez un fichier de json
+
 ```
 $ vi chanson.json 
 ```
 ## . Ajouter un code
+
 ```
  { "duration":"4 minutes", "id":"140gh", { "frenquence":"500 hrz", "artist":"FKJ"}}
 ```
@@ -80,14 +76,17 @@ et aussi la même chose pour le fichier de chanteur$.json
 { "platform":"spotify", "id":"190gh", "title":"Reaggae", "artist":"Lion", "album":"dont"}
 { "platform":"spotify", "id":"200gh", "title":"Nil", "artist":"Formuler", "album":"Labe"}
 ```
-il faut creer des jeux.sh pour chaque topic pour clients_info
+il faut également creer des jeux.sh pour chaque topic pour clients_info
+
+### 📍 CRÉATION DES JEUX.SH :
+
+## * Pour chanteur
 
 ``` 
-$ nano jeu1.sh
+$ vi jeu1.sh
 ```
 
 Vous allez tapper en suite ce code:
-
 
 ```
 #!/bin/bash
@@ -103,7 +102,13 @@ function main {
 main
 ```
 
-## * Faire la même chose pour le topic chanson:
+## * Pour chanson
+
+```
+$ nano jeu2.sh
+```
+Et en tapant ce code
+
 ```
 #!/bin/bash
 
@@ -117,7 +122,9 @@ function main {
 
 main
 ```
+
 Pour tester votre fichier de json vous devez juste faire:
+
 ```
 $ sh jeu*.sh
 Copy de fichier
@@ -131,8 +138,10 @@ Copy de fichier
 # ♦ CHANSONS
 ![alt tag](chansons2.png)
 
-## 📍 Création d'un nouveau Stream:
+## 📍 CRÉATION D'UN NOUVEAU STREAM : 
+
 Premièrement il faut aller premierment au KSQL Bash :
+
 ```
 $ docker-compose exec ksql-cli ksql http://ksql-server:8088
 ```
@@ -187,7 +196,7 @@ Name                 : KSQL_CHANTEURS
  ALBUM    | VARCHAR(STRING)
 --------------------------------------
 ```
-## Créer une table d'apres le topic chansons :
+## 📍 CRÉATION D'UNE TABLE D'APRÈS LE TOPIC CHANSONS :
 
 Tout d'abord il s'agit de créer un stream qui s'appelle ```ksql_chansons``` afin de terminer toutes les colonnes.
 ```
