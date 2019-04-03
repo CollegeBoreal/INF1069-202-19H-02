@@ -158,7 +158,7 @@ CREATE TABLE client \
     WITH (KAFKA_TOPIC='clients', \ 
 	VALUE_FORMAT='JSON', KEY='client');
 ```
-
+Ensuite creer une table pour 'services'
 
 
 
