@@ -153,7 +153,7 @@ Creer un stream du topic ksql_clients avec une clé
 CREATE STREAM clients_with_key \
        WITH (VALUE_FORMAT='AVRO', KAFKA_TOPIC='clients-with-key') \
        AS SELECT client , information \
-       FROM clients PARTITION BY clients ;
+       FROM clients PARTITION BY client ;
 ```
 Creer un stream du topic ksql_services ayant une clé 
 
