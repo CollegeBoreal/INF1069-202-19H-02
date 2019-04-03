@@ -1,1 +1,1 @@
-{ lastname : “azerty” , “firstname  “qwerty” , ” birthdate: 23/04/1932 }
+{"client":"azerty", "information":{"birthday":1189405155 , "address":"189 bay street" , "phone": "416 443 6758"}}

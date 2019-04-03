@@ -1,5 +1,11 @@
 # KafkaCat
 
+
+* Travail Noté
+
+[RUBRIQUE](RUBRIQUE.md)
+
+
 * Connaitre le nom de sa switch Docker
 
 ```
@@ -28,6 +34,10 @@ $  docker run --tty --network 300098957_default confluentinc/cp-kafkacat kafkaca
 ```
 
 
+# Techniques
+
+## kafkacat
+
 https://hub.docker.com/r/confluentinc/cp-kafkacat
 
 
@@ -40,7 +50,7 @@ https://github.com/edenhill/kafkacat
 
 
 
-# Load files
+## Load files
 
 nested-json-data
 
@@ -52,13 +62,16 @@ Essayer avec la commande `kafka-console-producer` et `cat:
 $ $ cat ~/my_file.json | docker exec --interactive kafka kafka-console-producer --broker-list kafka:9092 --topic my_topic
 ```
 
-# stream-processing-cookbook
+## stream-processing-cookbook
 
 https://www.confluent.io/stream-processing-cookbook/
 
 
-# DataGen and Avro
+## DataGen and Avro
 
 https://docs.confluent.io/current/ksql/docs/tutorials/generate-custom-test-data.html#
 
 
+## Dates
+
+https://www.confluent.io/stream-processing-cookbook/ksql-recipes/calculating-bus-delay-time
