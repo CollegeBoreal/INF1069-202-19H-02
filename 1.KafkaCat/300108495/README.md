@@ -41,15 +41,15 @@ $ docker network ls
 $ docker run --tty --network 300108495_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -L
 ```
 
-### :three: creation de Topics :
+### :three: Création de Topics :
 
-* Accedez a votre bash de Kafaka
+* Accédez à votre base de Kafka
 
 ```
 $ docker-compose exec kafka bash 
 ```
 
-* Creation de Topics
+* Création de Topics
 
 ```
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic clients_info --create \
@@ -61,16 +61,16 @@ root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic products --create
 Created topic "products".
 ```
 
-### :four: Creation de fichier JSON :
+### :four: Création de fichier JSON :
 
-* Vous devez revenir a votre path Develper/INF1069../1.KafkaCat/ID
-et vous creez un fichier de json 
+* Vous devez revenir à votre path Develper/INF1069../1.KafkaCat/ID
+et vous créez un fichier de json 
 
 ```
 $ nano client1.json 
 ```
 
-* ajoutez ce code
+* Ajoutez ce code
 
 ```
 
@@ -87,7 +87,7 @@ Et vous pouvez ajouter les autres fichier de client$.json avec un de ces lignes
 
 
 ```
-Et la meme chose pour le fichier de product$.json
+Et la même chose pour le fichier de product$.json
 ```
 { "name"   : "Scarf", "sku"    : "20223", "ticket" : { "price" : 25 , "product_date" : 1553708324000}}
 { "name"   : "pants", "sku"    : "20224", "ticket" : { "price" : 56 ,"product_date" : 1553089124000}}
@@ -95,9 +95,9 @@ Et la meme chose pour le fichier de product$.json
 { "name"   : "dress-pinky", "sku"   : "20226", "ticket" : { "price" : 189.78 , "product_date" : 1553708324000}}
 ```
 
-## :five: Creation des jeux.sh :
+## :five: Création des jeux.sh :
 
-Il faut creer des jeux.sh pour chaque topic 
+Il faut créer des jeux.sh pour chaque topic 
 
 pour clients_info
 
@@ -120,7 +120,7 @@ done
 
 main
 ```
-* meme chose pour le topic de product :
+*  même chose pour le topic de product :
 ```
 $ nano jeu2.sh
 ```
@@ -156,15 +156,15 @@ pour Clients_info
 pour Products
 ![alt tag](pic2.png)
 
-### :six: Creation d'un nouveau Stream :
+### :six: Création d'un nouveau Stream :
 
-* Il faut aller premierment au KSQL Bash :
+* Il faut aller premièrement au KSQL Bash :
 
 ```
 $ docker-compose exec ksql-cli ksql http://ksql-server:8088 
 ```
 
-* Creaton d'un nouveau Stream du topic `clients_info` 
+* Création d'un nouveau Stream du topic `clients_info` 
  
 
 ```
@@ -194,7 +194,7 @@ ksql> SELECT * FROM ksql_clientsinfo ;
 
 ```
 
-* ALors pour Decrire ce stream :
+* ALors pour Décrire ce stream :
 
 ```
 ksql> DESCRIBE ksql_clientsinfo;
@@ -212,7 +212,7 @@ ksql> DESCRIBE ksql_clientsinfo;
 
 #### :seven: Créer une table d'apres le topic products :
 
-* Premierment on va creer un Stream qui s'appelle ``` ksql_products``` afin qu'on determine tous les colomuns :
+* Premièrement on va creer un Stream qui s'appelle ``` ksql_products``` afin qu'on détermine tous les colonnes :
 
 ```
 ksql> CREATE STREAM ksql_products \
@@ -224,7 +224,7 @@ ksql> CREATE STREAM ksql_products \
 ----------------
  Stream created       
 ```
-* Montrer les colomuns de Stream :
+* Montrer les colonnes de Stream :
 
 ```
 ksql> SELECT NAME, SKU, TICKET->PRICE, TIMESTAMPTOSTRING(TICKET->PRODUCT_DATE, \
@@ -244,7 +244,7 @@ T-shirt | 20228 | 40 | 2019-03-16 13:35:08
 
 ```
 
-* Creation de stream ```products_with_key ``` avec un nouveau topic ```products-with-key ```  partition  par ID et avec Format ```Avro ``` :
+* Création de stream ```products_with_key ``` avec un nouveau topic ```products-with-key ```  partition  par ID et avec Format ```Avro ``` :
 
 ```
 ksql> CREATE STREAM products_with_key \
@@ -259,7 +259,7 @@ ksql> CREATE STREAM products_with_key \
 
 ```
 
-* Et finalement on cree la table d'apres le topic ``` products-with-key``` :
+* Et finalement on crée la table d'après le topic ``` products-with-key``` :
 
 ```
 ksql> CREATE TABLE ksql_products_table \
@@ -290,7 +290,7 @@ ksql> SELECT * FROM ksql_products_table;
 
 ### Suppression d'un stream qui est relié à une table : 
  
-Si vous voulez supprime un ancien Stream  qui est relié à une table vous devez faire les etapes suivants :
+Si vous voulez supprimer un ancien Stream  qui est relié à une table vous devez faire les etapes suivants :
 
 * Voici l'erreur
 ```
@@ -313,7 +313,7 @@ ksql> show queries;
 For detailed information on a Query run: EXPLAIN <Query ID>;
 ```
 
-* a ce niveau dous devez prendre le Id  de ``` QUERY ID ``` et le terminer comme cette commande :
+* à ce niveau il faut prendre le Id  de ``` QUERY ID ``` et le terminer comme cette commande :
 
 ```
 ksql> terminate  CSAS_PRODUCTS_WITH_KEY_3;
@@ -370,7 +370,7 @@ ksql> SELECT * FROM ksql_clientsinfo CI  \
 
 ```
 
-:exclamation: Si vous avez un problème concrenat la partition du Topic que " un a 4 et l'autre a 3 " donc la solution vous devez supprimer le topic que vous avez crée en premier temps avec 3 partition et le recréer avec 4 partitions :
+:exclamation: Si vous avez un problème concernant la partition du Topic que " un a 4 et l'autre a 3 " donc la solution vous devez supprimer le topic que vous avez crée  avec 3 partition et le recréer avec 4 partitions :
 
 ```
 $ docker-compose exec kafka bash 
@@ -384,6 +384,6 @@ root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic products --delete
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic products --create \
                  --partitions 4  --replication-factor 1
 ```
-:innocent: Alors maintenat vous pouvez juste tester votre jointure et ca va sur marcher. 
+:innocent: Alors maintenant vous pouvez juste tester votre jointure et ca va sur marcher. 
 
 
