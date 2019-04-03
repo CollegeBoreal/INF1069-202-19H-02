@@ -60,14 +60,14 @@ $ vi chanson.json
 ## . Ajouter un code
 
 ```
- { "duration":"4 minutes", "id":"140gh", { "frenquence":"500 hrz", "artist":"FKJ"}}
+ { "duration":"4 minutes", "id":"140gh", { "frequence":"500 hrz", "artist":"FKJ"}}
 ```
 en suite vous pouvez ajouter les autres foichiers de chanson$.json avec un des lignes ci-dessous: 
 ```
-{ "duration":"2.5minutes", "id":"180gh", "frenquence":"400 hrz", "artist":"RMB"}
-{ "duration":" 3 minutes", "id":"190gh", "frenquence":"350 hrz", "artist":"dont"}
-{ "duration":" 3 minutes", "id":"190gh", "frenquence":"350 hrz", "artist":"dont"}
-{ "duration":"4 minutes", "id":"140gh", "frenquence":"500 hrz", "artist":"FKJ"}
+{ "duration":"2.5minutes", "id":"180gh", "frequence":"400 hrz", "artist":"RMB"}
+{ "duration":" 3 minutes", "id":"190gh", "frequence":"350 hrz", "artist":"dont"}
+{ "duration":" 3 minutes", "id":"190gh", "frequence":"350 hrz", "artist":"dont"}
+{ "duration":"4 minutes", "id":"140gh", "frequence":"500 hrz", "artist":"FKJ"}
 ```
 et aussi la même chose pour le fichier de chanteur$.json
 ```
