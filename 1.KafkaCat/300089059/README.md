@@ -148,6 +148,21 @@ Decrire le stream
 ```
 describe SERVICES;
 ```
+Creer un stream du topic ksql_clients avec une clé 
+```
+CREATE STREAM clients_with_key \
+       WITH (VALUE_FORMAT='AVRO', KAFKA_TOPIC='clients-with-key') \
+       AS SELECT client , CAST(clients AS STRING) , information \
+       FROM clients PARTITION BY clients ;
+```
+Creer un stream du topic ksql_services ayant une clé 
+
+```
+CREATE STREAM services_with_key \
+       WITH (VALUE_FORMAT='AVRO', KAFKA_TOPIC='services-with-key') \
+       AS SELECT services , CAST(services AS STRING) , statut \
+       FROM services PARTITION BY client ;
+ ```
 
 Creer une table 'clients'
 ```
