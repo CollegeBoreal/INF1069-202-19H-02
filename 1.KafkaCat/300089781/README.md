@@ -169,6 +169,11 @@ ksql> select * from ksql_repas CI \
 1553801903170 | Jack | Mac N Cheese | Jack | {QUANTITY=2, NAME=mac n cheese, TYPE=pasta} | 1553884544 | 1553801884824 | Jack | null | Jack | 2 | mac n cheese | pasta | 1553884544
 1553801907304 | Johnny | French toast | Johnny | {QUANTITY=1, NAME=breakfast, TYPE=bread} | 1553970944 | 1553801907304 | Johnny | French toast | Johnny | 1 | breakfast | bread | 1553970944
 ```
+### :round_pushpin: S'il y a un problème de partition lors de la création de la jointure, il faut seulement suprimer le topic en question qui a le problème de partition et le recréer avec plus de partitions.
+```
+$ docker-compose exec kafka bash
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic repas --delete
+```
 
 ### :round_pushpin: Note à partager: Lorsque la table avec la clé (par exemple KSQL_REPAS_TABLE) est créé, il sera impossible de supprimer le stream KSQL_REPAS. Un message d'erreur va apparaitre:
 ```
