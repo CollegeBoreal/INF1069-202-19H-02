@@ -373,6 +373,7 @@ ksql> CREATE STREAM commande_with_key WITH (VALUE_FORMAT='AVRO', \
 ----------------------------
  Stream created and running
 ----------------------------
+````
 
 7.2 Description du Stream commande_with_key
 
@@ -412,7 +413,7 @@ ksql> SELECT * FROM commande_with_key;
 
 🆎 - Composition (KSQL JOIN)
 
-1 - Jointure de la TABLE clien_table et du STREAM commande_with_key
+1 - Jointure de la TABLE client_table et du STREAM commande_with_key
 ````
 
 
