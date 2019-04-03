@@ -147,7 +147,7 @@ ksql> select * from ksql_repas CI \
 1553801907304 | Johnny | French toast | Johnny | {QUANTITY=1, NAME=breakfast, TYPE=bread} | 1553970944 | 1553801907304 | Johnny | French toast | Johnny | 1 | breakfast | bread | 1553970944
 ```
 
-### :round_pushpin: Note à partager: Lorsque la table avec la clé (par exemple KSQL_REPAS_TABLE), il sera impossible de supprimer le stream KSQL_REPAS. Un message d'erreur va apparaitre:
+### :round_pushpin: Note à partager: Lorsque la table avec la clé (par exemple KSQL_REPAS_TABLE) est créé, il sera impossible de supprimer le stream KSQL_REPAS. Un message d'erreur va apparaitre:
 ```
 ksql> drop stream ksql_repas;
 Cannot drop KSQL_REPAS. 
@@ -165,7 +165,7 @@ ksql> show queries;
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 For detailed information on a Query run: EXPLAIN <Query ID>;
 ```
-*Copier et coller le QUERY en question et drop par la suite le ou les streams:
+*Copier et coller le QUERY en question et le "drop" par la suite (le ou les streams):
 ```
 ksql> terminate  CSAS_REPAS_WITH_KEY_3;
 
