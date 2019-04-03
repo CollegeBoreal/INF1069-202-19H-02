@@ -174,7 +174,7 @@ CREATE TABLE client \
 	VALUE_FORMAT='JSON', KEY='client');
 ```
 
-Jointure du stream KSQL_clients et la table KSQL_service
+Jointure du stream ksql_clients et la table ksql_services
 
 
 
