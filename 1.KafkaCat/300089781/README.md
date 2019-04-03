@@ -135,7 +135,7 @@ ksql>  CREATE STREAM repas_with_key \
 1553797767394 | Jack | Mac N Cheese | Jack | 2 | mac n cheese | pasta | 1553884544
 1553797771175 | Johnny | French toast | Johnny | 1 | breakfast | bread | 1553970944
 ```
-### :eight: Faire la creation d'une table
+### :eight: Faire la création d'une table
 ```
 ksql>  CREATE TABLE ksql_client_table \
        WITH (VALUE_FORMAT='AVRO', \
@@ -149,6 +149,7 @@ ksql>  CREATE TABLE ksql_client_table \
 
 *Pour voir les informations de client:
 ```
+ksql> select * from ksql_repas_table;
 1554312085083 | Jo | Crock Pot Roast | Jo | 1553279744 | 1 |  beef roast | Meat
 1554312089358 | Jess | Roasted Asparagus | Jess | 1553711744 | 5 | asparagus | Produce
 1554312094607 | Jane | Chicken salad | Jane | 1553798144 | 3 | skinless, boneless chicken breasts | Meat
