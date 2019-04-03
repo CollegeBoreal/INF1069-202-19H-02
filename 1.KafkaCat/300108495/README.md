@@ -41,6 +41,8 @@ $ docker network ls
 $ docker run --tty --network 300108495_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -L
 ```
 
+### :three: creation de Topics :
+
 * Accedez a votre bash de Kafaka
 
 ```
@@ -59,7 +61,7 @@ root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic products --create
 Created topic "products".
 ```
 
-### :three: Creation de fichier JSON :
+### :four: Creation de fichier JSON :
 
 * Vous devez revenir a votre path Develper/INF1069../1.KafkaCat/ID
 et vous creez un fichier de json 
@@ -75,7 +77,7 @@ $ nano client1.json
 { "name"   : "John Smith", "sku"    : "20223", "shipTo" : { "name" : "Jane Smith", "address" : "123 Maple Street" }}
 
 ```
-et vous pouvez ajouter les autres fichier de client$.json avec un de ces lignes 
+Et vous pouvez ajouter les autres fichier de client$.json avec un de ces lignes 
 ```
 { "name"   : "Frank lil", "sku"    : "20224", "shipTo" : { "name" : "Frank", "address" : "154 Webster" }}
 { "name"   : "Lele Pos", "sku"    : "20225", "shipTo" : { "name" : "LeLe", "address" : "18 jane" }}
@@ -85,21 +87,25 @@ et vous pouvez ajouter les autres fichier de client$.json avec un de ces lignes
 
 
 ```
-et la meme chose pour le fichier de product$.json
+Et la meme chose pour le fichier de product$.json
 ```
 { "name"   : "Scarf", "sku"    : "20223", "ticket" : { "price" : 25 , "product_date" : 1553708324000}}
 { "name"   : "pants", "sku"    : "20224", "ticket" : { "price" : 56 ,"product_date" : 1553089124000}}
 { "name"   : "shirt", "sku"    : "20225", "ticket" : { "price" : 13 , "product_date" : 1551533924000}}
 { "name"   : "dress-pinky", "sku"   : "20226", "ticket" : { "price" : 189.78 , "product_date" : 1553708324000}}
 ```
-il faut creer des jeux.sh pour chaque topic 
+
+## :five: Creation des jeux.sh :
+
+Il faut creer des jeux.sh pour chaque topic 
+
 pour clients_info
 
 ```
 $ nano jeu1.sh
 
 ```
-et vous tappez ce code :
+Et vous tappez ce code :
 ```
 #!/bin/bash
 
@@ -150,7 +156,7 @@ pour Clients_info
 pour Products
 ![alt tag](pic2.png)
 
-### Creation d'un nouveau Stream :
+### :six: Creation d'un nouveau Stream :
 
 * Il faut aller premierment au KSQL Bash :
 
@@ -204,7 +210,7 @@ ksql> DESCRIBE ksql_clientsinfo;
 
 ```
 
-#### Créer une table d'apres le topic products :
+#### :seven: Créer une table d'apres le topic products :
 
 * Premierment on va creer un Stream qui s'appelle ``` ksql_products``` afin qu'on determine tous les colomuns :
 
