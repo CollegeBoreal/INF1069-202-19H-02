@@ -129,6 +129,7 @@ ksql>  CREATE STREAM repas_with_key \
 ```
 *Pour voir les informations de repas_with_key:
 ```
+ksql> SELECT * FROM REPAS_WITH_KEY;
 1553797754449 | Jo | Crock Pot Roast | Jo | 1 |  beef roast | Meat | 1553279744
 1553797758337 | Jess | Roasted Asparagus | Jess | 5 | asparagus | Produce | 1553711744
 1553797762840 | Jane | Chicken salad | Jane | 3 | skinless, boneless chicken breasts | Meat | 1553798144
