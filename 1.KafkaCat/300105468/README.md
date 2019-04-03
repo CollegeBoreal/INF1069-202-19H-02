@@ -1,5 +1,5 @@
 
-# 🔎KAFKACAT 
+# 🔎KAFKACAT ARTISTIQUE
 ## 📍 CRÉER SON ENVIRONNEMENT DANS UN REPERTOIRE:
 ## 1. Copier le fichier de docker-compose.yml d'apres le repertoire D.Demo.
 ```
