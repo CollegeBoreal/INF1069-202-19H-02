@@ -101,6 +101,21 @@ ksql> CREATE STREAM client (client STRING,\
  Stream created 
 ----------------
 ```
+*Pour voir les informations de client;
+```
+ksql> SELECT * FROM CLIENT;
+1554311936111 | null | Jess | {QUANTITY=1, NAME=Roasted Asparagus}
+1554311936075 | null | Jo | {QUANTITY=1, NAME=Crock Pot Roast}
+1554311936120 | null | Johnny | {QUANTITY=1, NAME=French toast}
+1554311936118 | null | Jack | {QUANTITY=2, NAME=Mac N Cheese}
+1554311936118 | null | Jane | {QUANTITY=-1, NAME=Chicken salad}
+1554311942122 | null | Jo | {QUANTITY=1, NAME=Crock Pot Roast}
+1554311946075 | null | Jess | {QUANTITY=1, NAME=Roasted Asparagus}
+1554311949540 | null | Jane | {QUANTITY=-1, NAME=Chicken salad}
+1554311953466 | null | Jack | {QUANTITY=2, NAME=Mac N Cheese}
+1554311957026 | null | Johnny | {QUANTITY=1, NAME=French toast}
+```
+
 ### :seven: Creer un stream du topic ksql_repas ayant une clé (pour enlever les "null")
 ```
 ksql>  CREATE STREAM repas_with_key \
@@ -131,6 +146,15 @@ ksql>  CREATE TABLE ksql_client_table \
 ---------------
  Table created 
 ---------------
+```
+
+*Pour voir les informations de client:
+```
+1554312085083 | Jo | Crock Pot Roast | Jo | 1553279744 | 1 |  beef roast | Meat
+1554312089358 | Jess | Roasted Asparagus | Jess | 1553711744 | 5 | asparagus | Produce
+1554312094607 | Jane | Chicken salad | Jane | 1553798144 | 3 | skinless, boneless chicken breasts | Meat
+1554312098975 | Jack | Mac N Cheese | Jack | 1553884544 | 2 | mac n cheese | pasta
+1554312102690 | Johnny | French toast | Johnny | 1553970944 | 1 | breakfast | bread
 ```
 
 ### :nine: Faire la jointure du stream KSQL_REPAS et la table KSQL_CLIENT_TABLE:
