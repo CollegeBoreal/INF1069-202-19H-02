@@ -127,7 +127,7 @@ birthday string, address string , phone string > ) \
   WITH (KAFKA_TOPIC='clients', \
         VALUE_FORMAT='JSON');
 ```
-Cree le stream du topic SERVICE
+Cree le stream du topic SERVICES
 ```
 CREATE STREAM services \
   (service VARCHAR, \
