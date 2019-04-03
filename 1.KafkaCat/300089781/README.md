@@ -1,4 +1,5 @@
 # KAFKACAT , JEU DE REPAS
+
 ### :hand: Pour commencer, entrer dans le cours et dans son ID puis s'assurer que Kafka, Zookeeper, KSQL et control center est "UP"
 ```
 $ cd ../../1.KafkaCat/ 300089781  
@@ -20,10 +21,6 @@ Created topic "repas"
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic client --create --partitions 3 --replication-factor 1
 Created topic "client"
 ```
-### :three: Entrer dans ksql
-```
-$ docker-compose exec ksql-cli ksql http://ksql-server:8088
-```
 ### :hand: S'assurer que les fichiers json sont créés (client.json, repas.json et pour tous les clients ET repas)
 *Par exemple, client:
 ```
@@ -36,6 +33,12 @@ $ nano client.json
 {"client": "Jack", "aime": {"quantity": 2, "name": "Mac N Cheese"}}
 {"client": "Johnny", "aime": {"quantity": 1, "name": "French toast"}}
 ```
+
+### :three: Entrer dans ksql>
+```
+$ docker-compose exec ksql-cli ksql http://ksql-server:8088
+```
+
 ### :four: Ouvrir un 2e terminal. Sur le 1er terminal, partir le jeu SH.JEU1.SH (client) et sur 2e terminal, tester :
 
 ```
