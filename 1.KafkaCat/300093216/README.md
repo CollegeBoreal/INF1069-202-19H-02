@@ -110,4 +110,90 @@ function main {
 main
 ```
  
+ Pour tester votre fichier de json vous devez juste faire:
  
+ ``` 
+ $ sh jeu*.sh
+Copy de fichier
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ ``` 
+ 
+ ## Pour voir le resultat vous pouvez voir dans le site http://10.13.237.19:9021/management/clusters
+ 
+ ##  ♦ PRODUITS 
+ 
+ ``` cAPTURE ÉCRAN ``` 
+ 
+ 
+ ##  ♦ VENTES
+
+``` cAPTURE ÉCRAN ``` 
+## 🔎 Création d'un nouveau Stream:
+
+Premièrement il faut aller premierment au KSQL Bash :
+
+```  
+$ docker-compose exec ksql-cli ksql http://ksql-server:8088
+
+``` 
+
+## 1. Creaton d'un nouveau Stream du topic produits
+
+```  
+ksql> CREATE STREAM ksql_produits (platform string, id string, title string, artist string, album string) WITH (KAFKA_TOPIC='produits', VALUE_FORMAT='JSON');
+ 
+``` 
+## Pour voir tous les info des produits :
+
+``` 
+ksql> SELECT * FROM ksql_produits ;
+
+``` 
+
+## pour voir les streams
+
+``` 
+ksql> show streams ;
+``` 
+## Pour Décrire le stream
+
+``` 
+ksql> DESCRIBE ksql_produits ;
+``` 
+## Créer une table d'apres le topic ventes :
+
+Tout d'abord il s'agit de créer un stream qui s'appelle ``` ksql_ventes``` afin de terminer toutes les colonnes.
+``` 
+ksql> CREATE STREAM ksql_ventess (DURATION STRING , ID STRING , FREQUENCE STRING , ARTIST STRING ) WITH  (KAFKA_TOPIC='ventes',VALUE_FORMAT='JSON');
+``` 
+Pour voir tous les informations de cette table :
+
+``` 
+ksql> SELECT * FROM ksql_chansons;
+``` 
+Création de Stream ``` ventes_with_key```  avec un nouveau topic ``` ventes-with-key ``` partition par ID:
+``` 
+ksql> CREATE STREAM ksql_ventes_with_key \
+       WITH (VALUE_FORMAT='AVRO', KAFKA_TOPIC='ventes-with-key') \
+       AS SELECT DURATION , CAST(ID AS STRING) AS ID, FREQUENCE, ARTIST \
+       FROM ksql_chansons PARTITION BY ID ;  
+  ``` 
+  
+Et finalement on crée la table d'après le topic  ``` ventes-with-key ``` :
+
+  ``` 
+ksql> CREATE TABLE ksql_ventes_table \
+       WITH (VALUE_FORMAT='AVRO',  \
+       KAFKA_TOPIC='chansons-with-key', KEY='ID') ;
+  ``` 
+Pour voir toutes les informations de cette table:
+
+ ``` 
+ksql> SELECT * FROM ksql_ventes_table ;
+ ``` 
+## Pour faire la joincture entre le Stream ksql_produits et la table ksql_ventes_table :
+
+SELECT * FROM ksql_produis CI  \
+         LEFT OUTER JOIN \
+         ksql_ventes_table PR \
+         ON  PR.ID = CI.ID ;
