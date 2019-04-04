@@ -118,6 +118,18 @@ Dans KSQP bash
 ```
 docker-compose exec ksql-cli ksql http://ksql-server:8088
 ```
+infos client
+```
+ksql> select * from services;
+1553798862498 | null | grocery | on
+1553798864496 | null | dog | off
+1553798866695 | null | cleaning | on
+1553798868922 | null | information | on
+1553798871019 | null | localisation  | off
+```
+
+
+
 Creer le nouveau Stream du topic CLIENTS
 ```
 CREATE STREAM clients \
