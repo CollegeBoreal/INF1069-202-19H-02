@@ -147,6 +147,19 @@ Name                 : CLIENTS
  CLIENT      | VARCHAR(STRING)
  INFORMATION | STRUCT<BIRTHDAY BIGINT, ADDRESS VARCHAR(STRING), PHONE VARCHAR(STRING)>
 ```
+```
+ksql> DESCRIBE services;
+
+Name                 : SERVICES
+ Field   | Type
+-------------------------------------
+ ROWTIME | BIGINT           (system)
+ ROWKEY  | VARCHAR(STRING)  (system)
+ SERVICE | VARCHAR(STRING)
+ STATUT  | VARCHAR(STRING)
+-------------------------------------
+
+```
 
 Creer le nouveau Stream du topic CLIENTS
 ```
