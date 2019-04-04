@@ -113,3 +113,6 @@ Showing that Bitcoin still has fat tails a good candidate for Black Swan Theory.
 
 ![alt tag](https://github.com/CollegeBoreal/INF1069-17H/blob/master/Z.BITSTAMP/rplot02.png)
 
+# Reference 
+
+https://cran.r-project.org/web/packages/rkafka/
