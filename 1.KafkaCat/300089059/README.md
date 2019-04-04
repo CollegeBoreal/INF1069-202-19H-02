@@ -127,7 +127,15 @@ ksql> select * from services;
 1553798868922 | null | information | on
 1553798871019 | null | localisation  | off
 ```
-
+infos service
+```
+ksql> select * from clients;
+1554315149067 | null | windows | {BIRTHDAY=1258611555, ADDRESS=1234 bay street, PHONE=416 123 4444}
+1554315151001 | null | azerty | {BIRTHDAY=1189405155, ADDRESS=189 bay street, PHONE=416 443 6758}
+1554315152930 | null | vaio | {BIRTHDAY=1096870755, ADDRESS=123 bay street, PHONE=416 553 9879}
+1554315154864 | null | linux | {BIRTHDAY=1128406755, ADDRESS=1768 bay street, PHONE=416 883 3234}
+1554315156772 | null | mint | {BIRTHDAY=1224829155, ADDRESS=154 bay street, PHONE=416 993 4487}
+```
 
 
 Creer le nouveau Stream du topic CLIENTS
