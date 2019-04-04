@@ -1,7 +1,1 @@
-
-<<<<<<< HEAD
- { "duration":"4 minutes", "id":"140gh", "frenquence":"500 hrz", "artist":"FKJ"}
-
-=======
- { "duration":"4 minutes", "id":"140gh", "frequence":"500 hrz", "artist":"FKJ"}
->>>>>>> 0553fd6a611cd3d9663b4eeb25952e60d62f613e
+{ "duration" : "4 minutes", "id":"140gh" "detail" : {"frequence" : "500 hrz", "artist" : "FKJ" }}
