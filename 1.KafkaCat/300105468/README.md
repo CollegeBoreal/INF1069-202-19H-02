@@ -60,21 +60,21 @@ $ vi chanson.json
 ## . Ajouter un code
 
 ```
- { "duration":"4 minutes", "id":"140gh", { "frequence":"500 hrz", "artist":"FKJ"}}
+ { "duration":"4 minutes", "id" : "140gh" "detail" : { "frequence" : "500 hrz", "artist" : "FKJ" }}
 ```
 en suite vous pouvez ajouter les autres foichiers de chanson$.json avec un des lignes ci-dessous: 
 ```
-{ "duration":"2.5minutes", "id":"180gh", "frequence":"400 hrz", "artist":"RMB"}
-{ "duration":" 3 minutes", "id":"190gh", "frequence":"350 hrz", "artist":"dont"}
-{ "duration":" 3 minutes", "id":"190gh", "frequence":"350 hrz", "artist":"dont"}
-{ "duration":"4 minutes", "id":"140gh", "frequence":"500 hrz", "artist":"FKJ"}
+{ "duration" : "2.5minutes", "id":"180gh", "detail" : { "frequence" : "400 hrz", "artist" : "RMB" }}
+{ "duration" : " 3 minutes", "id":"190gh", "detail" : { "frequence" :  "350 hrz", "artist" : "dont" }}
+{ "duration" : " 3 minutes", "id":"190gh" "detail" : {"frequence" : "350 hrz", "artist" : "dont" }}
+{ "duration" : "4 minutes", "id":"140gh" "detail" : {"frequence" : "500 hrz", "artist" : "FKJ" }}
 ```
 et aussi la même chose pour le fichier de chanteur$.json
 ```
-{ "platform":"spotify", "id":"140gh", "title":"Lying Together", "artist":"FKJ", "album":"Casse T"}
-{ "platform":"spotify", "id":"180gh", "title":"dancing Together", "artist":"RMB", "album":"Playing "}
-{ "platform":"spotify", "id":"190gh", "title":"Reaggae", "artist":"Lion", "album":"dont"}
-{ "platform":"spotify", "id":"200gh", "title":"Nil", "artist":"Formuler", "album":"Labe"}
+{ "platform": "spotify", "id":"140gh", "name" : { "title":"Lying Together", "artist":"FKJ", "album":"Casse T"}
+{ "platform": "spotify", "id":"180gh", "name" : { "title":"dancing Together", "artist":"RMB", "album":"Playing "}
+{ "platform": "spotify", "id":"190gh", "name" : { "title":"Reaggae", "artist":"Lion", "album":"dont"}
+{ "platform": "spotify", "id":"200gh", "name" : "title":"Nil", "artist":"Formuler", "album":"Labe"}
 ```
 il faut également creer des jeux.sh pour chaque topic pour clients_info
 
