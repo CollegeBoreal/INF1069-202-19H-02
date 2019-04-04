@@ -218,7 +218,7 @@ ksql>  CREATE TABLE services \
   KAFKA_TOPIC='services_with_key', KEY='client');
 ```
 
-Jointure du stream ksql_clients et la table ksql_services
+Jointure du stream clients et la table services
 
 
 
