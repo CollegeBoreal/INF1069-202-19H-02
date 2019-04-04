@@ -178,6 +178,7 @@ Cree le stream du topic SERVICES
 ```
 CREATE STREAM services \
   (service VARCHAR, \
+  client VARCHAR, \
    statut VARCHAR) \
   WITH (KAFKA_TOPIC='services', \
         VALUE_FORMAT='JSON');
