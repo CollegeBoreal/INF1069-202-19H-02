@@ -209,7 +209,7 @@ CREATE STREAM services_with_key \
 
 Creer une table 'service'
 ```
-ksql>  CREATE TABLE ksql_client_table \
+ksql>  CREATE TABLE services \
       WITH (VALUE_FORMAT='AVRO', \
   KAFKA_TOPIC='services_with_key', KEY='client');
 ```
