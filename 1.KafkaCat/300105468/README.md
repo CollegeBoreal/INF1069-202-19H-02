@@ -1,6 +1,8 @@
 
-# 🔎KAFKACAT 
+# 🔎KAFKACAT : JEU ARTISTIQUE
+
 ## 📍 CRÉER SON ENVIRONNEMENT DANS UN REPERTOIRE:
+
 ## 1. Copier le fichier de docker-compose.yml d'apres le repertoire D.Demo.
 ```
 $ cp ../../D.Demo/docker-compose.yml  . 
@@ -16,7 +18,7 @@ $ cd ../../D.Demo
 $ docker-compose stop 
 $ docker-compose rm 
 ```
-## 📍 Executez votre environnement dans 1.KafkaCat/ID :
+## 📍 EXECUTER SON ENVIRONNEMENT DANS 1.KafkaCat/ID :
 ```
 $ cd ../../1.KafkaCat/ID (ex:300105468) 
 $ docker-compose up -d 
@@ -30,64 +32,61 @@ $ docker network ls
 ```
 $ docker run --tty --network 300105468_default confluentinc/cp-kafkacat kafkacat -b kafka:29092 -L
 ```
+### 📍 CRÉATION DE TOPICS :
 
-### 3. Accedez a votre bash de Kafaka
+## 1. Accedez a votre bash de Kafaka
 
 ```
 $ docker-compose exec kafka bash 
 ```
-### 4. Création des topics
+### 2 Création des topics 
+
 ```
-root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic chanteurs --create --partitions 3 --replication-factor 1
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic chanteurs --create --partitions 4 --replication-factor 1
 Created topic "chanteurs"
 ```
 ```
-root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic chansons --create --partitions 3 --replication-factor 1
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic chansons --create --partitions 4 --replication-factor 1
 Created topic "chansons"
 ```
-```
-$ docker run --interactive \
-           --network 300105468_default \
-           confluentinc/cp-kafkacat \
-            kafkacat -b kafka:29092 \
-                    -t my_topic \
-                    -K: \
-                    -P <<EO
-{"Date":"2019-01-08","Open":7.53,"High":7.6,"Low":7.35,"Close":7.41,"Adj Close":7.41,"Volume":3960900}
-EOF
-```
-## 📍 Creation de fichier JSON :
+
+## 📍 CRÉATION DE FICHIER JSON : 
 
 ## 1. Vous devez revenir a votre path Develper/INF1069../1.KafkaCat/ID et vous creez un fichier de json
+
 ```
 $ vi chanson.json 
 ```
 ## . Ajouter un code
+
 ```
- { "duration":"4 minutes", "id":"140gh", { "frenquence":"500 hrz", "artist":"FKJ"}}
+ { "duration":"4 minutes", "id" : "140gh" "detail" : { "frequence" : "500 hrz", "artist" : "FKJ" }}
 ```
 en suite vous pouvez ajouter les autres foichiers de chanson$.json avec un des lignes ci-dessous: 
 ```
-{ "duration":"2.5minutes", "id":"180gh", "frenquence":"400 hrz", "artist":"RMB"}
-{ "duration":" 3 minutes", "id":"190gh", "frenquence":"350 hrz", "artist":"dont"}
-{ "duration":" 3 minutes", "id":"190gh", "frenquence":"350 hrz", "artist":"dont"}
-{ "duration":"4 minutes", "id":"140gh", "frenquence":"500 hrz", "artist":"FKJ"}
+{ "duration" : "2.5minutes", "id":"180gh", "detail" : { "frequence" : "400 hrz", "artist" : "RMB" }}
+{ "duration" : " 3 minutes", "id":"190gh", "detail" : { "frequence" :  "350 hrz", "artist" : "dont" }}
+{ "duration" : " 3 minutes", "id":"190gh" "detail" : {"frequence" : "350 hrz", "artist" : "dont" }}
+{ "duration" : "4 minutes", "id":"140gh" "detail" : {"frequence" : "500 hrz", "artist" : "FKJ" }}
 ```
 et aussi la même chose pour le fichier de chanteur$.json
 ```
-{ "platform":"spotify", "id":"140gh", "title":"Lying Together", "artist":"FKJ", "album":"Casse T"}
-{ "platform":"spotify", "id":"180gh", "title":"dancing Together", "artist":"RMB", "album":"Playing "}
-{ "platform":"spotify", "id":"190gh", "title":"Reaggae", "artist":"Lion", "album":"dont"}
-{ "platform":"spotify", "id":"200gh", "title":"Nil", "artist":"Formuler", "album":"Labe"}
+{ "platform": "spotify", "id":"140gh", "name" : { "title":"Lying Together", "artist" : "FKJ", "album" : "Casse T" }}
+{ "platform": "spotify", "id":"180gh", "name" : { "title" : "dancing Together", "artist" : "RMB", "album" : "Playing "}}
+{ "platform": "spotify", "id":"190gh", "name" : { "title" : "Reaggae", "artist" : "Lion", "album" : "dont" }}
+{ "platform": "spotify", "id":"200gh", "name" : { "title" : "Nil", "artist" : "Formuler", "album" : "Labe" }}
 ```
-il faut creer des jeux.sh pour chaque topic pour clients_info
+il faut également creer des jeux.sh pour chaque topic pour clients_info
+
+### 📍 CRÉATION DES JEUX.SH :
+
+## * Pour chanteur
 
 ``` 
-$ nano jeu1.sh
+$ vi jeu1.sh
 ```
 
 Vous allez tapper en suite ce code:
-
 
 ```
 #!/bin/bash
@@ -103,7 +102,13 @@ function main {
 main
 ```
 
-## * Faire la même chose pour le topic chanson:
+## * Pour chanson
+
+```
+$ nano jeu2.sh
+```
+Et en tapant ce code
+
 ```
 #!/bin/bash
 
@@ -117,7 +122,9 @@ function main {
 
 main
 ```
+
 Pour tester votre fichier de json vous devez juste faire:
+
 ```
 $ sh jeu*.sh
 Copy de fichier
@@ -131,8 +138,10 @@ Copy de fichier
 # ♦ CHANSONS
 ![alt tag](chansons2.png)
 
-## 📍 Création d'un nouveau Stream:
+## 📍 CRÉATION D'UN NOUVEAU STREAM : 
+
 Premièrement il faut aller premierment au KSQL Bash :
+
 ```
 $ docker-compose exec ksql-cli ksql http://ksql-server:8088
 ```
@@ -187,7 +196,7 @@ Name                 : KSQL_CHANTEURS
  ALBUM    | VARCHAR(STRING)
 --------------------------------------
 ```
-## Créer une table d'apres le topic chansons :
+## 📍 CRÉATION D'UNE TABLE D'APRÈS LE TOPIC CHANSONS :
 
 Tout d'abord il s'agit de créer un stream qui s'appelle ```ksql_chansons``` afin de terminer toutes les colonnes.
 ```
@@ -262,12 +271,12 @@ ksql> SELECT * FROM ksql_chansons_table ;
 1553718519997 | 200gh | 1.90 minutes | 200gh | null | lab
 
 ```
-Pour faire la joincture entre le Stream ```ksql_chanteurs``` et la table ```ksql_chansons_table``` :
+### Pour faire la joincture entre le Stream ```ksql_chanteurs``` et la table ```ksql_chansons_table``` :
 
 ```
 SELECT * FROM ksql_chanteurs CI  \
          LEFT OUTER JOIN \
-         ksql_chansonss_table PR \
+         ksql_chansons_table PR \
          ON  PR.ID = CI.ID ;
          
 Can't join KSQL_CHANTEURS with KSQL_CHANSONS_TABLE since the number of partitions don't match. KSQL_CHANTEURS partitions =
@@ -279,4 +288,54 @@ On recréer une partition =4 pour ksql_chanteurs
 ksql> CREATE STREAM KSQL_CHANTEURS WITH (PARTITIONS =4) \ 
       as SELECT * FROM KSQL_CHANTEURS;
 ```
+## On relance la commande (avec patience🤣🤣🤣)
 
+```
+SELECT * FROM ksql_chanteurs CI  \
+         LEFT OUTER JOIN \
+         ksql_chansons_table PR \
+         ON  PR.ID = CI.ID ;
+
+1554146529722 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147298287 | 190gh |  3 minutes | 190gh | null | dont
+1554146560946 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147296508 | 180gh | 2.5minutes | 180gh | null | RMB
+1554146595240 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147294652 | 140gh | 4 minutes | 140gh | null | FKJ
+1554146595252 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147298287 | 190gh |  3 minutes | 190gh | null | dont
+1554146597055 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147294652 | 140gh | 4 minutes | 140gh | null | FKJ
+1554146598861 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147296508 | 180gh | 2.5minutes | 180gh | null | RMB
+1554146723764 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147294652 | 140gh | 4 minutes | 140gh | null | FKJ
+1554146723776 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147298287 | 190gh |  3 minutes | 190gh | null | dont
+1554146729280 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147298287 | 190gh |  3 minutes | 190gh | null | dont
+1554147000041 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147294652 | 140gh | 4 minutes | 140gh | null | FKJ
+1554146568119 | 200gh | spotify | 200gh | Nil | Formuler | Labe | 1554147300106 | 200gh | 1.90 minutes | 200gh | null | labe
+1554146731073 | 200gh | spotify | 200gh | Nil | Formuler | Labe | 1554147300106 | 200gh | 1.90 minutes | 200gh | null | labe
+1554146529722 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147296508 | 180gh | 2.5minutes | 180gh | null | RMB
+1554146560919 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147294652 | 140gh | 4 minutes | 140gh | null | FKJ
+1554146560946 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147298287 | 190gh |  3 minutes | 190gh | null | dont
+1554146564509 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147296508 | 180gh | 2.5minutes | 180gh | null | RMB
+1554146595251 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147296508 | 180gh | 2.5minutes | 180gh | null | RMB
+1554146600708 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147298287 | 190gh |  3 minutes | 190gh | null | dont
+1554146723776 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147296508 | 180gh | 2.5minutes | 180gh | null | RMB
+1554147001842 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147296508 | 180gh | 2.5minutes | 180gh | null | RMB
+1554146531637 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147294652 | 140gh | 4 minutes | 140gh | null | FKJ
+1554146535532 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147298287 | 190gh |  3 minutes | 190gh | null | dont
+1554146566313 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147298287 | 190gh |  3 minutes | 190gh | null | dont
+1554146600171 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147296508 | 180gh | 2.5minutes | 180gh | null | RMB
+1554146725553 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147294652 | 140gh | 4 minutes | 140gh | null | FKJ
+1554146727340 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147296508 | 180gh | 2.5minutes | 180gh | null | RMB
+1554146998160 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147294652 | 140gh | 4 minutes | 140gh | null | FKJ
+1554146998186 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147298287 | 190gh |  3 minutes | 190gh | null | dont
+1554147003659 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147298287 | 190gh |  3 minutes | 190gh | null | dont
+1554147502455 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147489198 | 140gh | 4 minutes | 140gh | null | FKJ
+1554147502483 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147493107 | 190gh |  3 minutes | 190gh | null | dont
+1554147502482 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147491304 | 180gh | 2.5minutes | 180gh | null | RMB
+1554147504357 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147489198 | 140gh | 4 minutes | 140gh | null | FKJ
+1554147507367 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147491304 | 180gh | 2.5minutes | 180gh | null | RMB
+1554147509161 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147493107 | 190gh |  3 minutes | 190gh | null | dont
+1554147511113 | 200gh | spotify | 200gh | Nil | Formuler | Labe | 1554147494905 | 200gh | 1.90 minutes | 200gh | null | labe
+1554147516959 | 140gh | spotify | 140gh | Lying Together | FKJ | Casse T | 1554147489198 | 140gh | 4 minutes | 140gh | null | FKJ
+1554147516971 | 190gh | spotify | 190gh | Reaggae | Lion | dont | 1554147493107 | 190gh |  3 minutes | 190gh | null | dont
+1554147516970 | 180gh | spotify | 180gh | dancing Together | RMB | Playing  | 1554147491304 | 180gh | 2.5minutes | 180gh | null | RMB
+
+```
+
+#### ♦ FIN!

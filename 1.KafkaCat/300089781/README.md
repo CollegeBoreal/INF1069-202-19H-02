@@ -1,4 +1,5 @@
-# KAFKACAT 
+# KAFKACAT , JEU DE REPAS
+
 ### :hand: Pour commencer, entrer dans le cours et dans son ID puis s'assurer que Kafka, Zookeeper, KSQL et control center est "UP"
 ```
 $ cd ../../1.KafkaCat/ 300089781  
@@ -20,14 +21,9 @@ Created topic "repas"
 root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic client --create --partitions 3 --replication-factor 1
 Created topic "client"
 ```
-### :three: Entrer dans ksql
-```
-$ docker-compose exec ksql-cli ksql http://ksql-server:8088
-```
-### :stop: S'assurer que les fichiers json sont créés (client.json, repas.json et pour tous les clients ET repas)
-```
+### :hand: S'assurer que les fichiers json sont créés (client.json, repas.json et pour tous les clients ET repas)
 *Par exemple, client:
-
+```
 $ nano client.json
 ```
 ```
@@ -37,6 +33,12 @@ $ nano client.json
 {"client": "Jack", "aime": {"quantity": 2, "name": "Mac N Cheese"}}
 {"client": "Johnny", "aime": {"quantity": 1, "name": "French toast"}}
 ```
+
+### :three: Entrer dans ksql>
+```
+$ docker-compose exec ksql-cli ksql http://ksql-server:8088
+```
+
 ### :four: Ouvrir un 2e terminal. Sur le 1er terminal, partir le jeu SH.JEU1.SH (client) et sur 2e terminal, tester :
 
 ```
@@ -71,14 +73,13 @@ ksql> CREATE STREAM ksql_repas (name STRING, \
 			       eta BIGINT) \
       WITH (VALUE_FORMAT='JSON', \
       KAFKA_TOPIC='repas');
-    ```
 	
  Message        
 ----------------
  Stream created 
 ----------------    
 ```    
-Pour voir les informations de ksql_repas:
+*Pour voir les informations de ksql_repas:
 ```
 ksql> SELECT * FROM KSQL_REPAS;
 1553797619399 | null | Crock Pot Roast | Jo | {QUANTITY=1, NAME= beef roast, TYPE=Meat} | 1553279744
@@ -88,8 +89,9 @@ ksql> SELECT * FROM KSQL_REPAS;
 1553797634731 | null | French toast | Johnny | {QUANTITY=1, NAME=breakfast, TYPE=bread} | 1553970944
 ...
 ```
-```
+
 *Faire la création du stream client:
+```
 ksql> CREATE STREAM client (client STRING,\ 
 		      aime STRUCT< \
 		      quantity BIGINT, \
@@ -101,11 +103,26 @@ ksql> CREATE STREAM client (client STRING,\
  Stream created 
 ----------------
 ```
+*Pour voir les informations de client;
+```
+ksql> SELECT * FROM CLIENT;
+1554311936111 | null | Jess | {QUANTITY=1, NAME=Roasted Asparagus}
+1554311936075 | null | Jo | {QUANTITY=1, NAME=Crock Pot Roast}
+1554311936120 | null | Johnny | {QUANTITY=1, NAME=French toast}
+1554311936118 | null | Jack | {QUANTITY=2, NAME=Mac N Cheese}
+1554311936118 | null | Jane | {QUANTITY=-1, NAME=Chicken salad}
+1554311942122 | null | Jo | {QUANTITY=1, NAME=Crock Pot Roast}
+1554311946075 | null | Jess | {QUANTITY=1, NAME=Roasted Asparagus}
+1554311949540 | null | Jane | {QUANTITY=-1, NAME=Chicken salad}
+1554311953466 | null | Jack | {QUANTITY=2, NAME=Mac N Cheese}
+1554311957026 | null | Johnny | {QUANTITY=1, NAME=French toast}
+```
+
 ### :seven: Creer un stream du topic ksql_repas ayant une clé (pour enlever les "null")
 ```
 ksql>  CREATE STREAM repas_with_key \
-    WITH (VALUE_FORMAT='AVRO', \
-    KAFKA_TOPIC='repas_with_key') AS \
+       WITH (VALUE_FORMAT='AVRO', \
+       KAFKA_TOPIC='repas_with_key') AS \
           SELECT name, client, ingredients->quantity, ingredients->name, ingredients->type, eta \
                 FROM ksql_repas PARTITION BY client;
  Message                    
@@ -113,24 +130,35 @@ ksql>  CREATE STREAM repas_with_key \
  Stream created and running 
 ----------------------------
 ```
-Pour voir les informations de repas_with_key:
+*Pour voir les informations de repas_with_key:
 ```
+ksql> SELECT * FROM REPAS_WITH_KEY;
 1553797754449 | Jo | Crock Pot Roast | Jo | 1 |  beef roast | Meat | 1553279744
 1553797758337 | Jess | Roasted Asparagus | Jess | 5 | asparagus | Produce | 1553711744
 1553797762840 | Jane | Chicken salad | Jane | 3 | skinless, boneless chicken breasts | Meat | 1553798144
 1553797767394 | Jack | Mac N Cheese | Jack | 2 | mac n cheese | pasta | 1553884544
 1553797771175 | Johnny | French toast | Johnny | 1 | breakfast | bread | 1553970944
 ```
-### :eight: Faire la creation d'une table
+### :eight: Faire la création d'une table
 ```
 ksql>  CREATE TABLE ksql_client_table \
->      WITH (VALUE_FORMAT='AVRO', \
->      KAFKA_TOPIC='repas_with_key', KEY='client');
+       WITH (VALUE_FORMAT='AVRO', \
+       KAFKA_TOPIC='repas_with_key', KEY='client');
 
  Message       
 ---------------
  Table created 
 ---------------
+```
+
+*Pour voir les informations de client:
+```
+ksql> select * from ksql_repas_table;
+1554312085083 | Jo | Crock Pot Roast | Jo | 1553279744 | 1 |  beef roast | Meat
+1554312089358 | Jess | Roasted Asparagus | Jess | 1553711744 | 5 | asparagus | Produce
+1554312094607 | Jane | Chicken salad | Jane | 1553798144 | 3 | skinless, boneless chicken breasts | Meat
+1554312098975 | Jack | Mac N Cheese | Jack | 1553884544 | 2 | mac n cheese | pasta
+1554312102690 | Johnny | French toast | Johnny | 1553970944 | 1 | breakfast | bread
 ```
 
 ### :nine: Faire la jointure du stream KSQL_REPAS et la table KSQL_CLIENT_TABLE:
@@ -146,8 +174,13 @@ ksql> select * from ksql_repas CI \
 1553801903170 | Jack | Mac N Cheese | Jack | {QUANTITY=2, NAME=mac n cheese, TYPE=pasta} | 1553884544 | 1553801884824 | Jack | null | Jack | 2 | mac n cheese | pasta | 1553884544
 1553801907304 | Johnny | French toast | Johnny | {QUANTITY=1, NAME=breakfast, TYPE=bread} | 1553970944 | 1553801907304 | Johnny | French toast | Johnny | 1 | breakfast | bread | 1553970944
 ```
+### :round_pushpin: S'il y a un problème de partition lors de la création de la jointure, il faut seulement suprimer le topic en question qui a le problème de partition et le recréer avec plus de partitions.
+```
+$ docker-compose exec kafka bash
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic repas --delete
+```
 
-### :round_pushpin: Note à partager: Lorsque la table avec la clé (par exemple KSQL_REPAS_TABLE), il sera impossible de supprimer le stream KSQL_REPAS. Un message d'erreur va apparaitre:
+### :round_pushpin: Note à partager: Lorsque la table avec la clé (par exemple KSQL_REPAS_TABLE) est créé, il sera impossible de supprimer le stream KSQL_REPAS. Un message d'erreur va apparaitre:
 ```
 ksql> drop stream ksql_repas;
 Cannot drop KSQL_REPAS. 
@@ -165,7 +198,7 @@ ksql> show queries;
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 For detailed information on a Query run: EXPLAIN <Query ID>;
 ```
-*Copier et coller le QUERY en question et drop par la suite le ou les streams:
+*Copier et coller le QUERY en question et le "drop" par la suite (le ou les streams):
 ```
 ksql> terminate  CSAS_REPAS_WITH_KEY_3;
 
