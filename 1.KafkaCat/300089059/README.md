@@ -218,10 +218,12 @@ ksql>  CREATE TABLE services_table \
 ```
 
 Jointure du stream clients et la table services
+```
 select * from services_table s \
       left outer join \
       clients c \ 
       on c.client = c.client;
+      ```
 
 
 
