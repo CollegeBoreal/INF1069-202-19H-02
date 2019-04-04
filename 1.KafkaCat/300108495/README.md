@@ -294,7 +294,7 @@ Si vous voulez supprimer un ancien Stream  qui est relié à une table vous deve
 
 * Voici l'erreur
 ```
-ksql> drop stream products;
+ksql> drop table products;
 Cannot drop PRODUCTS. 
 The following queries read from this source: [CSAS_REPAS_WITH_KEY_3]. 
 The following queries write into this source: []. 
@@ -308,7 +308,7 @@ ksql> show queries;
 
  Query ID              | Kafka Topic    | Query String                                                                                                                                                                                                                                          
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- CSAS_PRODUCTS_WITH_KEY_3 | PRODUCTS_WITH_KEY | CREATE STREAM products_with_key    WITH (VALUE_FORMAT='AVRO',     KAFKA_TOPIC='repas_with_key') 
+ CSAS_PRODUCTS_WITH_KEY_1 | PRODUCTS_WITH_KEY | CREATE STREAM products_with_key    WITH (VALUE_FORMAT='AVRO',     KAFKA_TOPIC='repas_with_key') 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 For detailed information on a Query run: EXPLAIN <Query ID>;
 ```
@@ -333,10 +333,10 @@ ksql> drop stream products_with_key;
  Source PRODUCTS_WITH_KEY was dropped.  
 -------------------------------------
 ```
-* et finallement supprimer le stream ```PRODUCTS ``` : 
+* et finallement supprimer la table ```PRODUCTS ``` : 
 
 ```
-ksql> drop stream products;
+ksql> drop table products;
 
  Message                         
 ---------------------------------
