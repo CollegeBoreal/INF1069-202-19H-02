@@ -252,7 +252,7 @@ ksql> SELECT * FROM client;
 ````
 ````
 bouchichi@Doha MINGW64 ~/Developer/INF1069-202-19H-02/1.KafkaCat/300107710 (master)
-$ sh client.sh
+$ sh commande.sh
 Copy de fichier
 >>>>>>>>>>>>
 ````
@@ -265,15 +265,15 @@ $ sh client.sh
 Copy de fichier
 >>>>>>>>>>>>>>>>
 ````
-![Alt tag](jeu_commande.png)
+![Alt tag](jeu_client.png)
 
 6.3 Création de Stream client_with_key pour enlever la valeur Null
 ````
 ksql> CREATE STREAM client_with_key \
->    WITH (VALUE_FORMAT='AVRO', \
->    KAFKA_TOPIC='client_with_key') AS \
->          SELECT Client_id, Client_name, Client_address ->City, Client_address ->Street_name, Client_address ->Street_num, Client_address->Unit \
->                FROM client PARTITION BY Client_id;
+     WITH (VALUE_FORMAT='AVRO', \
+     KAFKA_TOPIC='client_with_key') AS \
+           SELECT Client_id, Client_name, Client_address ->City, Client_address ->Street_name, Client_address ->Street_num, Client_address->Unit \
+                 FROM client PARTITION BY Client_id;
 
  Message
 ----------------------------
@@ -370,9 +370,9 @@ ksql> SELECT * FROM client_table;
 7.1 Creation de Stream commande_with_key
 ````
 ksql> CREATE STREAM commande_with_key WITH (VALUE_FORMAT='AVRO', \
->                KAFKA_TOPIC='commande-with-key') AS \
->                 SELECT Client_id, Commande->Plat_name, Commande->Quantite, Commande->Paiement, Commande->TimeStamp\
->                 FROM commande PARTITION BY Client_id;
+                 KAFKA_TOPIC='commande-with-key') AS \
+                  SELECT Client_id, Commande->Plat_name, Commande->Quantite, Commande->Paiement, Commande->TimeStamp\
+                  FROM commande PARTITION BY Client_id;
 
  Message
 ----------------------------
@@ -452,9 +452,9 @@ ksql> drop stream client_with_key;
 
 
 ksql> select * from commande C \
->      left outer join \
->      Client_table T \
->      on T.Client_id = C.Client_id;
+       left outer join \
+       Client_table T \
+       on T.Client_id = C.Client_id;
 Can't join COMMANDE with CLIENT_TABLE since the number of partitions don't match. COMMANDE partitions = 3; CLIENT_TABLE partitions = 4. Please repartition either one so tha
 t the number of partitions match.
 ksql> show queries;
@@ -517,9 +517,9 @@ Copy de fichier
 
 
 ksql> select * from commande C \
->      left outer join \
->      Client_table T \
->      on T.Client_id = C.Client_id;
+       left outer join \
+       Client_table T \
+       on T.Client_id = C.Client_id;
 
 1554388932116 | 1001 | 1001 | {PLAT_NAME=Tagine, QUANTITE=1, PAIEMENT=Espèce, TIMESTAMP=1553176810000} | 1554306839449 | 1001 | 1001 | Jack | Toronto | Church St | 12 | 805
 1554388934326 | 1002 | 1002 | {PLAT_NAME=Couscous, QUANTITE=1, PAIEMENT=Visa, TIMESTAMP=1553712492000} | 1554306841469 | 1002 | 1002 | Paul | Toronto | Yonge St | 150 | 615
