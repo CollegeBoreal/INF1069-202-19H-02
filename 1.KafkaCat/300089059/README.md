@@ -206,7 +206,7 @@ Creer un stream du topic ksql_services ayant une clé
 ```
 CREATE STREAM services_with_key \
        WITH (VALUE_FORMAT='AVRO', KAFKA_TOPIC='services-with-key') \
-       AS SELECT service , statut \
+       AS SELECT service, client , statut \
        FROM services PARTITION BY client ;
  ```
 
