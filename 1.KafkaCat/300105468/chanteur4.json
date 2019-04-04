@@ -1,1 +1,1 @@
- { "platform":"spotify", "id":"200gh", "title":"Nil", "artist":"Formuler", "album":"Labe"}
+{ "platform": "spotify", "id":"200gh", "name" : { "title" : "Nil", "artist" : "Formuler", "album" : "Labe" }}
