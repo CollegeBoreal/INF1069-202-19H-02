@@ -290,7 +290,7 @@ ksql> SELECT * FROM ksql_products_table;
 
 ### Suppression d'un stream qui est relié à une table : 
  
-Si vous voulez supprimer un ancien Stream  qui est relié à une table vous devez faire les etapes suivants :
+Si vous voulez supprimer une table mais ca vous montre erreur donc vous devez faire les etapes suivants :
 
 * Voici l'erreur
 ```
@@ -316,7 +316,7 @@ For detailed information on a Query run: EXPLAIN <Query ID>;
 * à ce niveau il faut prendre le Id  de ``` QUERY ID ``` et le terminer comme cette commande :
 
 ```
-ksql> terminate  CSAS_PRODUCTS_WITH_KEY_3;
+ksql> terminate  CSAS_PRODUCTS_WITH_KEY_1;
 
  Message           
 -------------------
