@@ -213,9 +213,9 @@ CREATE STREAM services_with_key \
 
 Creer une table 'service'
 ```
-ksql>  CREATE TABLE services \
+ksql>  CREATE TABLE services_table \
       WITH (VALUE_FORMAT='AVRO', \
-  KAFKA_TOPIC='services_with_key', KEY='client');
+  KAFKA_TOPIC='services-with-key', KEY='service');
 ```
 
 Jointure du stream clients et la table services
