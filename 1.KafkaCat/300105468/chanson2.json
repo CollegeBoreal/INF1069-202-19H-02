@@ -1,1 +1,1 @@
-{ "duration":"2.5minutes", "id":"180gh", "frequence":"400hrz", "artist":"RMB"}
+{ "duration":"2.5minutes", "id":"180gh", "detail" : { "frequence" : "400 hrz", "artist" : "RMB" }}
