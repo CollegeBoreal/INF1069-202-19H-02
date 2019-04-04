@@ -95,10 +95,14 @@ main
 
 Faire de meme pour jeu2.sh et mettre clients a la place de service
 
-Entrer dans ksql:
+Pour entrer dans ksql:
 ``` 
 docker-compose exec ksql-cli ksql http://ksql-server:8088 
 ```
+Regarder le jeu sur Control Center
+```
+
+
 Dans 1er terminal faire jeu sh.jeu1.sh et ouvrire un 2eme terminal pour tester :
 
 ```
