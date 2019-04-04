@@ -1,7 +1,7 @@
-{ "platform":"spotify", "id":"140gh", "title":"Lying Together", "artist":"FKJ", "album":"Casse T"}
+{ "platform": "spotify", "id":"140gh", "name" : { "title":"Lying Together", "artist" : "FKJ", "album" : "Casse T" }}
 
-{ "platform":"spotify", "id":"180gh", "title":"dancing Together", "artist":"RMB", "album":"Playing "}
+{ "platform": "spotify", "id":"180gh", "name" : { "title" : "dancing Together", "artist" : "RMB", "album" : "Playing "}}
 
-{ "platform":"spotify", "id":"190gh", "title":"Reaggae", "artist":"Lion", "album":"dont"}
+{ "platform": "spotify", "id":"190gh", "name" : { "title" : "Reaggae", "artist" : "Lion", "album" : "dont" }}
 
-:{ "platform":"spotify", "id":"200gh", "title":"Nil", "artist":"Formuler", "album":"Labe"}
+{ "platform": "spotify", "id":"200gh", "name" : { "title" : "Nil", "artist" : "Formuler", "album" : "Labe" }}
