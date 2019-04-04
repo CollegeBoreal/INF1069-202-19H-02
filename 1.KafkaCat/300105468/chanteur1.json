@@ -1,2 +1,1 @@
- { "platform":"spotify", "id":"140gh", "title":"Together", "artist":"FKJ", "album":"Casse T"}
- 
+{ "platform": "spotify", "id":"140gh", "name" : { "title":"Lying Together", "artist" : "FKJ", "album" : "Casse T" }}
