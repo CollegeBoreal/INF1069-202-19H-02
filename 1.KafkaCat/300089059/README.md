@@ -136,7 +136,17 @@ ksql> select * from clients;
 1554315154864 | null | linux | {BIRTHDAY=1128406755, ADDRESS=1768 bay street, PHONE=416 883 3234}
 1554315156772 | null | mint | {BIRTHDAY=1224829155, ADDRESS=154 bay street, PHONE=416 993 4487}
 ```
+```
+DESCRIBE clients;
 
+Name                 : CLIENTS
+ Field       | Type
+---------------------------------------------------------------------------------------
+ ROWTIME     | BIGINT           (system)
+ ROWKEY      | VARCHAR(STRING)  (system)
+ CLIENT      | VARCHAR(STRING)
+ INFORMATION | STRUCT<BIRTHDAY BIGINT, ADDRESS VARCHAR(STRING), PHONE VARCHAR(STRING)>
+```
 
 Creer le nouveau Stream du topic CLIENTS
 ```
