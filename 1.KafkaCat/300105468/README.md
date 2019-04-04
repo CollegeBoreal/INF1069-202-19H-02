@@ -71,10 +71,10 @@ en suite vous pouvez ajouter les autres foichiers de chanson$.json avec un des l
 ```
 et aussi la même chose pour le fichier de chanteur$.json
 ```
-{ "platform": "spotify", "id":"140gh", "name" : { "title":"Lying Together", "artist":"FKJ", "album":"Casse T"}
-{ "platform": "spotify", "id":"180gh", "name" : { "title":"dancing Together", "artist":"RMB", "album":"Playing "}
-{ "platform": "spotify", "id":"190gh", "name" : { "title":"Reaggae", "artist":"Lion", "album":"dont"}
-{ "platform": "spotify", "id":"200gh", "name" : "title":"Nil", "artist":"Formuler", "album":"Labe"}
+{ "platform": "spotify", "id":"140gh", "name" : { "title":"Lying Together", "artist" : "FKJ", "album" : "Casse T" }}
+{ "platform": "spotify", "id":"180gh", "name" : { "title" : "dancing Together", "artist" : "RMB", "album" : "Playing "}}
+{ "platform": "spotify", "id":"190gh", "name" : { "title" : "Reaggae", "artist" : "Lion", "album" : "dont" }}
+{ "platform": "spotify", "id":"200gh", "name" : { "title" : "Nil", "artist" : "Formuler", "album" : "Labe" }}
 ```
 il faut également creer des jeux.sh pour chaque topic pour clients_info
 
