@@ -40,15 +40,19 @@ $ docker run --tty --network 300107710_default confluentinc/cp-kafkacat kafkacat
 $ winpty docker-compose exec kafka bash
 root@kafka:/#
 
-    # kafka-topics --zookeeper zookeeper:32181 --topic client --create --partitions 3 --replication-factor 1
+    root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic client --create --partitions 4 --replication-factor 1
 
 Created topic "client".
 
+
 2.2 Création du topic commande
 
-root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic commande --create --partitions 3 --replication-factor 1
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic commande --create --partitions 4 --replication-factor 1
 
 Created topic "commande".
+
+
+
 ````
 
 🅰️ Données
@@ -414,14 +418,114 @@ ksql> SELECT * FROM commande_with_key;
 
 🆎 - Composition (KSQL JOIN)
 
-1 - Jointure de la TABLE client_table et du STREAM commande_with_key
+````
+ksql> show queries;
+
+ Query ID                 | Kafka Topic       | Query String
+------------------------------------------------------------------------------------
+-------
+ CSAS_COMMANDE_WITH_KEY_1 | COMMANDE_WITH_KEY | CREATE STREAM commande_with_key WITH
+ (VALUE_FORMAT='AVRO',                 KAFKA_TOPIC='commande-with-key') AS
+        SELECT Client_id, Commande->Plat_name, Commande->Quantite, Commande->Paiemen
+t, Commande->TimeStamp                 FROM commande PARTITION BY Client_id;
+ CSAS_CLIENT_WITH_KEY_0   | CLIENT_WITH_KEY   | CREATE STREAM client_with_key     WI
+TH (VALUE_FORMAT='AVRO',     KAFKA_TOPIC='client_with_key') AS           SELECT Clie
+nt_id, Client_name, Client_address ->City, Client_address ->Street_name, Client_addr
+ess ->Street_num, Client_address->Unit                 FROM client PARTITION BY Clie
+nt_id;
+------------------------------------------------------------------------------------
+-------
+For detailed information on a Query run: EXPLAIN <Query ID>;
+ksql> terminate  CSAS_CLIENT_WITH_KEY_0;
+
+ Message
+-------------------
+ Query terminated.
+-------------------
+ksql>
+ksql> drop stream client_with_key;
+
+ Message
+--------------------------------------
+ Source CLIENT_WITH_KEY was dropped.
+--------------------------------------
+
+
+ksql> select * from commande C \
+>      left outer join \
+>      Client_table T \
+>      on T.Client_id = C.Client_id;
+Can't join COMMANDE with CLIENT_TABLE since the number of partitions don't match. COMMANDE partitions = 3; CLIENT_TABLE partitions = 4. Please repartition either one so tha
+t the number of partitions match.
+ksql> show queries;
+
+ Query ID                 | Kafka Topic       | Query String
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+ CSAS_COMMANDE_WITH_KEY_1 | COMMANDE_WITH_KEY | CREATE STREAM commande_with_key WITH (VALUE_FORMAT='AVRO',                 KAFKA_TOPIC='commande-with-key') AS
+    SELECT Client_id, Commande->Plat_name, Commande->Quantite, Commande->Paiement, Commande->TimeStamp                 FROM commande PARTITION BY Client_id;
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+For detailed information on a Query run: EXPLAIN <Query ID>;
+ksql> terminate CSAS_COMMANDE_WITH_KEY_1;
+
+ Message
+-------------------
+ Query terminated.
+-------------------
+ksql>
+
+bouchichi@Doha MINGW64 ~/Developer/INF1069-202-19H-02/1.KafkaCat/300107710 (master)
+$ winpty docker-compose exec kafka bash
+
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic commande --delete
+
+Topic commande is marked for deletion.
+Note: This will have no impact if delete.topic.enable is not set to true.
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic commande --create --partitions 4 --replication-factor 1
+
+Created topic "commande".
+
+root@kafka:/#
+
 ````
 
+
+
+1 - Jointure de la TABLE client_table et du STREAM commande_with_key
+````
+ksql> select * from commande C \
+       left outer join \
+       Client_table T \
+       on T.Client_id = C.Client_id;
 
 ````
 
 
 2 - Afficher le résultat de la jointure
 ````
+bouchichi@Doha MINGW64 ~/Developer/INF1069-202-19H-02/1.KafkaCat/300107710 (master)
+$ sh Commande.sh
+Copy de fichier
+>>>>>>>>>>>>>>>
+
+bouchichi@Doha MINGW64 ~/Developer/INF1069-202-19H-02/1.KafkaCat/300107710 (master)
+$ sh client.sh
+Copy de fichier
+>>>>>>>>>>>>
+
+
+ksql> select * from commande C \
+>      left outer join \
+>      Client_table T \
+>      on T.Client_id = C.Client_id;
+
+1554388932116 | 1001 | 1001 | {PLAT_NAME=Tagine, QUANTITE=1, PAIEMENT=Espèce, TIMESTAMP=1553176810000} | 1554306839449 | 1001 | 1001 | Jack | Toronto | Church St | 12 | 805
+1554388934326 | 1002 | 1002 | {PLAT_NAME=Couscous, QUANTITE=1, PAIEMENT=Visa, TIMESTAMP=1553712492000} | 1554306841469 | 1002 | 1002 | Paul | Toronto | Yonge St | 150 | 615
+1554388936334 | 1003 | 1003 | {PLAT_NAME=Pastilla, QUANTITE=1, PAIEMENT=Master, TIMESTAMP=1553712912000} | 1554306843467 | 1003 | 1003 | Alfred | Toronto | Danforth Ave | 150 | 608
+1554388938269 | 1004 | 1004 | {PLAT_NAME=Zaalook, QUANTITE=1, PAIEMENT=Visa, TIMESTAMP=1553716512000} | 1554306845528 | 1004 | 1004 | Sandra | Toronto | Spadina Ave | 305 | 903
+1554388940256 | 1005 | 1005 | {PLAT_NAME=Poulet, QUANTITE=1, PAIEMENT=Espèce, TIMESTAMP=1553705712000} | 1554306847494 | 1005 | 1005 | Merinda | Toronto | Yonge St | 450 |702
+1554388942216 | 1006 | 1006 | {PLAT_NAME=Poisson, QUANTITE=1, PAIEMENT=Visa, TIMESTAMP=1553706012000} | 1554306849492 | 1006 | 1006 | Jane | Toronto | Bay St | 1250 | 615
 
 ````
