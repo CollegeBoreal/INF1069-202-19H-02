@@ -288,6 +288,35 @@ ksql> SELECT * FROM ksql_products_table;
 1553711813625 | 20224 | Braclet | 20224 | 35 | 1553708324
 ```
 
+
+## Jointure entre Stream et la table :
+
+* Pour faire la jointure entre le Stream ``` ksql_clientsinfo```et La table ``` ksql_products_table``` :
+
+```
+ksql> SELECT CI.name, PR.name, CI.sku, PR.ticket__price \
+       FROM ksql_clientsinfo CI JOIN ksql_products_table PR \
+       ON  PR.id = CI.sku;
+
+         
+         
+Lele Pos | Long-Pants | 20225 | 75
+Frank lil | Braclet | 20224 | 35
+Safaa Zaoui | Dress-Pinky | 20227 | 89
+Frank lil | Braclet | 20224 | 35
+Lele Pos | Long-Pants | 20225 | 75
+Adelle Lion | Long-Dress | 202210 | 50
+John Smith | Scarf | 20223 | 25
+Frank lil | Braclet | 20224 | 35
+Lele Pos | Long-Pants | 20225 | 75
+Safaa Zaoui | Dress-Pinky | 20227 | 89
+Amelie Dubois | T-shirt | 20228 | 40
+Brice Robert | Shirt | 20229 | 20
+Adelle Lion | Long-Dress | 202210 | 50
+
+
+```
+
 ### Suppression d'un stream qui est relié à une table : 
  
 Si vous voulez supprimer une table mais ca vous montre erreur donc vous devez faire les etapes suivants :
@@ -342,35 +371,6 @@ ksql> drop table products;
 ---------------------------------
  Source PRODUCTS was dropped.  
 ---------------------------------
-```
-
-
-### Jointure entre Stream et la table :
-
-* Pour faire la jointure entre le Stream ``` ksql_clientsinfo```et La table ``` ksql_products_table``` :
-
-```
-ksql> SELECT CI.name, PR.name, CI.sku, PR.ticket__price \
-       FROM ksql_clientsinfo CI JOIN ksql_products_table PR \
-       ON  PR.id = CI.sku;
-
-         
-         
-Lele Pos | Long-Pants | 20225 | 75
-Frank lil | Braclet | 20224 | 35
-Safaa Zaoui | Dress-Pinky | 20227 | 89
-Frank lil | Braclet | 20224 | 35
-Lele Pos | Long-Pants | 20225 | 75
-Adelle Lion | Long-Dress | 202210 | 50
-John Smith | Scarf | 20223 | 25
-Frank lil | Braclet | 20224 | 35
-Lele Pos | Long-Pants | 20225 | 75
-Safaa Zaoui | Dress-Pinky | 20227 | 89
-Amelie Dubois | T-shirt | 20228 | 40
-Brice Robert | Shirt | 20229 | 20
-Adelle Lion | Long-Dress | 202210 | 50
-
-
 ```
 
 :exclamation: Si vous avez un problème concernant la partition du Topic que " un a 4 et l'autre a 3 " donc la solution vous devez supprimer le topic que vous avez crée  avec 3 partition et le recréer avec 4 partitions :
