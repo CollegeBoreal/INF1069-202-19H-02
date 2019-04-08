@@ -253,7 +253,7 @@ Création de Stream ``` ventes_with_key```  avec un nouveau topic ``` ventes-wit
 ``` 
 ksql> CREATE STREAM ksql_ventes_with_key \
        WITH (VALUE_FORMAT='AVRO', KAFKA_TOPIC='ventes-with-key') \
-       AS SELECT CLIENT , CAST( AS STRING) AS CODE, QUANTITE, PRIX \
+       AS SELECT CLIENT , CAST( AS BIGINT) AS CODE, PRODUIT, QUANTITE, PRIX \
        FROM ksql_ventes PARTITION BY CODE ;  
   ``` 
   
