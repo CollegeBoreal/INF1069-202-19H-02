@@ -125,7 +125,7 @@ Copy de fichier
 >>>>>>>>>>
  ``` 
  
- ## Pour voir le resultat vous pouvez voir dans le site http://10.13.237.19:9021/management/clusters
+ ## Pour voir le resultat vous pouvez voir dans le site http://10.13.237.15:9021/management/clusters
  
  ##  ♦ PRODUITS 
  
