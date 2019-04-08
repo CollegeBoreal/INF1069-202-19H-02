@@ -148,7 +148,7 @@ $ docker-compose exec ksql-cli ksql http://ksql-server:8088
 ## 1. Creaton d'un nouveau Stream du topic produits
 
 ```  
-ksql> CREATE STREAM ksql_produits (platform string, id string, title string, artist string, album string) WITH (KAFKA_TOPIC='produits', VALUE_FORMAT='JSON');
+ksql> CREATE STREAM ksql_produits (PRODUIT STRING, NOM STRING, STYLE STRING, COULEUR STRING, MATERIEL STRING) WITH (KAFKA_TOPIC='produits', VALUE_FORMAT='JSON');
  
 ``` 
 ## Pour voir tous les info des produits :
@@ -172,7 +172,7 @@ ksql> DESCRIBE ksql_produits ;
 
 Tout d'abord il s'agit de créer un stream qui s'appelle ``` ksql_ventes``` afin de terminer toutes les colonnes.
 ``` 
-ksql> CREATE STREAM ksql_ventess (DURATION STRING , ID STRING , FREQUENCE STRING , ARTIST STRING ) WITH  (KAFKA_TOPIC='ventes',VALUE_FORMAT='JSON');
+ksql> CREATE STREAM ksql_ventes ( CODE BIGINT , CLIENT STRING , PRODUIT BIGINT , PRIX BIGINT ) WITH  (KAFKA_TOPIC='ventes',VALUE_FORMAT='JSON');
 ``` 
 Pour voir tous les informations de cette table :
 
