@@ -1,1 +1,1 @@
-{"produit":1, "quantite":2}
+{"code":0001, "client":"nathan", "type" : { "produit":1, "quantite":2, "prix":50}}
