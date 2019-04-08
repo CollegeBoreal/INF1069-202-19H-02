@@ -134,7 +134,8 @@ Copy de fichier
  
  ##  ♦ VENTES
 
-![alt tag](image2.png)  
+![alt tag](Image2.png)
+
 ## 🔎 Création d'un nouveau Stream:
 
 Premièrement il faut aller premierment au KSQL Bash :
