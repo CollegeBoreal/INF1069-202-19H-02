@@ -69,11 +69,11 @@ en suite vous pouvez ajouter les autres foichiers de produit$.json avec un des l
 et aussi la même chose pour le fichier de vente$.json
 
 ```
-{"code":0001, "client":"nathan", "produit":1, "quantite":2, "prix":50}
-{"code":0002, "client":"jadon", "produit":2, "quantite":5, "prix":70}
-{"code":0003, "client":"brison", "produit":3, "quantite":1, "prix":60}
-{"code":0004, "client":"shiloh", "produit":4, "quantite":2, "prix":40}
-{"code":0005, "client":"bj", "produit":5, "quantite":3, "prix":80}
+{"code":0001, "client":"nathan", "type" : { "produit":1, "quantite":2, "prix":50}}
+{"code":0002, "client":"jadon", "type" : { "produit":2, "quantite":5, "prix":70}}
+{"code":0003, "client":"brison", "type" : {"produit":3, "quantite":1, "prix":60}}
+{"code":0004, "client":"shiloh", "type" : {"produit":4, "quantite":2, "prix":40}}
+{"code":0005, "client":"bj", "type" : {"produit":5, "quantite":3, "prix":80}}
 
 ```
 
