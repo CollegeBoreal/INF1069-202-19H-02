@@ -149,6 +149,12 @@ $ docker-compose exec ksql-cli ksql http://ksql-server:8088
 
 ```  
 ksql> CREATE STREAM ksql_produits (PRODUIT STRING, NOM STRING, STYLE STRING, COULEUR STRING, MATERIEL STRING) WITH (KAFKA_TOPIC='produits', VALUE_FORMAT='JSON');
+
+ Message
+----------------
+ Stream created
+----------------
+
  
 ``` 
 ## Pour voir tous les info des produits :
@@ -156,35 +162,99 @@ ksql> CREATE STREAM ksql_produits (PRODUIT STRING, NOM STRING, STYLE STRING, COU
 ``` 
 ksql> SELECT * FROM ksql_produits ;
 
+1554745324372 | null | 1 | church | {"materiel":"cuir","couleur":"violet"} | null | null
+1554310451404 | null | 1 | church | {"materiel":"cuir","couleur":"violet"} | null | null
+1554745336742 | null | 5 | gucci | {"materiel":"vernis","couleur":"rouge"} | null | null
+1554310454698 | null | 2 | louboutin | {"materiel":"suede","couleur":"noir"} | null | null
+1554745410350 | null | 1 | church | {"materiel":"cuir","couleur":"violet"} | null | null
+1554310463431 | null | 5 | gucci | {"materiel":"vernis","couleur":"rouge"} | null | null
+1554746290154 | null | 1 | church | {"materiel":"cuir","couleur":"violet"} | null | null
+1554745327480 | null | 2 | louboutin | {"materiel":"suede","couleur":"noir"} | null | null
+1554746293152 | null | 2 | louboutin | {"materiel":"suede","couleur":"noir"} | null | null
+1554746301561 | null | 5 | gucci | {"materiel":"vernis","couleur":"rouge"} | null | null
+1554745330441 | null | 3 | john lobb | {"materiel":"crocodile","couleur":"vert"} | null | null
+1554745333685 | null | 4 | prada | {"materiel":"lezard","couleur":"gold"} | null | null
+
 ``` 
 
 ## pour voir les streams
 
 ``` 
 ksql> show streams ;
+ Stream Name   | Kafka Topic | Format
+--------------------------------------
+ KSQL_PRODUITS | produits    | JSON
+--------------------------------------
+
 ``` 
 ## Pour Décrire le stream
 
 ``` 
 ksql> DESCRIBE ksql_produits ;
+
+Name                 : KSQL_PRODUITS
+ Field    | Type
+--------------------------------------
+ ROWTIME  | BIGINT           (system)
+ ROWKEY   | VARCHAR(STRING)  (system)
+ PRODUIT  | VARCHAR(STRING)
+ NOM      | VARCHAR(STRING)
+ STYLE    | VARCHAR(STRING)
+ COULEUR  | VARCHAR(STRING)
+ MATERIEL | VARCHAR(STRING)
+--------------------------------------
+For runtime statistics and query details run: DESCRIBE EXTENDED <Stream,Table>;
+
 ``` 
 ## Créer une table d'apres le topic ventes :
 
 Tout d'abord il s'agit de créer un stream qui s'appelle ``` ksql_ventes``` afin de terminer toutes les colonnes.
 ``` 
 ksql> CREATE STREAM ksql_ventes ( CODE BIGINT , CLIENT STRING , PRODUIT BIGINT , PRIX BIGINT ) WITH  (KAFKA_TOPIC='ventes',VALUE_FORMAT='JSON');
+
+ Message
+----------------
+ Stream created
+----------------
 ``` 
+
 Pour voir tous les informations de cette table :
 
 ``` 
-ksql> SELECT * FROM ksql_chansons;
+ksql> SELECT * FROM ksql_ventes;
+
+1554310631762 | null | null | null | 4 | null
+1554310622276 | null | null | null | 1 | null
+1554310625343 | null | null | null | 2 | null
+1554310628710 | null | null | null | 3 | null
+1554310635446 | null | null | null | 5 | null
+
 ``` 
+ Description 
+ 
+ 
+``` 
+ ksql> DESCRIBE ksql_ventes ;
+
+Name                 : KSQL_VENTES
+ Field   | Type
+-------------------------------------
+ ROWTIME | BIGINT           (system)
+ ROWKEY  | VARCHAR(STRING)  (system)
+ CODE    | BIGINT
+ CLIENT  | VARCHAR(STRING)
+ PRODUIT | BIGINT
+ PRIX    | BIGINT
+-------------------------------------
+
+``` 
+
 Création de Stream ``` ventes_with_key```  avec un nouveau topic ``` ventes-with-key ``` partition par ID:
 ``` 
 ksql> CREATE STREAM ksql_ventes_with_key \
        WITH (VALUE_FORMAT='AVRO', KAFKA_TOPIC='ventes-with-key') \
-       AS SELECT DURATION , CAST(ID AS STRING) AS ID, FREQUENCE, ARTIST \
-       FROM ksql_chansons PARTITION BY ID ;  
+       AS SELECT CLIENT , CAST( AS STRING) AS CODE, QUANTITE, PRIX \
+       FROM ksql_ventes PARTITION BY CODE ;  
   ``` 
   
 Et finalement on crée la table d'après le topic  ``` ventes-with-key ``` :
