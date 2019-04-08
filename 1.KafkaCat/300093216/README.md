@@ -129,12 +129,12 @@ Copy de fichier
  
  ##  ♦ PRODUITS 
  
- ``` cAPTURE ÉCRAN ``` 
+ ![alt tag](image1.png)  
  
  
  ##  ♦ VENTES
 
-``` cAPTURE ÉCRAN ``` 
+![alt tag](image2.png)  
 ## 🔎 Création d'un nouveau Stream:
 
 Premièrement il faut aller premierment au KSQL Bash :
