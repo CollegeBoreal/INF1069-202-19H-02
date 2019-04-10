@@ -194,18 +194,12 @@ Decrire le stream
 ```
 describe SERVICES;
 ```
-Creer un stream du topic ksql_clients avec une clé 
-```
-ksql> CREATE STREAM clients_with_key \
-       WITH (VALUE_FORMAT='AVRO', KAFKA_TOPIC='clients-with-key') \
-       AS SELECT client , information \
-       FROM clients PARTITION BY client ;
-```
+
 Creer un stream du topic ksql_services ayant une clé 
 
 ```
-ksql> CREATE STREAM services-with-key \
-       WITH (VALUE_FORMAT='AVRO', KAFKA_TOPIC='services-with-key') \
+ksql> CREATE STREAM services_with_key \
+       WITH (VALUE_FORMAT='AVRO', KAFKA_TOPIC='services_with_key') \
        AS SELECT service, client , statut \
        FROM services PARTITION BY client ;
  ```
@@ -214,7 +208,7 @@ Creer une table 'service'
 ```
 ksql>  CREATE TABLE services_table \
       WITH (VALUE_FORMAT='AVRO', \
-  KAFKA_TOPIC='services-with-key', KEY='client');
+  KAFKA_TOPIC='services_with_key', KEY='client');
 ```
 
 Jointure du stream clients et la table services
