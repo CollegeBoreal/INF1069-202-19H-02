@@ -38,12 +38,12 @@ docker-compose exec kafka bash
 
 ## 4. Création des topics
 ```
-root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic produits --create --partitions 5 --replication-factor 1
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic produits --create --partitions 4 --replication-factor 1
 Created topic "produits"
 ```
 
 ```
-root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic ventes--create --partitions 5 --replication-factor 1
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic ventes--create --partitions 4 --replication-factor 1
 Created topic "ventes"
 ```
 
@@ -54,26 +54,26 @@ Created topic "ventes"
 ```
 ## Ajouter un code 
 ```
-{"code":0001, "produit":1, "nom":"church", "style":{"couleur":"violet", "materiel":"cuir"}}
+{"code":10001, "produit":1, "nom":"church", "style":{"couleur":"violet", "materiel":"cuir"}}
 
 ```
 en suite vous pouvez ajouter les autres foichiers de produit$.json avec un des lignes ci-dessous:
 
 ```
-{"code":0001, "produit":1, "nom":"church", "style":{"couleur":"violet", "materiel":"cuir"}}
-{"code":0002, "produit":2, "nom":"louboutin", "style":{"couleur":"noir", "materiel":"suede"}}
-{"code":0003, "produit":3, "nom":"john lobb", "style":{"couleur":"vert", "materiel":"crocodile"}}
-{"code":0004, "produit":4, "nom":"prada", "style":{"couleur":"gold", "materiel":"lezard"}}
-{"code":0005, "produit":5, "nom":"gucci", "style":{"couleur":"rouge", "materiel":"vernis"}}
+{"code":10001, "produit":1, "nom":"church", "style":{"couleur":"violet", "materiel":"cuir"}}
+{"code":10002, "produit":2, "nom":"louboutin", "style":{"couleur":"noir", "materiel":"suede"}}
+{"code":10003, "produit":3, "nom":"john lobb", "style":{"couleur":"vert", "materiel":"crocodile"}}
+{"code":10004, "produit":4, "nom":"prada", "style":{"couleur":"gold", "materiel":"lezard"}}
+{"code":10005, "produit":5, "nom":"gucci", "style":{"couleur":"rouge", "materiel":"vernis"}}
 ```
 et aussi la même chose pour le fichier de vente$.json
 
 ```
-{"code":0001, "client":"nathan", "type" : { "produit":1, "quantite":2, "prix":50}}
-{"code":0002, "client":"jadon", "type" : { "produit":2, "quantite":5, "prix":70}}
-{"code":0003, "client":"brison", "type" : {"produit":3, "quantite":1, "prix":60}}
-{"code":0004, "client":"shiloh", "type" : {"produit":4, "quantite":2, "prix":40}}
-{"code":0005, "client":"bj", "type" : {"produit":5, "quantite":3, "prix":80}}
+{"code":10001, "client":"nathan", "type" : { "produit":1, "quantite":2, "prix":50}}
+{"code":10002, "client":"jadon", "type" : { "produit":2, "quantite":5, "prix":70}}
+{"code":10003, "client":"brison", "type" : {"produit":3, "quantite":1, "prix":60}}
+{"code":10004, "client":"shiloh", "type" : {"produit":4, "quantite":2, "prix":40}}
+{"code":10005, "client":"bj", "type" : {"produit":5, "quantite":3, "prix":80}}
 
 ```
 
