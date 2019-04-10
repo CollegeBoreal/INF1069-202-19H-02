@@ -225,3 +225,15 @@ Il y aura un probleme dans ce cas il faut inverser le stream contre la table
 ksql> select * from clients c inner join services_table s on s.client = c.client;
 
 ```
+1554920704559 | mint | mint | {BIRTHDAY=1224829155, ADDRESS=154 bay street, PHONE=416 993 4487} | 1554920740480 | mint | local
+isation  | mint | off
+1554920700660 | vaio | vaio | {BIRTHDAY=1096870755, ADDRESS=123 bay street, PHONE=416 553 9879} | 1554920736409 | vaio | clean
+ing | vaio | on
+1554920698753 | azerty | azerty | {BIRTHDAY=1189405155, ADDRESS=189 bay street, PHONE=416 443 6758} | 1554920734488 | azerty |
+ dog | azerty | off
+1554920696742 | windows | windows | {BIRTHDAY=1258611555, ADDRESS=1234 bay street, PHONE=416 123 4444} | 1554920732474 | windo
+ws | grocery | windows | on
+1554920702601 | linux | linux | {BIRTHDAY=1128406755, ADDRESS=1768 bay street, PHONE=416 883 3234} | 1554920738372 | linux | i
+nformation | linux | on
+
+
