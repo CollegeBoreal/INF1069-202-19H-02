@@ -71,8 +71,8 @@ Created topic "clients"
 ```
 Sortir de kafka pour changer les fichiers séparemment
 ```
-$ nano service.json
-$ nano clients.json
+$ nano service1.json
+$ nano clients1.json
 ```
 Cree jeu1.sh
 ``` 
