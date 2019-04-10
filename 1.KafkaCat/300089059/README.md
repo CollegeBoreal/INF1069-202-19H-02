@@ -216,12 +216,12 @@ Jointure du stream clients et la table services
 ksql> select * from services_table s \
       left outer join \
       clients c \ 
-      on c.client = s.client;
-      ```
+      on c.client = s.client
+ ```
+ ```
 Il y aura un probleme dans ce cas il faut inverser le stream contre la table
 
 ```
 select * from clients c inner join services_table s on s.client = c.client;
-```
 
 
