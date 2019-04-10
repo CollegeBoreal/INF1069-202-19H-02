@@ -64,7 +64,7 @@ Created topic "services"
 ```
 
 ``` 
-root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic clients --create --partitions 4 --replication-factor 1
+root@kafka:/# kafka-topics --zookeeper zookeeper:32181 --topic client --create --partitions 4 --replication-factor 1
 
 
 Created topic "clients" 
