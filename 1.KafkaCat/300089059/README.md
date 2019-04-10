@@ -47,7 +47,7 @@ $ docker run --tty --network 300089059_default confluentinc/cp-kafkacat kafkacat
 -Aller sur kafka 
 
 ``` 
-docker-compose exec kafka bash 
+$ docker-compose exec kafka bash 
 ```
 Pour aller sur ksql
 ```
@@ -71,8 +71,8 @@ Created topic "clients"
 ```
 Sortir de kafka pour changer les fichiers séparemment
 ```
-nano service.json
-nano clients.json
+$ nano service.json
+$ nano clients.json
 ```
 Cree jeu1.sh
 ``` 
@@ -104,7 +104,7 @@ docker-compose exec ksql-cli ksql http://ksql-server:8088
 Dans 1er terminal faire jeu sh.jeu1.sh et ouvrire un 2eme terminal pour tester :
 
 ```
-sh jeu1.sh
+$ sh jeu1.sh
 Clients
 >>>>>>>>>>>>
 ```
@@ -165,7 +165,7 @@ Name                 : SERVICES
 
 Creer le nouveau Stream du topic CLIENTS
 ```
-CREATE STREAM clients \
+ksql> CREATE STREAM clients \
   (client VARCHAR, \
    information STRUCT < \
 birthday bigint, address string , phone string > ) \
@@ -174,7 +174,7 @@ birthday bigint, address string , phone string > ) \
 ```
 Cree le stream du topic SERVICES
 ```
-CREATE STREAM services \
+ksql> CREATE STREAM services \
   (service VARCHAR, \
   client VARCHAR, \
    statut VARCHAR) \
@@ -187,7 +187,7 @@ ksql> show streams ;
 ```
 Si on veut voir les infos sur SERVICES
 ```
- select * from SERVICES;
+ ksql> select * from SERVICES;
  
 ```
 Decrire le stream
@@ -196,7 +196,7 @@ describe SERVICES;
 ```
 Creer un stream du topic ksql_clients avec une clé 
 ```
-CREATE STREAM clients_with_key \
+ksql> CREATE STREAM clients_with_key \
        WITH (VALUE_FORMAT='AVRO', KAFKA_TOPIC='clients-with-key') \
        AS SELECT client , information \
        FROM clients PARTITION BY client ;
@@ -204,7 +204,7 @@ CREATE STREAM clients_with_key \
 Creer un stream du topic ksql_services ayant une clé 
 
 ```
-CREATE STREAM services_with_key \
+ksql> CREATE STREAM services_with_key \
        WITH (VALUE_FORMAT='AVRO', KAFKA_TOPIC='services-with-key') \
        AS SELECT service, client , statut \
        FROM services PARTITION BY client ;
@@ -219,7 +219,7 @@ ksql>  CREATE TABLE services_table \
 
 Jointure du stream clients et la table services
 ```
-select * from services_table s \
+ksql> select * from services_table s \
       left outer join \
       clients c \ 
       on c.client = s.client;
