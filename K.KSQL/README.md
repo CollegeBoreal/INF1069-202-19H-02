@@ -63,6 +63,24 @@ ksql> CREATE STREAM enriched_payments AS
 * [CREATE TABLE table_name AS SELECT](https://docs.confluent.io/current/ksql/docs/developer-guide/syntax-reference.html#create-table-as-select)
 
 
+## Les requetes (SELECT)
+
+
+* Avec Structure
+
+```
+ksql> SELECT NAME, SKU,  \
+       TICKET->PRICE,  \
+       TIMESTAMPTOSTRING(TICKET->PRODUCT_DATE, 'yyyy-MM-dd HH:mm:ss')   \
+       FROM ksql_products;
+
+
+Scarf | 20223 | 25 | 2019-03-26 13:35:08
+Braclet | 20224 | 35 | 2019-03-12 13:35:08
+T-shirt | 20228 | 40 | 2019-03-16 13:35:08
+```
+
+
 ## JOIN (ensure co-partitioning)
 
 * ROWKEY
