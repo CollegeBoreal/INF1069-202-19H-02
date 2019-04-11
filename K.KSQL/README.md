@@ -16,7 +16,7 @@ ksql> SHOW TOPICS;
 ksql> PRINT 'my-topic' FROM BEGINNING;
 ```
 
-# Transformation de donnéées
+# Transformation de donnéées WITH (VALUE_FORMAT)
 
 - AVRO
 
