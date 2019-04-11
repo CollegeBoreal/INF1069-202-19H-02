@@ -26,7 +26,7 @@ ksql> PRINT 'my-topic' FROM BEGINNING;
 - CSV
 
 
-## Create Stream
+## Create Stream WITH (KAFKA_TOPIC)
 
 
 * [CREATE STREAM stream_name](https://docs.confluent.io/current/ksql/docs/developer-guide/syntax-reference.html#create-stream)
