@@ -3,13 +3,49 @@
 
 
 
+Révision:
+
+
+## Topics
+
+```
+ksql> SHOW TOPICS;
+```
+
+```
+ksql> PRINT 'my-topic' FROM BEGINNING;
+```
+
+
+
+
+
+## Create Stream
+
+
 * [CREATE STREAM stream_name](https://docs.confluent.io/current/ksql/docs/developer-guide/syntax-reference.html#create-stream)
 
 * [CREATE STREAM stream_name AS SELECT](https://docs.confluent.io/current/ksql/docs/developer-guide/syntax-reference.html#create-stream-as-select)
 
+* Create `Stream-Table`Join from Select
+
+```
+ksql> CREATE STREAM enriched_payments AS
+           SELECT payment_id, u.country, total
+           FROM payments_stream p
+           LEFT JOIN users_table u
+           ON p.user_id = u.user_id;
+```
+
+## Create Table
+
 * [CREATE TABLE table_name](https://docs.confluent.io/current/ksql/docs/developer-guide/syntax-reference.html#create-table)
 
 * [CREATE TABLE table_name AS SELECT](https://docs.confluent.io/current/ksql/docs/developer-guide/syntax-reference.html#create-table-as-select)
+
+
+---
+
 
 ## Reference:
 
