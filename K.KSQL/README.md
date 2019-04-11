@@ -108,11 +108,28 @@ Argabrite | 1 | Bibby | Argabrite
 
 ## Play whith Queries
 
+* Montrer les Requetes en cours
+
 ```
 ksql> SHOW QUERIES;
+
+ Query ID              | Kafka Topic    | Query String                                                                                                                                                                                                                                          
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ CSAS_PRODUCTS_WITH_KEY_1 | PRODUCTS_WITH_KEY | CREATE STREAM products_with_key    WITH (VALUE_FORMAT='AVRO',     KAFKA_TOPIC='repas_with_key') 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+For detailed information on a Query run: EXPLAIN <Query ID>;
 ```
 
+* Stopper une requete
 
+```
+ksql> terminate  CSAS_PRODUCTS_WITH_KEY_1;
+
+ Message           
+-------------------
+ Query terminated. 
+-------------------
+```
 ## Drop Stream/Table
 
 
