@@ -62,11 +62,12 @@ ksql> CREATE STREAM enriched_payments AS
 * [CREATE TABLE table_name AS SELECT](https://docs.confluent.io/current/ksql/docs/developer-guide/syntax-reference.html#create-table-as-select)
 
 
-## Create Partitions
+## Select join
 
+
+[Partition Data to Enable Joins](https://docs.confluent.io/current/ksql/docs/developer-guide/partition-data.html)
 
 [Inspecting Keys](https://www.confluent.io/stream-processing-cookbook/ksql-recipes/inspecting-changing-topic-keys)
-
 
 
 
