@@ -92,6 +92,8 @@ T-shirt | 20228 | 40 | 2019-03-16 13:35:08
 
 ## JOIN (ensure co-partitioning)
 
+[Partition Data to Enable Joins](https://docs.confluent.io/current/ksql/docs/developer-guide/partition-data.html)
+
 * ROWKEY
 
 ```
@@ -103,12 +105,13 @@ ksql> SELECT ROWTIME, ROWKEY, ID, FIRST_NAME, LAST_NAME FROM CUSTOMERS LIMIT 5;
 1554920702601 | null | 5 | Modestia | Coltart
 ```
 
-* WITH (PARTITIONS)
+* WITH (PARTITIONS): Partitions égales
 
 ```
 ksql> CREATE STREAM CUSTOMERS_REKEY WITH (PARTITIONS=6) AS SELECT * FROM CUSTOMERS PARTITION BY LAST_NAME;
 ```
 
+* [Inspecter les clés](https://www.confluent.io/stream-processing-cookbook/ksql-recipes/inspecting-changing-topic-keys)
 
 ```
 ksql> DESCRIBE EXTENDED CUSTOMERS_REKEY;
@@ -117,6 +120,8 @@ Type                 : STREAM
 Key field            : LAST_NAME
 [...]
 ```
+
+* Montrer les clés dans une requete
 
 ```
 ksql> SELECT ROWKEY, ID, FIRST_NAME, LAST_NAME FROM CUSTOMERS_REKEY LIMIT 5;
@@ -128,9 +133,9 @@ Argabrite | 1 | Bibby | Argabrite
 ```
 
 
-[Partition Data to Enable Joins](https://docs.confluent.io/current/ksql/docs/developer-guide/partition-data.html)
 
-[Inspecting Keys](https://www.confluent.io/stream-processing-cookbook/ksql-recipes/inspecting-changing-topic-keys)
+
+
 
 
 
