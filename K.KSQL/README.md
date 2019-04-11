@@ -73,6 +73,10 @@ ksql> CREATE STREAM enriched_payments AS
 
 ## Play whith Queries
 
+```
+ksql> SHOW QUERIES;
+```
+
 
 ## Drop Stream/Table
 
