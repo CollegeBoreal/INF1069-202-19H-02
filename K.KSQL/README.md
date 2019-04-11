@@ -129,7 +129,37 @@ Argabrite | 1 | Bibby | Argabrite
 
 * [CREATE TABLE table_name](https://docs.confluent.io/current/ksql/docs/developer-guide/syntax-reference.html#create-table)
 
+* Créer un stream avec clé
+
+```
+ksql> CREATE STREAM products_with_key \
+         WITH (VALUE_FORMAT='AVRO', KAFKA_TOPIC='products-with-key') \
+         AS SELECT NAME, CAST(SKU AS STRING) AS ID, TICKET->PRICE, TICKET->PRODUCT_DATE \
+         FROM ksql_products PARTITION BY ID;
+         
+ 
+ Message
+----------------------------
+ Stream created and running
+```
+
+* Crée la table d'après le topic `products-with-key` et spécifier la clé `KEY`:
+```
+ksql> CREATE TABLE ksql_products_table \
+      WITH (VALUE_FORMAT='AVRO', \
+      KAFKA_TOPIC='products-with-key', KEY='ID');
+      
+      
+  Message
+---------------
+ Table created
+---------------
+```
+
 * [CREATE TABLE table_name AS SELECT](https://docs.confluent.io/current/ksql/docs/developer-guide/syntax-reference.html#create-table-as-select)
+
+
+
 
 
 ## Play whith running Queries
