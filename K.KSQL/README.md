@@ -65,6 +65,15 @@ ksql> CREATE STREAM enriched_payments AS
 
 ## Les requetes (SELECT)
 
+* Une table simple (ROWTIME et ROWKEY)
+
+```
+ksql> SELECT * FROM ksql_products_table;
+
+1553708750703 | 20225 | Long-Pants | 20225 | 75 | 1553708324
+1553708754537 | 20227 | Dress-Pinky | 20227 | 89 | 1553708324
+```
+
 
 * Avec Structure
 
