@@ -38,7 +38,7 @@ Par Convention, Utiliser `_`dans les noms de Streams et Tables: Note: ( `-` ne m
 Par Convention, Utiliser `-`dans les noms de Topics
 
 
-## Create Stream WITH (KAFKA_TOPIC)
+## Create Stream
 
 
 * [CREATE STREAM stream_name](https://docs.confluent.io/current/ksql/docs/developer-guide/syntax-reference.html#create-stream)
