@@ -64,9 +64,41 @@ ksql> CREATE STREAM enriched_payments AS
 
 ## JOIN (ensure co-partitioning)
 
+* ROWKEY
+
 ```
-ksql> CREATE STREAM topic_rekeyed WITH (PARTITIONS=6) AS SELECT * FROM topic PARTITION BY topic_key;
+ksql> SELECT ROWTIME, ROWKEY, ID, FIRST_NAME, LAST_NAME FROM CUSTOMERS LIMIT 5;
+1554920704559 | null | 1 | Bibby | Argabrite
+1554920700660 | null | 3 | Marv | Dalrymple
+1554920698753 | null | 7 | Marigold | Veld
+1554920696742 | null | 8 | Ruperto | Matteotti
+1554920702601 | null | 5 | Modestia | Coltart
 ```
+
+* WITH (PARTITIONS)
+
+```
+ksql> CREATE STREAM CUSTOMERS_REKEY WITH (PARTITIONS=6) AS SELECT * FROM CUSTOMERS PARTITION BY LAST_NAME;
+```
+
+
+```
+ksql> DESCRIBE EXTENDED CUSTOMERS_REKEY;
+
+Type                 : STREAM
+Key field            : LAST_NAME
+[...]
+```
+
+```
+ksql> SELECT ROWKEY, ID, FIRST_NAME, LAST_NAME FROM CUSTOMERS_REKEY LIMIT 5;
+Yeeles | 4 | Nolana | Yeeles
+Dalrymple | 3 | Marv | Dalrymple
+Coltart | 5 | Modestia | Coltart
+Acaster | 6 | Bram | Acaster
+Argabrite | 1 | Bibby | Argabrite
+```
+
 
 [Partition Data to Enable Joins](https://docs.confluent.io/current/ksql/docs/developer-guide/partition-data.html)
 
