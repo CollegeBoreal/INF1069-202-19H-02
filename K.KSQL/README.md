@@ -130,8 +130,30 @@ ksql> terminate  CSAS_PRODUCTS_WITH_KEY_1;
  Query terminated. 
 -------------------
 ```
+
 ## Drop Stream/Table
 
+* Détruire un stream
+
+```
+ksql> drop stream products_with_key;
+
+ Message                             
+-------------------------------------
+ Source PRODUCTS_WITH_KEY was dropped.  
+-------------------------------------
+```
+
+* Détruire une tables
+
+```
+ksql> drop table products;
+
+ Message                         
+---------------------------------
+ Source PRODUCTS was dropped.  
+---------------------------------
+```
 
 ---
 
