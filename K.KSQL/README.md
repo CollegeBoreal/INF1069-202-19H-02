@@ -21,6 +21,7 @@ ksql> PRINT 'my-topic' FROM BEGINNING;
 - AVRO
 
 - JSON
+    * STRUCT
 
 - CSV
 
