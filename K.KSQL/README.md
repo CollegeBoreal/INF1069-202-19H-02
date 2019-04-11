@@ -16,8 +16,13 @@ ksql> SHOW TOPICS;
 ksql> PRINT 'my-topic' FROM BEGINNING;
 ```
 
+# Transformation de donnéées
 
+- AVRO
 
+- JSON
+
+- CSV
 
 
 ## Create Stream
