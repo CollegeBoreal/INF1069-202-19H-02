@@ -16,14 +16,26 @@ ksql> SHOW TOPICS;
 ksql> PRINT 'my-topic' FROM BEGINNING;
 ```
 
-# Transformation de donnéées WITH (VALUE_FORMAT)
+## Structure WITH
+
+### Transformation de données WITH (VALUE_FORMAT)
 
 - AVRO
 
 - JSON
+    * ( column TYPE, column TYPE, ... )
     * STRUCT
 
 - CSV
+
+### Origine de données WITH (KAFKA_TOPIC)
+
+
+### Nom des stream-table et de Topics
+
+Par Convention, Utiliser `_`dans les noms de Streams et Tables: Note: ( `-` ne marche pas)
+
+Par Convention, Utiliser `-`dans les noms de Topics
 
 
 ## Create Stream WITH (KAFKA_TOPIC)
