@@ -56,13 +56,6 @@ ksql> CREATE STREAM enriched_payments AS
            ON p.user_id = u.user_id;
 ```
 
-## Create Table
-
-* [CREATE TABLE table_name](https://docs.confluent.io/current/ksql/docs/developer-guide/syntax-reference.html#create-table)
-
-* [CREATE TABLE table_name AS SELECT](https://docs.confluent.io/current/ksql/docs/developer-guide/syntax-reference.html#create-table-as-select)
-
-
 ## Les requetes (SELECT)
 
 * Une table simple (ROWTIME et ROWKEY)
@@ -132,14 +125,14 @@ Acaster | 6 | Bram | Acaster
 Argabrite | 1 | Bibby | Argabrite
 ```
 
+## Create Table
+
+* [CREATE TABLE table_name](https://docs.confluent.io/current/ksql/docs/developer-guide/syntax-reference.html#create-table)
+
+* [CREATE TABLE table_name AS SELECT](https://docs.confluent.io/current/ksql/docs/developer-guide/syntax-reference.html#create-table-as-select)
 
 
-
-
-
-
-
-## Play whith Queries
+## Play whith running Queries
 
 * Montrer les Requetes en cours
 
