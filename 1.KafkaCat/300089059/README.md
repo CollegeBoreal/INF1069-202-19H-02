@@ -116,7 +116,7 @@ Voir le resultat sur http://10.13.237.12:9021
 
 Création du nouveau Stream
 
-Dans KSQP bash
+Dans KSQL bash
 ```
 docker-compose exec ksql-cli ksql http://ksql-server:8088
 ```
