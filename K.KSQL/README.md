@@ -27,7 +27,8 @@ ksql> PRINT 'my-topic' FROM BEGINNING;
     * Type: BigInt, String, ...
     * [STRUCT](https://docs.confluent.io/current/ksql/docs/developer-guide/query-with-structured-data.html)
 
-- CSV
+- DELIMITED
+    * CSV
 
 ### Origine de données WITH (KAFKA_TOPIC)
 
