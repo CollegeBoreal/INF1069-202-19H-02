@@ -34,7 +34,7 @@ $ docker run --tty --network 300105468_default confluentinc/cp-kafkacat kafkacat
 ```
 ### 📍 CRÉATION DE TOPICS :
 
-## 1. Accedez a votre bash de Kafaka
+## 1. Accedez a votre bash de Kafka
 
 ```
 $ docker-compose exec kafka bash 
